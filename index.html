@@ -1,981 +1,1091 @@
-<!doctype html>
-<html lang="pl" data-theme="light">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Justyna Wachnicka Fotografia</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@200;300;400;500&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="./css/styles.css" />
-  </head>
-  <body>
-    <!-- LOADER -->
-    <div id="loader">
-      <div class="ld-logo"><span>Justyna Wachnicka</span></div>
-      <div class="ld-bar"></div>
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Justyna Wachnicka Fotografia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --white:   #FFFFFF;
+  --snow:    #F8F7F4;
+  --pearl:   #F0EDE8;
+  --smoke:   #E4E0D8;
+  --silver:  #C8C2B8;
+  --stone:   #8A847A;
+  --ink:     #2A2520;
+  --ink2:    #3E3830;
+  --accent:  #B8860B;
+  --accent2: #9A6F08;
+  --accent-light: #F5EDD4;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  background: var(--white);
+  color: var(--ink);
+  overflow-x: hidden;
+}
+
+/* ─── LOADER ─── */
+.loader {
+  position: fixed; inset: 0;
+  background: var(--white);
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.8rem;
+  transition: opacity 0.6s ease, visibility 0.6s;
+}
+.loader.done { opacity: 0; visibility: hidden; }
+.loader-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  color: var(--ink);
+  overflow: hidden;
+}
+.loader-logo span {
+  display: inline-block;
+  animation: slideUp 0.7s 0.2s ease forwards;
+  opacity: 0;
+  transform: translateY(100%);
+}
+@keyframes slideUp { to { opacity:1; transform:none; } }
+.loader-bar {
+  width: 160px; height: 1px;
+  background: var(--smoke);
+  position: relative; overflow: hidden;
+}
+.loader-bar::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: var(--accent);
+  transform: scaleX(0); transform-origin: left;
+  animation: fillBar 1.5s 0.3s ease forwards;
+}
+@keyframes fillBar { to { transform: scaleX(1); } }
+
+/* ─── NAV ─── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 500;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.6rem 5%;
+  transition: all 0.4s;
+  background: rgba(255,255,255,0.6);
+  backdrop-filter: blur(10px);
+}
+nav.solid {
+  background: rgba(255,255,255,0.97);
+  border-bottom: 1px solid var(--smoke);
+  padding: 1rem 5%;
+  box-shadow: 0 2px 24px rgba(0,0,0,0.04);
+}
+.nav-logo { text-decoration: none; line-height: 1; }
+.nav-logo-main {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: var(--ink);
+  letter-spacing: 0.06em;
+  display: block;
+}
+.nav-logo-sub {
+  font-size: 0.55rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--accent);
+  display: block;
+  margin-top: 2px;
+}
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+  align-items: center;
+}
+.nav-links a {
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--stone);
+  text-decoration: none;
+  transition: color 0.25s;
+}
+.nav-links a:hover { color: var(--ink); }
+.nav-cta-btn {
+  padding: 0.65rem 1.6rem;
+  background: var(--ink);
+  color: var(--white) !important;
+  transition: background 0.25s !important;
+}
+.nav-cta-btn:hover { background: var(--accent) !important; }
+
+/* Hamburger */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 4px;
+  z-index: 600;
+}
+.hamburger span {
+  display: block;
+  width: 24px; height: 1.5px;
+  background: var(--ink);
+  transition: all 0.3s;
+}
+.hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: var(--white);
+  z-index: 400;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5rem;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 400;
+  color: var(--ink);
+  text-decoration: none;
+  transition: color 0.25s;
+}
+.mobile-menu a:hover { color: var(--accent); }
+.mobile-menu .m-cta {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 0.9rem 2.5rem;
+  border: 1px solid var(--ink);
+  color: var(--ink);
+}
+
+/* ─── BUTTONS ─── */
+.btn-solid {
+  padding: 0.9rem 2.4rem;
+  background: var(--ink);
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid var(--ink);
+  display: inline-block;
+  transition: background 0.3s, color 0.3s, border-color 0.3s;
+  cursor: pointer;
+}
+.btn-solid:hover { background: var(--accent); border-color: var(--accent); }
+.btn-ghost {
+  padding: 0.9rem 2.2rem;
+  background: transparent;
+  color: var(--ink);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid var(--smoke);
+  display: inline-block;
+  transition: border-color 0.3s;
+  cursor: pointer;
+}
+.btn-ghost:hover { border-color: var(--ink); }
+
+/* ─── SECTION ─── */
+section { padding: 6rem 5%; }
+.section-eyebrow {
+  font-size: 0.58rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--accent);
+  display: block;
+  margin-bottom: 0.9rem;
+}
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.9rem, 3vw, 3rem);
+  font-weight: 400;
+  line-height: 1.18;
+  color: var(--ink);
+  margin-bottom: 1.2rem;
+}
+.section-title em { font-style: italic; color: var(--accent); }
+
+/* ─── HERO ─── */
+.hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding-top: 80px;
+}
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 5rem 5% 5rem 5%;
+  background: var(--white);
+}
+.hero-eyebrow {
+  font-size: 0.6rem;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: fadeUp 0.8s 1.8s ease forwards;
+}
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(16px); }
+  to   { opacity:1; transform:none; }
+}
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.6rem, 4vw, 4.8rem);
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--ink);
+  margin-bottom: 1.8rem;
+  opacity: 0;
+  animation: fadeUp 0.9s 2s ease forwards;
+}
+.hero-title em { font-style: italic; color: var(--accent); }
+.hero-desc {
+  font-size: 0.9rem;
+  line-height: 1.95;
+  color: var(--stone);
+  max-width: 420px;
+  margin-bottom: 2.8rem;
+  opacity: 0;
+  animation: fadeUp 0.8s 2.2s ease forwards;
+}
+.hero-btns {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  opacity: 0;
+  animation: fadeUp 0.8s 2.4s ease forwards;
+}
+.hero-stats {
+  display: flex;
+  gap: 2.5rem;
+  margin-top: 3.5rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid var(--smoke);
+  opacity: 0;
+  animation: fadeUp 0.8s 2.6s ease forwards;
+  flex-wrap: wrap;
+}
+.stat-n {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1;
+}
+.stat-l {
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--silver);
+  margin-top: 4px;
+}
+.hero-img {
+  position: relative;
+  overflow: hidden;
+  background: var(--pearl);
+  min-height: 400px;
+}
+.hero-img img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  animation: heroZoom 14s ease-out forwards;
+}
+@keyframes heroZoom {
+  from { transform: scale(1.08); }
+  to   { transform: scale(1); }
+}
+.hero-img-tag {
+  position: absolute;
+  bottom: 2rem; left: 2rem;
+  background: var(--white);
+  padding: 0.9rem 1.4rem;
+}
+.hero-img-tag-top {
+  font-size: 0.56rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  display: block;
+}
+.hero-img-tag-bot {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.9rem;
+  color: var(--ink);
+  display: block;
+  margin-top: 2px;
+}
+
+/* ─── OFFER ─── */
+.offer { background: var(--snow); }
+.offer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 3.5rem;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+.offer-desc { font-size: 0.88rem; color: var(--stone); line-height: 1.85; max-width: 380px; }
+.offer-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+.offer-card {
+  background: var(--white);
+  border: 1px solid var(--smoke);
+  overflow: hidden;
+  transition: box-shadow 0.35s, transform 0.35s;
+}
+.offer-card:hover { box-shadow: 0 16px 48px rgba(0,0,0,0.09); transform: translateY(-4px); }
+.offer-img { width: 100%; height: 200px; object-fit: cover; display: block; transition: transform 0.5s; }
+.offer-card:hover .offer-img { transform: scale(1.04); }
+.offer-body { padding: 1.6rem 1.4rem; }
+.offer-num { font-size: 0.56rem; letter-spacing: 0.25em; color: var(--accent); display: block; margin-bottom: 0.5rem; }
+.offer-name { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--ink); margin-bottom: 0.7rem; }
+.offer-text { font-size: 0.79rem; line-height: 1.8; color: var(--stone); margin-bottom: 1.2rem; }
+.offer-lnk {
+  font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--ink); text-decoration: none;
+  border-bottom: 1px solid var(--smoke); padding-bottom: 2px;
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  transition: gap 0.3s, border-color 0.3s, color 0.3s;
+}
+.offer-card:hover .offer-lnk { gap: 0.9rem; border-color: var(--accent); color: var(--accent); }
+
+/* ─── PORTFOLIO ─── */
+.portfolio { background: var(--white); }
+.portfolio-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+.portfolio-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--smoke);
+  margin-bottom: 2rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.portfolio-tabs::-webkit-scrollbar { display: none; }
+.tab-btn {
+  padding: 0.8rem 1.8rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--stone);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  cursor: pointer;
+  transition: all 0.3s;
+  white-space: nowrap;
+}
+.tab-btn.active { color: var(--ink); border-bottom-color: var(--accent); }
+.tab-btn:hover { color: var(--ink); }
+
+.gallery { display: none; gap: 3px; }
+.gallery.active { display: grid; }
+.g-a { grid-template-columns: 2fr 1fr 1fr; }
+.g-b { grid-template-columns: repeat(3, 1fr); }
+.g-c { grid-template-columns: 1fr 1fr 2fr; }
+.g-d { grid-template-columns: repeat(3, 1fr); }
+
+.gi {
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  background: var(--pearl);
+  height: 280px;
+}
+.gi.tall { grid-row: span 2; height: auto; min-height: 280px; }
+.gi img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.55s ease;
+  filter: brightness(0.94);
+}
+.gi:hover img { transform: scale(1.05); filter: brightness(1); }
+.gi-lbl {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: linear-gradient(transparent, rgba(255,255,255,0.9));
+  padding: 1.5rem 1rem 0.8rem;
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.gi:hover .gi-lbl { opacity: 1; }
+
+/* ─── ABOUT ─── */
+.about {
+  background: var(--snow);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: center;
+}
+.about-img { position: relative; }
+.about-img img { width: 100%; height: 540px; object-fit: cover; display: block; }
+.about-deco {
+  position: absolute;
+  top: -1.2rem; left: -1.2rem;
+  right: 1.2rem; bottom: 1.2rem;
+  border: 1px solid var(--accent-light);
+  z-index: -1;
+}
+.about-p { font-size: 0.9rem; line-height: 1.95; color: var(--stone); margin-bottom: 1.2rem; }
+.about-p strong { color: var(--ink); font-weight: 400; }
+.skill-rows { display: flex; flex-direction: column; gap: 1rem; margin: 2rem 0; }
+.sk { display: flex; flex-direction: column; gap: 5px; }
+.sk-top { display: flex; justify-content: space-between; }
+.sk-nm { font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--stone); }
+.sk-pc { font-size: 0.62rem; color: var(--silver); }
+.sk-bar { height: 2px; background: var(--smoke); position: relative; overflow: hidden; }
+.sk-fill { position: absolute; top:0; left:0; bottom:0; background: var(--accent); width: 0; transition: width 1.3s ease; }
+.sk-fill.go { width: var(--w); }
+
+/* ─── PROCESS ─── */
+.process { background: var(--white); }
+.process-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.5rem;
+  margin-top: 3.5rem;
+  position: relative;
+}
+.process-grid::before {
+  content: '';
+  position: absolute;
+  top: 1.4rem; left: 10%; right: 10%;
+  height: 1px; background: var(--smoke);
+}
+.pc { text-align: center; padding: 0 0.5rem; position: relative; }
+.pc-dot {
+  width: 14px; height: 14px;
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  background: var(--white);
+  margin: 0 auto 1.4rem;
+  position: relative; z-index: 1;
+  transition: background 0.3s;
+}
+.pc:hover .pc-dot { background: var(--accent); }
+.pc-n { font-size: 0.56rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 0.7rem; }
+.pc-title { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--ink); margin-bottom: 0.6rem; }
+.pc-desc { font-size: 0.76rem; line-height: 1.75; color: var(--stone); }
+
+/* ─── TESTIMONIALS ─── */
+.testimonials { background: var(--pearl); overflow: hidden; }
+.testi-scroll {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 3rem;
+  animation: scrollLeft 45s linear infinite;
+}
+.testi-scroll:hover { animation-play-state: paused; }
+@keyframes scrollLeft {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.testi-card {
+  flex: 0 0 320px;
+  background: var(--white);
+  border: 1px solid var(--smoke);
+  padding: 2rem 1.8rem;
+}
+.testi-stars { color: var(--accent); font-size: 0.72rem; letter-spacing: 3px; margin-bottom: 1rem; }
+.testi-text { font-family: 'Playfair Display', serif; font-size: 0.88rem; font-style: italic; color: var(--ink2); line-height: 1.75; margin-bottom: 1.4rem; }
+.testi-author { font-size: 0.6rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--silver); }
+.testi-author strong { color: var(--accent); font-weight: 400; }
+
+/* ─── PRICING ─── */
+.pricing { background: var(--snow); }
+.pricing-intro { font-size: 0.88rem; color: var(--stone); line-height: 1.85; max-width: 480px; margin-bottom: 3rem; }
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+.prc {
+  border: 1px solid var(--smoke);
+  padding: 2.2rem 1.8rem;
+  background: var(--white);
+  transition: box-shadow 0.35s;
+}
+.prc:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.07); }
+.prc.featured { border-color: var(--accent); background: var(--white); }
+.prc-badge { font-size: 0.54rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 0.8rem; }
+.prc-cat { font-size: 0.56rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--silver); display: block; margin-bottom: 0.3rem; }
+.prc-name { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--ink); margin-bottom: 0.9rem; }
+.prc-amount { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 700; color: var(--ink); line-height: 1; }
+.prc-from { font-size: 0.72rem; color: var(--stone); margin: 0.3rem 0 1.5rem; }
+.prc-list { list-style: none; margin-bottom: 2rem; }
+.prc-list li { font-size: 0.78rem; color: var(--stone); padding: 0.5rem 0; border-bottom: 1px solid var(--smoke); display: flex; gap: 0.6rem; }
+.prc-list li::before { content: '—'; color: var(--accent); flex-shrink: 0; }
+.prc-cta {
+  display: block; width: 100%; padding: 0.85rem; text-align: center;
+  font-family: 'DM Sans', sans-serif; font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase;
+  border: 1px solid var(--smoke); color: var(--stone); background: none;
+  cursor: pointer; transition: all 0.3s; text-decoration: none;
+}
+.prc-cta:hover { border-color: var(--ink); color: var(--ink); }
+.prc-cta.f { background: var(--ink); color: var(--white); border-color: var(--ink); }
+.prc-cta.f:hover { background: var(--accent); border-color: var(--accent); }
+
+/* ─── CONTACT ─── */
+.contact {
+  background: var(--white);
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 5rem;
+  align-items: start;
+}
+.ci-list { margin: 2.5rem 0; }
+.ci { padding: 1.2rem 0; border-bottom: 1px solid var(--smoke); }
+.ci-label { font-size: 0.55rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 0.3rem; }
+.ci-val { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--ink); }
+.soc { display: flex; gap: 1.5rem; margin-top: 1.8rem; }
+.soc a { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--stone); text-decoration: none; transition: color 0.25s; }
+.soc a:hover { color: var(--accent); }
+
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0 1.5rem; }
+.ff { position: relative; margin-bottom: 1.8rem; }
+.ff.full { grid-column: 1 / -1; }
+.ff label { display: block; font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--silver); margin-bottom: 0.5rem; }
+.ff input, .ff select, .ff textarea {
+  width: 100%; background: var(--white);
+  border: 1px solid var(--smoke);
+  border-bottom: 2px solid var(--smoke);
+  padding: 0.8rem 1rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem; font-weight: 300; color: var(--ink);
+  outline: none; transition: border-color 0.3s;
+  appearance: none; -webkit-appearance: none;
+}
+.ff input:focus, .ff select:focus, .ff textarea:focus { border-bottom-color: var(--accent); }
+.ff textarea { resize: none; height: 110px; }
+.ff select option { background: var(--white); }
+.form-note { font-size: 0.7rem; color: var(--silver); margin-top: 0.8rem; }
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--ink);
+  padding: 2.5rem 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.footer-brand { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--white); letter-spacing: 0.06em; }
+.footer-copy { font-size: 0.62rem; color: var(--stone); }
+.footer-links { display: flex; gap: 2rem; }
+.footer-links a { font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--stone); text-decoration: none; transition: color 0.25s; }
+.footer-links a:hover { color: var(--accent); }
+
+/* ─── LIGHTBOX ─── */
+.lb {
+  display: none; position: fixed; inset: 0;
+  background: rgba(255,255,255,0.97);
+  z-index: 1000; align-items: center; justify-content: center; padding: 2rem;
+}
+.lb.open { display: flex; }
+.lb img { max-width: 90vw; max-height: 88vh; object-fit: contain; box-shadow: 0 24px 80px rgba(0,0,0,0.15); }
+.lb-x { position: absolute; top: 1.8rem; right: 2rem; background: none; border: none; font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--stone); cursor: pointer; font-family: 'DM Sans', sans-serif; transition: color 0.25s; }
+.lb-x:hover { color: var(--ink); }
+
+/* ─── TOAST ─── */
+.toast { position: fixed; bottom: 2rem; right: 2rem; background: var(--ink); color: var(--white); padding: 1rem 2rem; font-size: 0.78rem; border-left: 3px solid var(--accent); z-index: 900; opacity: 0; transform: translateY(8px); transition: all 0.4s; pointer-events: none; }
+.toast.show { opacity: 1; transform: none; }
+
+/* ─── REVEAL ─── */
+.rv { opacity: 0; transform: translateY(24px); transition: opacity 0.8s ease, transform 0.8s ease; }
+.rv.in { opacity: 1; transform: none; }
+.d1 { transition-delay: 0.12s; }
+.d2 { transition-delay: 0.24s; }
+.d3 { transition-delay: 0.36s; }
+.d4 { transition-delay: 0.48s; }
+
+/* ─────────────────────────────────────
+   RESPONSIVE
+───────────────────────────────────── */
+@media (max-width: 1200px) {
+  .offer-grid { grid-template-columns: repeat(2, 1fr); }
+  .pricing-grid { grid-template-columns: repeat(2, 1fr); }
+  .process-grid { grid-template-columns: repeat(3, 1fr); }
+  .process-grid::before { display: none; }
+}
+
+@media (max-width: 960px) {
+  .hero { grid-template-columns: 1fr; }
+  .hero-img { height: 55vw; min-height: 280px; }
+  .hero-content { padding: 3.5rem 5%; }
+  .about { grid-template-columns: 1fr; gap: 2.5rem; }
+  .about-img img { height: 380px; }
+  .contact { grid-template-columns: 1fr; gap: 3rem; }
+  .g-a, .g-b, .g-c, .g-d { grid-template-columns: 1fr 1fr; }
+  .gi.tall { grid-row: auto; min-height: 280px; }
+  .gi { height: 220px; }
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .offer-header { flex-direction: column; align-items: flex-start; }
+}
+
+@media (max-width: 640px) {
+  section { padding: 4rem 5%; }
+  .hero-title { font-size: 2.4rem; }
+  .hero-btns { flex-direction: column; }
+  .btn-solid, .btn-ghost { text-align: center; }
+  .offer-grid { grid-template-columns: 1fr; }
+  .pricing-grid { grid-template-columns: 1fr; }
+  .process-grid { grid-template-columns: 1fr 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+  .ff.full { grid-column: auto; }
+  .g-a, .g-b, .g-c, .g-d { grid-template-columns: 1fr; }
+  .gi { height: 240px; }
+  .hero-stats { gap: 1.5rem; }
+  footer { flex-direction: column; text-align: center; gap: 0.8rem; }
+  .footer-links { justify-content: center; flex-wrap: wrap; }
+  .portfolio-header { flex-direction: column; align-items: flex-start; }
+  .testi-card { flex: 0 0 270px; }
+}
+
+@media (max-width: 420px) {
+  .hero-title { font-size: 2rem; }
+  .section-title { font-size: 1.7rem; }
+  .process-grid { grid-template-columns: 1fr; }
+  .hero-stats { flex-direction: column; gap: 1rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div class="loader" id="loader">
+  <div class="loader-logo"><span>Justyna Wachnicka</span></div>
+  <div class="loader-bar"></div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lb" id="lb">
+  <button class="lb-x" onclick="closeLb()">Zamknij ✕</button>
+  <img id="lb-img" src="" alt="">
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">Wiadomość wysłana — odezwę się wkrótce ✦</div>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#oferta" onclick="closeMenu()">Oferta</a>
+  <a href="#portfolio" onclick="closeMenu()">Portfolio</a>
+  <a href="#o-mnie" onclick="closeMenu()">O mnie</a>
+  <a href="#cennik" onclick="closeMenu()">Cennik</a>
+  <a href="#kontakt" class="m-cta" onclick="closeMenu()">Zarezerwuj sesję</a>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">
+    <span class="nav-logo-main">Justyna Wachnicka</span>
+    <span class="nav-logo-sub">Fotografia</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#oferta">Oferta</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#o-mnie">O mnie</a></li>
+    <li><a href="#cennik">Cennik</a></li>
+    <li><a href="#kontakt" class="nav-cta-btn">Zarezerwuj sesję</a></li>
+  </ul>
+  <button class="hamburger" id="burger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-content">
+    <p class="hero-eyebrow">Fotografia · Warszawa & Polska</p>
+    <h1 class="hero-title">Twoje chwile,<br>moja <em>sztuka</em></h1>
+    <p class="hero-desc">Plenery, studio, śluby, chrzciny, komunie — każdą historię opowiadam z pasją i troską o każdy detal. Naturalne, ponadczasowe kadry pełne prawdziwych emocji.</p>
+    <div class="hero-btns">
+      <a href="#portfolio" class="btn-solid">Zobacz portfolio</a>
+      <a href="#kontakt" class="btn-ghost">Umów sesję</a>
     </div>
-
-    <!-- LIGHTBOX -->
-    <div class="lb" id="lb">
-      <button class="lb-close" onclick="closeLb()">Zamknij ✕</button>
-      <button class="lb-nav lb-prev" onclick="lbStep(-1)">‹</button>
-      <button class="lb-nav lb-next" onclick="lbStep(1)">›</button>
-      <img id="lb-img" src="" alt="" />
-      <div class="lb-info" id="lb-info"></div>
+    <div class="hero-stats">
+      <div><div class="stat-n">500+</div><div class="stat-l">Klientów</div></div>
+      <div><div class="stat-n">10+</div><div class="stat-l">Lat doświadczenia</div></div>
+      <div><div class="stat-n">4</div><div class="stat-l">Specjalizacje</div></div>
     </div>
-
-    <!-- TOAST -->
-    <div class="toast" id="toast"></div>
-
-    <!-- MOBILE MENU -->
-    <div class="mob-menu" id="mobMenu">
-      <a
-        href="#"
-        onclick="
-          go('oferta');
-          closeMob();
-        "
-        data-p="oferta"
-        >Oferta</a
-      >
-      <a
-        href="#"
-        onclick="
-          go('portfolio');
-          closeMob();
-        "
-        data-p="portfolio"
-        >Portfolio</a
-      >
-      <a
-        href="#"
-        onclick="
-          go('o-mnie');
-          closeMob();
-        "
-        data-p="o-mnie"
-        >O mnie</a
-      >
-      <a
-        href="#"
-        onclick="
-          go('kontakt');
-          closeMob();
-        "
-        data-p="kontakt"
-        >Kontakt</a
-      >
-      <div class="mob-menu-sep"></div>
-      <a
-        href="#"
-        onclick="
-          go('login');
-          closeMob();
-        "
-        data-p="login"
-        id="mob-auth-link"
-        >Zaloguj się</a
-      >
+  </div>
+  <div class="hero-img">
+    <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=1200&q=85" alt="Justyna Wachnicka Fotografia">
+    <div class="hero-img-tag">
+      <span class="hero-img-tag-top">Najnowsze</span>
+      <span class="hero-img-tag-bot">Sesja plenerowa 2025</span>
     </div>
+  </div>
+</section>
 
-    <!-- ════ NAV ════ -->
-    <nav>
-      <div class="nav-inner">
-        <a href="#" class="nav-logo" onclick="go('oferta')">
-          <span class="nav-logo-name">Justyna Wachnicka</span>
-          <span class="nav-logo-tag">Fotografia</span>
-        </a>
-        <ul class="nav-tabs">
-          <li class="nav-tab">
-            <a href="#" onclick="go('oferta')" data-p="oferta">Oferta</a>
-          </li>
-          <li class="nav-tab">
-            <a href="#" onclick="go('portfolio')" data-p="portfolio"
-              >Portfolio</a
-            >
-          </li>
-          <li class="nav-tab">
-            <a href="#" onclick="go('o-mnie')" data-p="o-mnie">O mnie</a>
-          </li>
-          <li class="nav-tab">
-            <a href="#" onclick="go('kontakt')" data-p="kontakt">Kontakt</a>
-          </li>
-        </ul>
-        <div class="nav-actions">
-          <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">
-            ☀️
-          </button>
-          <button class="login-btn" id="navAuthBtn" onclick="handleAuthClick()">
-            Zaloguj się
-          </button>
-          <button class="burger" id="burger" onclick="toggleMob()">
-            <span></span><span></span><span></span>
-          </button>
-        </div>
-      </div>
-    </nav>
-
-    <!-- ════════════════════════════════════
-     PAGE: OFERTA
-════════════════════════════════════ -->
-    <div class="page visible" id="page-oferta">
-      <!-- HERO -->
-      <div class="hero">
-        <div class="hero-left">
-          <p class="hero-eyebrow">Fotografia · Warszawa & Polska</p>
-          <h1 class="hero-title">Twoje chwile,<br />moja <em>sztuka</em></h1>
-          <p class="hero-desc">
-            Plenery, studio, śluby, chrzciny, komunie — każdą historię opowiadam
-            z pasją i troską o każdy detal.
-          </p>
-          <div class="hero-btns">
-            <button class="btn btn-dark" onclick="go('portfolio')">
-              Zobacz portfolio
-            </button>
-            <button class="btn btn-light" onclick="go('kontakt')">
-              Umów sesję
-            </button>
-          </div>
-          <div class="hero-stats">
-            <div>
-              <div class="stat-n">500+</div>
-              <div class="stat-l">Klientów</div>
-            </div>
-            <div>
-              <div class="stat-n">10+</div>
-              <div class="stat-l">Lat doświadczenia</div>
-            </div>
-            <div>
-              <div class="stat-n">4</div>
-              <div class="stat-l">Specjalizacje</div>
-            </div>
-          </div>
-        </div>
-        <div class="hero-right">
-          <img
-            src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=1200&q=85"
-            alt="Justyna Wachnicka"
-          />
-          <div class="hero-tag">
-            <span class="hero-tag-top">Najnowsze</span>
-            <span class="hero-tag-bot">Sesja plenerowa 2025</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- SERVICES -->
-      <div class="wrap" style="background: var(--bg2)">
-        <div class="rv">
-          <span class="eyebrow">Specjalizacje</span>
-          <h2 class="sec-h">Co <em>fotografuję</em></h2>
-        </div>
-        <div class="services-grid">
-          <div class="service-card card rv">
-            <img
-              src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=600&q=80"
-              alt="Plener"
-            />
-            <div class="service-body">
-              <span class="service-num">01</span>
-              <div class="service-name">Sesje plenerowe</div>
-              <p class="service-desc">
-                Naturalne światło, piękne lokalizacje, autentyczne emocje. Pary,
-                rodziny, indywidualne.
-              </p>
-            </div>
-          </div>
-          <div class="service-card card rv d1">
-            <img
-              src="https://images.unsplash.com/photo-1612178537253-bccd437b730e?w=600&q=80"
-              alt="Studio"
-            />
-            <div class="service-body">
-              <span class="service-num">02</span>
-              <div class="service-name">Studio fotograficzne</div>
-              <p class="service-desc">
-                Kontrolowane światło, profesjonalne tła. Portrety, moda,
-                headshoty biznesowe.
-              </p>
-            </div>
-          </div>
-          <div class="service-card card rv d2">
-            <img
-              src="https://images.unsplash.com/photo-1519741347686-c1e0aadf4611?w=600&q=80"
-              alt="Ślub"
-            />
-            <div class="service-body">
-              <span class="service-num">03</span>
-              <div class="service-name">Fotografia ślubna</div>
-              <p class="service-desc">
-                Od przygotowań, przez ceremonię, aż po ostatni taniec.
-                Dyskretnie i z sercem.
-              </p>
-            </div>
-          </div>
-          <div class="service-card card rv d3">
-            <img
-              src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=600&q=80"
-              alt="Okolicznościowe"
-            />
-            <div class="service-body">
-              <span class="service-num">04</span>
-              <div class="service-name">Imprezy okolicznościowe</div>
-              <p class="service-desc">
-                Chrzciny, komunie, urodziny, jubileusze i inne wyjątkowe okazje.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- TESTIMONIALS -->
-      <div class="wrap" style="overflow: hidden">
-        <div class="rv">
-          <span class="eyebrow">Opinie klientów</span>
-          <h2 class="sec-h">Co mówią <em>o mnie</em></h2>
-        </div>
-        <div class="testi-wrap">
-          <div class="testi-track" id="testiTrack"></div>
-        </div>
-      </div>
-
-      <!-- PRICING -->
-      <div class="wrap" style="background: var(--bg2)">
-        <div class="rv">
-          <span class="eyebrow">Cennik 2025</span>
-          <h2 class="sec-h">Przejrzyste <em>ceny</em></h2>
-          <p class="sec-p" style="max-width: 480px">
-            Orientacyjne ceny — każda sesja wyceniana indywidualnie.
-          </p>
-        </div>
-        <div class="pricing-grid rv">
-          <div class="price-item">
-            <span class="pi-label">Plener</span>
-            <div class="pi-name">Plenerowa</div>
-            <div class="pi-price">499 zł</div>
-            <div class="pi-from">od / sesja indywidualna</div>
-            <ul class="pi-features">
-              <li>Do 2 godz. fotografowania</li>
-              <li>20+ obrobionych zdjęć</li>
-              <li>Galeria online</li>
-            </ul>
-            <button class="pi-btn" onclick="go('kontakt')">Zapytaj</button>
-          </div>
-          <div class="price-item">
-            <span class="pi-label">Studio</span>
-            <div class="pi-name">Studyjna</div>
-            <div class="pi-price">599 zł</div>
-            <div class="pi-from">od / portretowa</div>
-            <ul class="pi-features">
-              <li>Do 2 godz. w studio</li>
-              <li>25+ obrobionych zdjęć</li>
-              <li>Galeria online</li>
-            </ul>
-            <button class="pi-btn" onclick="go('kontakt')">Zapytaj</button>
-          </div>
-          <div class="price-item featured">
-            <span class="pi-label">✦ Ślubna</span>
-            <div class="pi-name">Ślubna</div>
-            <div class="pi-price">3 900 zł</div>
-            <div class="pi-from">od / cały dzień</div>
-            <ul class="pi-features">
-              <li>Do 10 godz. fotografowania</li>
-              <li>400+ zdjęć</li>
-              <li>Sesja narzeczeńska GRATIS</li>
-              <li>Album opcjonalnie</li>
-            </ul>
-            <button class="pi-btn feat" onclick="go('kontakt')">Zapytaj</button>
-          </div>
-          <div class="price-item">
-            <span class="pi-label">Okolicznościowe</span>
-            <div class="pi-name">Okolicznościowe</div>
-            <div class="pi-price">799 zł</div>
-            <div class="pi-from">od / impreza</div>
-            <ul class="pi-features">
-              <li>Pełna dokumentacja</li>
-              <li>50+ obrobionych zdjęć</li>
-              <li>Galeria online</li>
-            </ul>
-            <button class="pi-btn" onclick="go('kontakt')">Zapytaj</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="site-footer">
-        <div class="footer-row">
-          <div>
-            <div class="footer-brand-name">Justyna Wachnicka</div>
-            <p class="footer-brand-sub">
-              Fotografia z pasją — plenery, studio, śluby, imprezy. Warszawa &
-              cała Polska.
-            </p>
-          </div>
-          <div>
-            <div class="footer-links-title">Strony</div>
-            <ul class="footer-links">
-              <li><a href="#" onclick="go('oferta')">Oferta</a></li>
-              <li><a href="#" onclick="go('portfolio')">Portfolio</a></li>
-              <li><a href="#" onclick="go('o-mnie')">O mnie</a></li>
-              <li><a href="#" onclick="go('kontakt')">Kontakt</a></li>
-            </ul>
-          </div>
-          <div>
-            <div class="footer-links-title">Więcej</div>
-            <ul class="footer-links">
-              <li><a href="#" onclick="go('login')">Galerie klientów</a></li>
-              <li><a href="#" onclick="go('regulamin')">Regulamin</a></li>
-            </ul>
-          </div>
-        </div>
-        <div class="footer-bottom">
-          <span class="footer-copy"
-            >© 2025 Justyna Wachnicka Fotografia. Wszelkie prawa
-            zastrzeżone.</span
-          >
-          <span class="footer-reg-link" onclick="go('regulamin')"
-            >Regulamin serwisu</span
-          >
-        </div>
-      </div>
+<!-- OFFER -->
+<section class="offer" id="oferta">
+  <div class="offer-header rv">
+    <div>
+      <span class="section-eyebrow">Oferta</span>
+      <h2 class="section-title">Co <em>fotografuję</em></h2>
     </div>
-
-    <!-- ════════════════════════════════════
-     PAGE: PORTFOLIO
-════════════════════════════════════ -->
-    <div class="page" id="page-portfolio">
-      <div class="portfolio-header">
-        <div class="rv">
-          <span class="eyebrow">Portfolio</span>
-          <h1 class="sec-h">Wybrane <em>realizacje</em></h1>
-        </div>
-      </div>
-      <div class="portfolio-cats">
-        <button class="cat-btn on" onclick="filterCat('all', this)">
-          Wszystkie
-        </button>
-        <button class="cat-btn" onclick="filterCat('plener', this)">
-          Plener
-        </button>
-        <button class="cat-btn" onclick="filterCat('studio', this)">
-          Studio
-        </button>
-        <button class="cat-btn" onclick="filterCat('slub', this)">
-          Ślubna
-        </button>
-        <button class="cat-btn" onclick="filterCat('okazje', this)">
-          Okolicznościowe
-        </button>
-      </div>
-      <div class="photo-grid" id="photoGrid"></div>
-      <div class="site-footer">
-        <div class="footer-bottom">
-          <span class="footer-copy">© 2025 Justyna Wachnicka Fotografia</span
-          ><span class="footer-reg-link" onclick="go('regulamin')"
-            >Regulamin</span
-          >
-        </div>
-      </div>
-    </div>
-
-    <!-- ════════════════════════════════════
-     PAGE: O MNIE
-════════════════════════════════════ -->
-    <div class="page" id="page-o-mnie">
-      <div class="about-split">
-        <div class="about-img-col">
-          <img
-            src="https://images.unsplash.com/photo-1554080353-a576cf803bda?w=900&q=80"
-            alt="Justyna Wachnicka"
-          />
-          <div class="about-img-quote">
-            "Fotografia to nie tylko zdjęcia — to zatrzymanie uczuć, których nie
-            da się opisać słowami."
-          </div>
-        </div>
-        <div class="about-text-col">
-          <span class="eyebrow rv">O mnie</span>
-          <h1 class="sec-h rv d1">Jestem <em>Justyna</em></h1>
-          <p class="rv d2">
-            Fotografką z pasją i ponad
-            <strong>10-letnim doświadczeniem</strong>. Zaczęłam od reportażu,
-            trafiłam do studia, zakochałam się w plenerach i weselach.
-          </p>
-          <p class="rv d2">
-            Wierzę, że każdy człowiek jest piękny — zadaniem fotografa jest to
-            dostrzec i uwiecznić. Pracuję tak, abyś czuł się komfortowo i
-            naturalnie przed obiektywem.
-          </p>
-          <div class="about-stats rv d3">
-            <div>
-              <div class="stat-n">500+</div>
-              <div class="stat-l">Klientów</div>
-            </div>
-            <div>
-              <div class="stat-n">10+</div>
-              <div class="stat-l">Lat</div>
-            </div>
-            <div>
-              <div class="stat-n">8</div>
-              <div class="stat-l">Nagród</div>
-            </div>
-          </div>
-          <div class="skill-list rv d3">
-            <div class="sk">
-              <div class="sk-top">
-                <span class="sk-nm">Sesje plenerowe</span
-                ><span class="sk-pc">95%</span>
-              </div>
-              <div class="sk-bar">
-                <div class="sk-fill" style="--w: 95%"></div>
-              </div>
-            </div>
-            <div class="sk">
-              <div class="sk-top">
-                <span class="sk-nm">Fotografia ślubna</span
-                ><span class="sk-pc">90%</span>
-              </div>
-              <div class="sk-bar">
-                <div class="sk-fill" style="--w: 90%"></div>
-              </div>
-            </div>
-            <div class="sk">
-              <div class="sk-top">
-                <span class="sk-nm">Studio</span><span class="sk-pc">88%</span>
-              </div>
-              <div class="sk-bar">
-                <div class="sk-fill" style="--w: 88%"></div>
-              </div>
-            </div>
-            <div class="sk">
-              <div class="sk-top">
-                <span class="sk-nm">Retusz & edycja</span
-                ><span class="sk-pc">97%</span>
-              </div>
-              <div class="sk-bar">
-                <div class="sk-fill" style="--w: 97%"></div>
-              </div>
-            </div>
-          </div>
-          <button class="btn btn-dark rv d4" onclick="go('kontakt')">
-            Porozmawiajmy
-          </button>
-        </div>
-      </div>
-
-      <div class="wrap">
-        <div
-          style="text-align: center; max-width: 500px; margin: 0 auto"
-          class="rv"
-        >
-          <span class="eyebrow">Jak pracuję</span>
-          <h2 class="sec-h">Prosty <em>proces</em></h2>
-        </div>
-        <div class="process-row">
-          <div class="proc rv">
-            <div class="proc-dot"></div>
-            <span class="proc-n">01</span>
-            <div class="proc-title">Kontakt</div>
-            <p class="proc-desc">
-              Opisujesz marzenia i datę. Omawiamy szczegóły.
-            </p>
-          </div>
-          <div class="proc rv d1">
-            <div class="proc-dot"></div>
-            <span class="proc-n">02</span>
-            <div class="proc-title">Planowanie</div>
-            <p class="proc-desc">
-              Ustalamy lokalizację, styl i wszystkie detale.
-            </p>
-          </div>
-          <div class="proc rv d2">
-            <div class="proc-dot"></div>
-            <span class="proc-n">03</span>
-            <div class="proc-title">Sesja</div>
-            <p class="proc-desc">Fotografujemy swobodnie i naturalnie.</p>
-          </div>
-          <div class="proc rv d3">
-            <div class="proc-dot"></div>
-            <span class="proc-n">04</span>
-            <div class="proc-title">Retusz</div>
-            <p class="proc-desc">Wybieram i retuszuję najlepsze kadry.</p>
-          </div>
-          <div class="proc rv d4">
-            <div class="proc-dot"></div>
-            <span class="proc-n">05</span>
-            <div class="proc-title">Galeria</div>
-            <p class="proc-desc">Prywatna galeria online z pobieraniem.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="site-footer">
-        <div class="footer-bottom">
-          <span class="footer-copy">© 2025 Justyna Wachnicka Fotografia</span
-          ><span class="footer-reg-link" onclick="go('regulamin')"
-            >Regulamin</span
-          >
-        </div>
-      </div>
-    </div>
-
-    <!-- ════════════════════════════════════
-     PAGE: KONTAKT
-════════════════════════════════════ -->
-    <div class="page" id="page-kontakt">
-      <div class="wrap-sm" style="background: var(--bg2); padding-top: 3.5rem">
-        <span class="eyebrow">Kontakt</span>
-        <h1 class="sec-h">Umów <em>sesję</em></h1>
-        <p class="sec-p" style="max-width: 440px">
-          Napisz — odpiszę w ciągu 24 godzin i wspólnie zaplanujemy Twoją sesję.
-        </p>
-      </div>
-      <div class="contact-grid">
-        <div>
-          <div class="ci">
-            <span class="ci-lbl">Telefon</span
-            ><span class="ci-val">+48 604 XXX XXX</span>
-          </div>
-          <div class="ci">
-            <span class="ci-lbl">E-mail</span
-            ><span class="ci-val">justyna@wachnicka.pl</span>
-          </div>
-          <div class="ci">
-            <span class="ci-lbl">Obszar działania</span
-            ><span class="ci-val">Warszawa & cała Polska</span>
-          </div>
-          <div class="social-row" style="margin-top: 1.5rem">
-            <a href="#" class="soc">Instagram</a>
-            <a href="#" class="soc">Facebook</a>
-            <a href="#" class="soc">Pinterest</a>
-          </div>
-        </div>
-        <div>
-          <div class="form-2col">
-            <div class="ff">
-              <label>Imię i nazwisko</label
-              ><input type="text" id="c-name" placeholder="Marta Kowalska" />
-            </div>
-            <div class="ff">
-              <label>E-mail</label
-              ><input type="email" id="c-email" placeholder="marta@email.pl" />
-            </div>
-            <div class="ff">
-              <label>Telefon</label
-              ><input type="tel" placeholder="+48 600 000 000" />
-            </div>
-            <div class="ff"><label>Data sesji</label><input type="date" /></div>
-            <div class="ff form-full">
-              <label>Rodzaj sesji</label>
-              <select>
-                <option value="">— Wybierz —</option>
-                <option>Sesja plenerowa</option>
-                <option>Sesja studyjna</option>
-                <option>Fotografia ślubna</option>
-                <option>Chrzciny / komunia</option>
-                <option>Urodziny / jubileusz</option>
-                <option>Inne</option>
-              </select>
-            </div>
-            <div class="ff form-full">
-              <label>Wiadomość</label
-              ><textarea
-                placeholder="Opowiedz mi o swoich planach..."
-              ></textarea>
-            </div>
-          </div>
-          <button class="btn btn-dark" onclick="sendContact()">
-            Wyślij zapytanie
-          </button>
-          <p
-            style="font-size: 0.68rem; color: var(--muted); margin-top: 0.8rem"
-          >
-            Odpowiadam w ciągu 24 godzin roboczych.
-          </p>
-        </div>
-      </div>
-      <div class="site-footer">
-        <div class="footer-bottom">
-          <span class="footer-copy">© 2025 Justyna Wachnicka Fotografia</span
-          ><span class="footer-reg-link" onclick="go('regulamin')"
-            >Regulamin</span
-          >
-        </div>
-      </div>
-    </div>
-
-    <!-- ════════════════════════════════════
-     PAGE: LOGIN / DASHBOARD
-════════════════════════════════════ -->
-    <div class="page" id="page-login">
-      <!-- NOT LOGGED IN -->
-      <div id="view-auth">
-        <div class="auth-gate">
-          <div class="auth-icon">📷</div>
-          <span class="eyebrow">Dostęp prywatny</span>
-          <h2 class="sec-h">Galerie <em>klientów</em></h2>
-          <p
-            style="
-              font-size: 0.88rem;
-              color: var(--sub);
-              max-width: 360px;
-              margin: 0.5rem auto 0;
-              line-height: 1.85;
-            "
-          >
-            Zaloguj się, aby uzyskać dostęp do swoich prywatnych galerii i
-            pobrać zdjęcia z sesji.
-          </p>
-          <div class="auth-box">
-            <div class="auth-tabs">
-              <button
-                class="auth-tab on"
-                onclick="switchAuthTab('login', this)"
-              >
-                Logowanie
-              </button>
-              <button
-                class="auth-tab"
-                onclick="switchAuthTab('register', this)"
-              >
-                Rejestracja
-              </button>
-            </div>
-            <div id="auth-login">
-              <div class="ff">
-                <label>E-mail</label
-                ><input
-                  type="email"
-                  id="li-email"
-                  placeholder="twoj@email.pl"
-                />
-              </div>
-              <div class="ff">
-                <label>Hasło</label
-                ><input type="password" id="li-pass" placeholder="••••••••" />
-              </div>
-              <button
-                class="btn btn-dark"
-                style="width: 100%; justify-content: center"
-                onclick="doLogin()"
-              >
-                Zaloguj się
-              </button>
-              <p class="auth-note">
-                Demo: klient@test.pl / haslo123<br />Admin: admin@test.pl /
-                admin123
-              </p>
-            </div>
-            <div id="auth-register" style="display: none">
-              <div class="ff">
-                <label>Imię i nazwisko</label
-                ><input type="text" id="re-name" placeholder="Anna Kowalska" />
-              </div>
-              <div class="ff">
-                <label>E-mail</label
-                ><input
-                  type="email"
-                  id="re-email"
-                  placeholder="anna@email.pl"
-                />
-              </div>
-              <div class="ff">
-                <label>Hasło (min. 8 znaków)</label
-                ><input type="password" id="re-pass" placeholder="••••••••" />
-              </div>
-              <button
-                class="btn btn-dark"
-                style="width: 100%; justify-content: center"
-                onclick="doRegister()"
-              >
-                Utwórz konto
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- LOGGED IN - CLIENT -->
-      <div id="view-client" style="display: none">
-        <div class="dash-header">
-          <div>
-            <span class="eyebrow">Twoje galerie</span>
-            <h2 class="sec-h">Prywatne <em>galerie</em></h2>
-            <div class="dash-welcome" id="dash-welcome"></div>
-          </div>
-          <button class="btn btn-light btn-sm" onclick="doLogout()">
-            Wyloguj się
-          </button>
-        </div>
-        <div class="dash-body">
-          <div class="dash-section-title">Twoje sesje</div>
-          <div class="galleries-grid" id="client-gal-list"></div>
-        </div>
-      </div>
-
-      <!-- LOGGED IN - ADMIN -->
-      <div id="view-admin" style="display: none">
-        <div class="dash-header">
-          <div>
-            <span class="eyebrow">Panel administracyjny</span>
-            <h2 class="sec-h">Zarządzaj <em>galeriami</em></h2>
-            <div class="dash-welcome" id="admin-welcome"></div>
-          </div>
-          <button class="btn btn-light btn-sm" onclick="doLogout()">
-            Wyloguj się
-          </button>
-        </div>
-        <div class="dash-body">
-          <!-- Create gallery form -->
-          <div class="create-form">
-            <h3>➕ Utwórz nową galerię dla klienta</h3>
-            <div class="create-2col">
-              <div class="ff">
-                <label>Nazwa galerii</label
-                ><input
-                  type="text"
-                  id="ng-name"
-                  placeholder="np. Sesja ślubna Ania & Marek"
-                />
-              </div>
-              <div class="ff">
-                <label>E-mail klienta</label
-                ><input
-                  type="email"
-                  id="ng-client"
-                  placeholder="klient@email.pl"
-                />
-              </div>
-              <div class="ff">
-                <label>Data sesji</label><input type="date" id="ng-date" />
-              </div>
-              <div class="ff">
-                <label>Kategoria</label>
-                <select
-                  id="ng-cat"
-                  style="
-                    width: 100%;
-                    padding: 0.8rem 1rem;
-                    background: var(--bg);
-                    border: 1px solid var(--line);
-                    color: var(--text);
-                    font-size: 0.87rem;
-                    outline: none;
-                    appearance: none;
-                  "
-                >
-                  <option>Plener</option>
-                  <option>Studio</option>
-                  <option>Ślubna</option>
-                  <option>Okolicznościowa</option>
-                </select>
-              </div>
-            </div>
-            <button class="btn btn-accent" onclick="createGallery()">
-              Utwórz galerię
-            </button>
-          </div>
-          <div class="dash-section-title">
-            Wszystkie galerie
-            <span
-              id="admin-gal-count"
-              style="
-                font-family: &quot;Outfit&quot;, sans-serif;
-                font-size: 0.75rem;
-                color: var(--muted);
-                font-weight: 300;
-              "
-            ></span>
-          </div>
-          <div class="galleries-grid" id="admin-gal-list"></div>
-        </div>
-      </div>
-
-      <div class="site-footer">
-        <div class="footer-bottom">
-          <span class="footer-copy">© 2025 Justyna Wachnicka Fotografia</span
-          ><span class="footer-reg-link" onclick="go('regulamin')"
-            >Regulamin</span
-          >
-        </div>
+    <p class="offer-desc">Każdy projekt traktuję indywidualnie — dopasowuję styl i podejście do Twoich potrzeb i oczekiwań.</p>
+  </div>
+  <div class="offer-grid">
+    <div class="offer-card rv">
+      <img class="offer-img" src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=600&q=80" alt="Plener">
+      <div class="offer-body">
+        <span class="offer-num">01</span>
+        <div class="offer-name">Sesje plenerowe</div>
+        <p class="offer-text">Naturalne światło, piękne lokalizacje, autentyczne emocje. Pary, rodziny, indywidualne — każda sesja to wyjątkowa przygoda.</p>
+        <a href="#portfolio" class="offer-lnk">Zobacz zdjęcia →</a>
       </div>
     </div>
-
-    <!-- ════════════════════════════════════
-     PAGE: SINGLE GALLERY
-════════════════════════════════════ -->
-    <div class="page" id="page-single-gallery">
-      <div class="sg-header">
-        <div>
-          <span class="eyebrow">Galeria</span>
-          <h2 class="sec-h" id="sg-title">Nazwa galerii</h2>
-          <p
-            style="font-size: 0.78rem; color: var(--sub); margin-top: 0.3rem"
-            id="sg-meta"
-          ></p>
-        </div>
-        <div class="sg-actions">
-          <button class="btn btn-accent btn-sm" onclick="downloadAll()">
-            ⬇ Pobierz wszystkie
-          </button>
-          <button class="btn btn-light btn-sm" onclick="go('login')">
-            ← Powrót
-          </button>
-        </div>
-      </div>
-      <div class="sg-grid" id="sg-grid"></div>
-      <div class="site-footer">
-        <div class="footer-bottom">
-          <span class="footer-copy">© 2025 Justyna Wachnicka Fotografia</span>
-        </div>
+    <div class="offer-card rv d1">
+      <img class="offer-img" src="https://images.unsplash.com/photo-1612178537253-bccd437b730e?w=600&q=80" alt="Studio">
+      <div class="offer-body">
+        <span class="offer-num">02</span>
+        <div class="offer-name">Studio fotograficzne</div>
+        <p class="offer-text">Kontrolowane światło, profesjonalne tła, nieograniczone możliwości. Portrety, moda, headshoty biznesowe.</p>
+        <a href="#portfolio" class="offer-lnk">Zobacz zdjęcia →</a>
       </div>
     </div>
-
-    <!-- ════════════════════════════════════
-     PAGE: REGULAMIN
-════════════════════════════════════ -->
-    <div class="page" id="page-regulamin">
-      <div class="reg-wrap">
-        <h1>Regulamin serwisu</h1>
-        <span class="reg-update">Ostatnia aktualizacja: 1 stycznia 2025</span>
-
-        <h2>§1. Postanowienia ogólne</h2>
-        <p>
-          Niniejszy regulamin określa zasady korzystania z serwisu internetowego
-          Justyna Wachnicka Fotografia (dalej „Serwis"). Właścicielem i
-          operatorem Serwisu jest Justyna Wachnicka, prowadząca działalność
-          fotograficzną z siedzibą w Warszawie (dalej „Fotograf").
-        </p>
-        <p>
-          Korzystanie z Serwisu jest równoznaczne z akceptacją niniejszego
-          Regulaminu w całości.
-        </p>
-
-        <h2>§2. Zakres usług</h2>
-        <p>Za pośrednictwem Serwisu Użytkownicy mogą:</p>
-        <ul>
-          <li>Przeglądać portfolio fotograficzne Fotografa,</li>
-          <li>Zapoznać się z ofertą i cennikiem usług fotograficznych,</li>
-          <li>Skontaktować się w celu rezerwacji sesji fotograficznej,</li>
-          <li>
-            Logować się do prywatnych galerii klientów i pobierać zdjęcia z
-            zamówionych sesji.
-          </li>
-        </ul>
-
-        <h2>§3. Prywatne galerie klientów</h2>
-        <p>
-          Po zakończeniu sesji Klient otrzymuje dostęp do prywatnej galerii
-          online. Dostęp chroniony jest indywidualnym loginem i hasłem
-          przekazywanym drogą e-mailową.
-        </p>
-        <p>
-          Klient zobowiązuje się do nieudostępniania danych logowania osobom
-          trzecim. Fotograf nie ponosi odpowiedzialności za nieautoryzowany
-          dostęp wynikający z nieostrożności Klienta.
-        </p>
-        <p>
-          Dostęp do galerii jest możliwy przez okres wskazany w wybranym
-          pakiecie usług (standardowo 12 lub 24 miesiące od daty sesji).
-        </p>
-        <p>
-          Zdjęcia w galeriach przeznaczone są wyłącznie do prywatnego użytku
-          Klienta, chyba że strony ustaliły inaczej na piśmie.
-        </p>
-
-        <h2>§4. Prawa autorskie</h2>
-        <p>
-          Wszelkie zdjęcia zamieszczone w Serwisie oraz w galeriach klientów są
-          chronione prawem autorskim i stanowią własność intelektualną Justyny
-          Wachnickiej.
-        </p>
-        <p>
-          Zabrania się kopiowania, reprodukowania, modyfikowania,
-          rozpowszechniania ani komercyjnego wykorzystania zdjęć bez pisemnej
-          zgody Fotografa.
-        </p>
-        <p>
-          Klient zamawiający usługę fotograficzną nabywa niewyłączną licencję do
-          korzystania z własnych zdjęć sesji wyłącznie w celach prywatnych.
-          Wszelkie inne zastosowania wymagają odrębnej umowy licencyjnej.
-        </p>
-        <p>
-          Fotograf zastrzega sobie prawo do prezentowania zdjęć z sesji w celach
-          promocyjnych (portfolio, media społecznościowe) — po uzgodnieniu z
-          Klientem.
-        </p>
-
-        <h2>§5. Rezerwacje i płatności</h2>
-        <p>
-          Rezerwacja terminu sesji następuje po wpłacie zaliczki w wysokości 30%
-          całkowitej wartości usługi. Zaliczka jest bezzwrotna w przypadku
-          odwołania sesji przez Klienta z winy własnej.
-        </p>
-        <p>
-          Pełna płatność powinna zostać uregulowana najpóźniej w dniu sesji,
-          chyba że strony ustaliły inaczej pisemnie.
-        </p>
-        <p>
-          W przypadku odwołania sesji przez Fotografa, zaliczka zostaje zwrócona
-          w całości lub Klientowi proponowany jest inny termin.
-        </p>
-
-        <h2>§6. Ochrona danych osobowych (RODO)</h2>
-        <p>
-          Administratorem danych osobowych jest Justyna Wachnicka. Dane osobowe
-          przetwarzane są w celu realizacji usług fotograficznych, prowadzenia
-          konta w Serwisie oraz — za zgodą Użytkownika — w celach
-          marketingowych.
-        </p>
-        <p>
-          Użytkownik ma prawo dostępu do swoich danych, ich sprostowania,
-          usunięcia, ograniczenia przetwarzania, a także prawo do przenoszenia
-          danych i wniesienia sprzeciwu wobec przetwarzania.
-        </p>
-        <p>
-          Wszelkie zapytania dotyczące danych osobowych prosimy kierować na
-          adres: justyna@wachnicka.pl
-        </p>
-
-        <h2>§7. Postanowienia końcowe</h2>
-        <p>
-          Fotograf zastrzega sobie prawo do zmian niniejszego Regulaminu z
-          odpowiednim wyprzedzeniem informując o tym Użytkowników poprzez Serwis
-          lub e-mail.
-        </p>
-        <p>
-          W sprawach nieuregulowanych stosuje się przepisy prawa polskiego, w
-          szczególności Kodeksu Cywilnego oraz ustawy o prawie autorskim i
-          prawach pokrewnych.
-        </p>
-        <p>Regulamin wchodzi w życie z dniem 1 stycznia 2025 roku.</p>
-
-        <div
-          style="height: 1px; background: var(--line); margin: 2.5rem 0"
-        ></div>
-        <p style="font-size: 0.78rem; color: var(--muted)">
-          Pytania? Napisz: justyna@wachnicka.pl
-        </p>
-        <div
-          style="margin-top: 2rem; display: flex; gap: 0.8rem; flex-wrap: wrap"
-        >
-          <button class="btn btn-light btn-sm" onclick="history.back()">
-            ← Wróć
-          </button>
-          <button class="btn btn-light btn-sm" onclick="go('oferta')">
-            Strona główna
-          </button>
-        </div>
-      </div>
-      <div class="site-footer">
-        <div class="footer-bottom">
-          <span class="footer-copy">© 2025 Justyna Wachnicka Fotografia</span>
-        </div>
+    <div class="offer-card rv d2">
+      <img class="offer-img" src="https://images.unsplash.com/photo-1519741347686-c1e0aadf4611?w=600&q=80" alt="Ślub">
+      <div class="offer-body">
+        <span class="offer-num">03</span>
+        <div class="offer-name">Fotografia ślubna</div>
+        <p class="offer-text">Wasz wyjątkowy dzień — od przygotowań przez ceremonię aż po ostatni taniec. Dyskretnie i z sercem.</p>
+        <a href="#portfolio" class="offer-lnk">Zobacz zdjęcia →</a>
       </div>
     </div>
+    <div class="offer-card rv d3">
+      <img class="offer-img" src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=600&q=80" alt="Okolicznościowe">
+      <div class="offer-body">
+        <span class="offer-num">04</span>
+        <div class="offer-name">Imprezy okolicznościowe</div>
+        <p class="offer-text">Chrzciny, komunie, urodziny, jubileusze — każde świętowanie zasługuje na piękną dokumentację fotograficzną.</p>
+        <a href="#portfolio" class="offer-lnk">Zobacz zdjęcia →</a>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <script src="./js/index.js"></script>
-  </body>
+<!-- PORTFOLIO -->
+<section class="portfolio" id="portfolio">
+  <div class="portfolio-header rv">
+    <div>
+      <span class="section-eyebrow">Portfolio</span>
+      <h2 class="section-title">Wybrane <em>realizacje</em></h2>
+    </div>
+    <a href="#kontakt" class="btn-solid">Zarezerwuj termin</a>
+  </div>
+  <div class="portfolio-tabs">
+    <button class="tab-btn active" onclick="switchTab('p',this)">Plener</button>
+    <button class="tab-btn" onclick="switchTab('s',this)">Studio</button>
+    <button class="tab-btn" onclick="switchTab('w',this)">Ślubna</button>
+    <button class="tab-btn" onclick="switchTab('o',this)">Okolicznościowe</button>
+  </div>
+
+  <div class="gallery g-a active" id="tab-p">
+    <div class="gi tall" onclick="openLb(this)"><img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=900&q=80" alt=""><div class="gi-lbl">Sesja plenerowa</div></div>
+    <div class="gi" onclick="openLb(this)"><img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=600&q=80" alt=""><div class="gi-lbl">Portret w naturze</div></div>
+    <div class="gi" onclick="openLb(this)"><img src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=600&q=80" alt=""><div class="gi-lbl">Sesja rodzinna</div></div>
+    <div class="gi" onclick="openLb(this)"><img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600&q=80" alt=""><div class="gi-lbl">Portret</div></div>
+    <div class="gi" onclick="openLb(this)"><img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=600&q=80" alt=""><div class="gi-lbl">Plener letni</div></div>
+  </div>
+
+  <div class="gallery g-b" id="tab-s">
+    <div class="gi" onclick="openLb(this)"><img src="https://images.unsplash.com/photo-1612178537253-bccd437b730e?w=800&q=80" alt=""><div class="gi-lbl">Studio portret</div></div>
+    <div class="gi" onclick="openLb(this)"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&q=80" alt=""><div class="gi-lbl">Fashion</div></div>
+    <div class="gi" onclick="openLb(this)"><img src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=600&q=80" alt=""><div class="gi-lbl">Portret biznesowy</div></div>
+    <div class="gi" onclick="openLb(this)"><img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600&q=80" alt=""><div class="gi-lbl">Headshot</div></div>
+    <div class="gi" onclick="openLb(this)"><img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=600&q=80" alt=""><div class="gi-lbl">Studio kreacja</div></div>
+    <div class="gi" onclick="openLb(this)"><img src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=600&q=80" alt=""><div class="gi-lbl">Studio portret</div></div>
+  </div>
+
+  <div class="gallery g-c" id="tab-w">
+    <div class="gi" onclick="openLb(this)"><img src="https://images.unsplash.com/photo-1606800052052-a08af7148866?w=600&q=80" alt=""><div class="gi-lbl">Ceremonia</div></div>
+    <div class="gi" onclick="openLb(this)"><img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&q=80" alt=""><div class="gi-lbl">Portret ślubny</div></div>
+    <div class="gi tall" onclick="openLb(this)"><img src="https://images.unsplash.com/photo-1519741347686-c1e0aadf4611?w=900&q=80" alt=""><div class="gi-lbl">Para młoda</div></div>
+    <div class="gi" onclick="openLb(this)"><img src="https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=600&q=80" alt=""><div class="gi-lbl">Detale ślubne</div></div>
+    <div class="gi" onclick="openLb(this)"><img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=600&q=80" alt=""><div class="gi-lbl">Wesele</div></div>
+  </div>
+
+  <div class="gallery g-d" id="tab-o">
+    <div class="gi" onclick="openLb(this)"><img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=600&q=80" alt=""><div class="gi-lbl">Urodziny</div></div>
+    <div class="gi" onclick="openLb(this)"><img src="https://images.unsplash.com/photo-1519689680058-324335c77eba?w=600&q=80" alt=""><div class="gi-lbl">Komunia</div></div>
+    <div class="gi" onclick="openLb(this)"><img src="https://images.unsplash.com/photo-1464047736614-af63643285bf?w=600&q=80" alt=""><div class="gi-lbl">Impreza okolicznościowa</div></div>
+    <div class="gi" onclick="openLb(this)"><img src="https://images.unsplash.com/photo-1578307980936-b4fb0b610b26?w=600&q=80" alt=""><div class="gi-lbl">Chrzciny</div></div>
+    <div class="gi" onclick="openLb(this)"><img src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=600&q=80" alt=""><div class="gi-lbl">Jubileusz</div></div>
+    <div class="gi" onclick="openLb(this)"><img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=600&q=80" alt=""><div class="gi-lbl">Impreza firmowa</div></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="o-mnie">
+  <div class="about-img rv">
+    <img src="https://images.unsplash.com/photo-1554080353-a576cf803bda?w=900&q=80" alt="Justyna Wachnicka">
+    <div class="about-deco"></div>
+  </div>
+  <div>
+    <span class="section-eyebrow rv">O mnie</span>
+    <h2 class="section-title rv d1">Jestem <em>Justyna</em></h2>
+    <p class="about-p rv d2">Fotografką z pasją i ponad <strong>10-letnim doświadczeniem</strong>. Zaczęłam od reportażu, trafiłam do studia, zakochałam się w plenerach i weselach. Dziś łączę wszystkie te światy w jedną spójną ofertę.</p>
+    <p class="about-p rv d2">Wierzę, że każdy człowiek jest piękny — zadaniem fotografa jest to dostrzec i uwiecznić. Pracuję tak, abyś czuł się komfortowo i naturalnie przed obiektywem.</p>
+    <div class="skill-rows rv d3">
+      <div class="sk"><div class="sk-top"><span class="sk-nm">Sesje plenerowe</span><span class="sk-pc">95%</span></div><div class="sk-bar"><div class="sk-fill" style="--w:95%"></div></div></div>
+      <div class="sk"><div class="sk-top"><span class="sk-nm">Fotografia ślubna</span><span class="sk-pc">90%</span></div><div class="sk-bar"><div class="sk-fill" style="--w:90%"></div></div></div>
+      <div class="sk"><div class="sk-top"><span class="sk-nm">Studio</span><span class="sk-pc">88%</span></div><div class="sk-bar"><div class="sk-fill" style="--w:88%"></div></div></div>
+      <div class="sk"><div class="sk-top"><span class="sk-nm">Retusz & edycja</span><span class="sk-pc">97%</span></div><div class="sk-bar"><div class="sk-fill" style="--w:97%"></div></div></div>
+    </div>
+    <a href="#kontakt" class="btn-solid rv d4" style="display:inline-block;">Porozmawiajmy</a>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process">
+  <div style="text-align:center;max-width:540px;margin:0 auto;" class="rv">
+    <span class="section-eyebrow">Jak pracuję</span>
+    <h2 class="section-title">Prosty <em>proces</em></h2>
+  </div>
+  <div class="process-grid">
+    <div class="pc rv"><div class="pc-dot"></div><span class="pc-n">01</span><div class="pc-title">Kontakt</div><p class="pc-desc">Piszesz do mnie, opisujesz marzenia i datę. Razem omawiamy szczegóły.</p></div>
+    <div class="pc rv d1"><div class="pc-dot"></div><span class="pc-n">02</span><div class="pc-title">Planowanie</div><p class="pc-desc">Ustalamy lokalizację, styl i stroje — wszystko, co sprawi że sesja będzie idealna.</p></div>
+    <div class="pc rv d2"><div class="pc-dot"></div><span class="pc-n">03</span><div class="pc-title">Sesja</div><p class="pc-desc">Fotografujemy w komfortowej atmosferze. Dbam o swobodę i naturalność.</p></div>
+    <div class="pc rv d3"><div class="pc-dot"></div><span class="pc-n">04</span><div class="pc-title">Retusz</div><p class="pc-desc">Wybieram i retuszuję najlepsze kadry, dbając o spójny, charakterystyczny styl.</p></div>
+    <div class="pc rv d4"><div class="pc-dot"></div><span class="pc-n">05</span><div class="pc-title">Galeria</div><p class="pc-desc">Otrzymujesz dostęp do prywatnej galerii online z możliwością zamówienia druku.</p></div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="rv">
+    <span class="section-eyebrow">Opinie</span>
+    <h2 class="section-title">Co mówią <em>klienci</em></h2>
+  </div>
+  <div class="testi-scroll">
+    <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">„Justyna to niesamowita fotografka. Czułam się swobodnie, a zdjęcia są przepiękne. Polecam z całego serca!"</p><div class="testi-author"><strong>Karolina M.</strong> — sesja plenerowa</div></div>
+    <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">„Zdjęcia ślubne przekroczyły nasze oczekiwania. Każde ujęcie to emocja. Justyna pracuje z prawdziwą pasją."</p><div class="testi-author"><strong>Ania & Marek</strong> — fotografia ślubna</div></div>
+    <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">„Komunia mojej córki uwieczniona cudownie. Zdjęcia naturalne, pełne emocji i ciepła. Bardzo dziękujemy!"</p><div class="testi-author"><strong>Rodzina Kowalskich</strong> — komunia</div></div>
+    <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">„Sesja w studio przeszła moje oczekiwania. Justyna wydobywa z człowieka to, co w nim najpiękniejsze."</p><div class="testi-author"><strong>Piotr W.</strong> — sesja portretowa</div></div>
+    <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">„Urodziny naszej mamy uwiecznione na zawsze. Justyna pracuje dyskretnie i z wielką wrażliwością."</p><div class="testi-author"><strong>Rodzina Nowaków</strong> — jubileusz</div></div>
+    <!-- duplicate for seamless loop -->
+    <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">„Justyna to niesamowita fotografka. Czułam się swobodnie, a zdjęcia są przepiękne. Polecam z całego serca!"</p><div class="testi-author"><strong>Karolina M.</strong> — sesja plenerowa</div></div>
+    <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">„Zdjęcia ślubne przekroczyły nasze oczekiwania. Każde ujęcie to emocja. Justyna pracuje z prawdziwą pasją."</p><div class="testi-author"><strong>Ania & Marek</strong> — fotografia ślubna</div></div>
+    <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">„Komunia mojej córki uwieczniona cudownie. Zdjęcia naturalne, pełne emocji i ciepła. Bardzo dziękujemy!"</p><div class="testi-author"><strong>Rodzina Kowalskich</strong> — komunia</div></div>
+    <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">„Sesja w studio przeszła moje oczekiwania. Justyna wydobywa z człowieka to, co w nim najpiękniejsze."</p><div class="testi-author"><strong>Piotr W.</strong> — sesja portretowa</div></div>
+    <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">„Urodziny naszej mamy uwiecznione na zawsze. Justyna pracuje dyskretnie i z wielką wrażliwością."</p><div class="testi-author"><strong>Rodzina Nowaków</strong> — jubileusz</div></div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="cennik">
+  <span class="section-eyebrow rv">Cennik</span>
+  <h2 class="section-title rv d1">Przejrzyste <em>ceny</em></h2>
+  <p class="pricing-intro rv d2">Poniżej znajdziesz orientacyjne ceny. Każda sesja jest wyceniana indywidualnie — skontaktuj się, a przygotujemy ofertę szytą na miarę.</p>
+  <div class="pricing-grid">
+    <div class="prc rv">
+      <span class="prc-badge">— Plener —</span><span class="prc-cat">Sesja</span>
+      <div class="prc-name">Plenerowa</div>
+      <div class="prc-amount">od 499 zł</div><div class="prc-from">za sesję indywidualną</div>
+      <ul class="prc-list"><li>Do 2 godzin fotografowania</li><li>20+ obrobionych zdjęć</li><li>Galeria online</li><li>1 lokalizacja</li></ul>
+      <a href="#kontakt" class="prc-cta">Zapytaj o termin</a>
+    </div>
+    <div class="prc rv d1">
+      <span class="prc-badge">— Studio —</span><span class="prc-cat">Sesja</span>
+      <div class="prc-name">Studyjna</div>
+      <div class="prc-amount">od 599 zł</div><div class="prc-from">za sesję portretową</div>
+      <ul class="prc-list"><li>Do 2 godzin w studio</li><li>25+ obrobionych zdjęć</li><li>Galeria online</li><li>Opieka stylistyczna</li></ul>
+      <a href="#kontakt" class="prc-cta">Zapytaj o termin</a>
+    </div>
+    <div class="prc featured rv d2">
+      <span class="prc-badge">✦ Najczęściej wybierany</span><span class="prc-cat">Fotografia</span>
+      <div class="prc-name">Ślubna</div>
+      <div class="prc-amount">od 3 900 zł</div><div class="prc-from">cały dzień ślubu</div>
+      <ul class="prc-list"><li>Do 10 godzin fotografowania</li><li>400+ obrobionych zdjęć</li><li>Sesja narzeczeńska GRATIS</li><li>Galeria online 24 miesiące</li><li>Album opcjonalnie</li></ul>
+      <a href="#kontakt" class="prc-cta f">Zapytaj o termin</a>
+    </div>
+    <div class="prc rv d3">
+      <span class="prc-badge">— Okolicznościowe —</span><span class="prc-cat">Imprezy</span>
+      <div class="prc-name">Okolicznościowe</div>
+      <div class="prc-amount">od 799 zł</div><div class="prc-from">chrzciny / komunia / urodziny</div>
+      <ul class="prc-list"><li>Pełna dokumentacja</li><li>50+ obrobionych zdjęć</li><li>Galeria online</li><li>Reportaż + portrety</li></ul>
+      <a href="#kontakt" class="prc-cta">Zapytaj o termin</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="kontakt">
+  <div>
+    <span class="section-eyebrow rv">Kontakt</span>
+    <h2 class="section-title rv d1">Umów <em>sesję</em></h2>
+    <p style="font-size:0.88rem;color:var(--stone);line-height:1.9;" class="rv d2">Masz pytania? Chcesz sprawdzić termin? Napisz do mnie — odpiszę w ciągu 24 godzin i wspólnie zaplanujemy Twoją sesję.</p>
+    <div class="ci-list rv d2">
+      <div class="ci"><span class="ci-label">Telefon</span><span class="ci-val">+48 604 XXX XXX</span></div>
+      <div class="ci"><span class="ci-label">E-mail</span><span class="ci-val">justyna@wachnicka.pl</span></div>
+      <div class="ci"><span class="ci-label">Obszar działania</span><span class="ci-val">Warszawa & cała Polska</span></div>
+    </div>
+    <div class="soc rv d3">
+      <a href="#">Instagram</a>
+      <a href="#">Facebook</a>
+      <a href="#">Pinterest</a>
+    </div>
+  </div>
+  <div class="rv d1">
+    <div class="form-row">
+      <div class="ff"><label>Imię i nazwisko</label><input type="text" id="f-name" placeholder="Marta Kowalska"></div>
+      <div class="ff"><label>E-mail</label><input type="email" id="f-email" placeholder="marta@email.pl"></div>
+      <div class="ff"><label>Telefon</label><input type="tel" id="f-phone" placeholder="+48 600 000 000"></div>
+      <div class="ff"><label>Data sesji</label><input type="date" id="f-date"></div>
+      <div class="ff full"><label>Rodzaj sesji</label>
+        <select id="f-type">
+          <option value="">— Wybierz —</option>
+          <option>Sesja plenerowa</option>
+          <option>Sesja studyjna</option>
+          <option>Fotografia ślubna</option>
+          <option>Chrzciny / komunia</option>
+          <option>Urodziny / jubileusz</option>
+          <option>Inne</option>
+        </select>
+      </div>
+      <div class="ff full"><label>Wiadomość</label><textarea id="f-msg" placeholder="Opowiedz mi o swoich planach..."></textarea></div>
+    </div>
+    <button class="btn-solid" onclick="submitForm()">Wyślij zapytanie</button>
+    <p class="form-note">Odpowiadam w ciągu 24 godzin roboczych.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">Justyna Wachnicka Fotografia</div>
+  <p class="footer-copy">© 2025 Justyna Wachnicka. Wszelkie prawa zastrzeżone.</p>
+  <div class="footer-links">
+    <a href="#oferta">Oferta</a>
+    <a href="#portfolio">Portfolio</a>
+    <a href="#kontakt">Kontakt</a>
+  </div>
+</footer>
+
+<script>
+// Loader
+setTimeout(() => document.getElementById('loader').classList.add('done'), 1900);
+
+// Nav
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('solid', window.scrollY > 50));
+
+// Mobile menu
+function toggleMenu() {
+  const b = document.getElementById('burger'), m = document.getElementById('mobileMenu');
+  b.classList.toggle('open'); m.classList.toggle('open');
+  document.body.style.overflow = m.classList.contains('open') ? 'hidden' : '';
+}
+function closeMenu() {
+  document.getElementById('burger').classList.remove('open');
+  document.getElementById('mobileMenu').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// Tabs
+function switchTab(id, btn) {
+  document.querySelectorAll('.gallery').forEach(g => g.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// Reveal
+document.querySelectorAll('.rv').forEach(el =>
+  new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.1 }).observe(el)
+);
+
+// Skill bars
+new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) e.target.querySelectorAll('.sk-fill').forEach(f => f.classList.add('go'));
+  });
+}, { threshold: 0.3 }).observe(document.querySelector('.skill-rows'));
+
+// Lightbox
+function openLb(el) {
+  document.getElementById('lb-img').src = el.querySelector('img').src;
+  document.getElementById('lb').classList.add('open');
+}
+function closeLb() { document.getElementById('lb').classList.remove('open'); }
+document.getElementById('lb').addEventListener('click', e => {
+  if (e.target === document.getElementById('lb')) closeLb();
+});
+
+// Form
+function submitForm() {
+  const name = document.getElementById('f-name').value.trim();
+  const email = document.getElementById('f-email').value.trim();
+  if (!name || !email) { alert('Podaj imię i adres e-mail.'); return; }
+  const t = document.getElementById('toast');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 4000);
+  ['f-name','f-email','f-phone','f-date','f-type','f-msg'].forEach(id => {
+    const el = document.getElementById(id); if (el) el.value = '';
+  });
+}
+</script>
+</body>
 </html>
