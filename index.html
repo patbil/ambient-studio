@@ -1,0 +1,981 @@
+<!doctype html>
+<html lang="pl" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Justyna Wachnicka Fotografia</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@200;300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/styles.css" />
+  </head>
+  <body>
+    <!-- LOADER -->
+    <div id="loader">
+      <div class="ld-logo"><span>Justyna Wachnicka</span></div>
+      <div class="ld-bar"></div>
+    </div>
+
+    <!-- LIGHTBOX -->
+    <div class="lb" id="lb">
+      <button class="lb-close" onclick="closeLb()">Zamknij ✕</button>
+      <button class="lb-nav lb-prev" onclick="lbStep(-1)">‹</button>
+      <button class="lb-nav lb-next" onclick="lbStep(1)">›</button>
+      <img id="lb-img" src="" alt="" />
+      <div class="lb-info" id="lb-info"></div>
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast" id="toast"></div>
+
+    <!-- MOBILE MENU -->
+    <div class="mob-menu" id="mobMenu">
+      <a
+        href="#"
+        onclick="
+          go('oferta');
+          closeMob();
+        "
+        data-p="oferta"
+        >Oferta</a
+      >
+      <a
+        href="#"
+        onclick="
+          go('portfolio');
+          closeMob();
+        "
+        data-p="portfolio"
+        >Portfolio</a
+      >
+      <a
+        href="#"
+        onclick="
+          go('o-mnie');
+          closeMob();
+        "
+        data-p="o-mnie"
+        >O mnie</a
+      >
+      <a
+        href="#"
+        onclick="
+          go('kontakt');
+          closeMob();
+        "
+        data-p="kontakt"
+        >Kontakt</a
+      >
+      <div class="mob-menu-sep"></div>
+      <a
+        href="#"
+        onclick="
+          go('login');
+          closeMob();
+        "
+        data-p="login"
+        id="mob-auth-link"
+        >Zaloguj się</a
+      >
+    </div>
+
+    <!-- ════ NAV ════ -->
+    <nav>
+      <div class="nav-inner">
+        <a href="#" class="nav-logo" onclick="go('oferta')">
+          <span class="nav-logo-name">Justyna Wachnicka</span>
+          <span class="nav-logo-tag">Fotografia</span>
+        </a>
+        <ul class="nav-tabs">
+          <li class="nav-tab">
+            <a href="#" onclick="go('oferta')" data-p="oferta">Oferta</a>
+          </li>
+          <li class="nav-tab">
+            <a href="#" onclick="go('portfolio')" data-p="portfolio"
+              >Portfolio</a
+            >
+          </li>
+          <li class="nav-tab">
+            <a href="#" onclick="go('o-mnie')" data-p="o-mnie">O mnie</a>
+          </li>
+          <li class="nav-tab">
+            <a href="#" onclick="go('kontakt')" data-p="kontakt">Kontakt</a>
+          </li>
+        </ul>
+        <div class="nav-actions">
+          <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">
+            ☀️
+          </button>
+          <button class="login-btn" id="navAuthBtn" onclick="handleAuthClick()">
+            Zaloguj się
+          </button>
+          <button class="burger" id="burger" onclick="toggleMob()">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ════════════════════════════════════
+     PAGE: OFERTA
+════════════════════════════════════ -->
+    <div class="page visible" id="page-oferta">
+      <!-- HERO -->
+      <div class="hero">
+        <div class="hero-left">
+          <p class="hero-eyebrow">Fotografia · Warszawa & Polska</p>
+          <h1 class="hero-title">Twoje chwile,<br />moja <em>sztuka</em></h1>
+          <p class="hero-desc">
+            Plenery, studio, śluby, chrzciny, komunie — każdą historię opowiadam
+            z pasją i troską o każdy detal.
+          </p>
+          <div class="hero-btns">
+            <button class="btn btn-dark" onclick="go('portfolio')">
+              Zobacz portfolio
+            </button>
+            <button class="btn btn-light" onclick="go('kontakt')">
+              Umów sesję
+            </button>
+          </div>
+          <div class="hero-stats">
+            <div>
+              <div class="stat-n">500+</div>
+              <div class="stat-l">Klientów</div>
+            </div>
+            <div>
+              <div class="stat-n">10+</div>
+              <div class="stat-l">Lat doświadczenia</div>
+            </div>
+            <div>
+              <div class="stat-n">4</div>
+              <div class="stat-l">Specjalizacje</div>
+            </div>
+          </div>
+        </div>
+        <div class="hero-right">
+          <img
+            src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=1200&q=85"
+            alt="Justyna Wachnicka"
+          />
+          <div class="hero-tag">
+            <span class="hero-tag-top">Najnowsze</span>
+            <span class="hero-tag-bot">Sesja plenerowa 2025</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SERVICES -->
+      <div class="wrap" style="background: var(--bg2)">
+        <div class="rv">
+          <span class="eyebrow">Specjalizacje</span>
+          <h2 class="sec-h">Co <em>fotografuję</em></h2>
+        </div>
+        <div class="services-grid">
+          <div class="service-card card rv">
+            <img
+              src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=600&q=80"
+              alt="Plener"
+            />
+            <div class="service-body">
+              <span class="service-num">01</span>
+              <div class="service-name">Sesje plenerowe</div>
+              <p class="service-desc">
+                Naturalne światło, piękne lokalizacje, autentyczne emocje. Pary,
+                rodziny, indywidualne.
+              </p>
+            </div>
+          </div>
+          <div class="service-card card rv d1">
+            <img
+              src="https://images.unsplash.com/photo-1612178537253-bccd437b730e?w=600&q=80"
+              alt="Studio"
+            />
+            <div class="service-body">
+              <span class="service-num">02</span>
+              <div class="service-name">Studio fotograficzne</div>
+              <p class="service-desc">
+                Kontrolowane światło, profesjonalne tła. Portrety, moda,
+                headshoty biznesowe.
+              </p>
+            </div>
+          </div>
+          <div class="service-card card rv d2">
+            <img
+              src="https://images.unsplash.com/photo-1519741347686-c1e0aadf4611?w=600&q=80"
+              alt="Ślub"
+            />
+            <div class="service-body">
+              <span class="service-num">03</span>
+              <div class="service-name">Fotografia ślubna</div>
+              <p class="service-desc">
+                Od przygotowań, przez ceremonię, aż po ostatni taniec.
+                Dyskretnie i z sercem.
+              </p>
+            </div>
+          </div>
+          <div class="service-card card rv d3">
+            <img
+              src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=600&q=80"
+              alt="Okolicznościowe"
+            />
+            <div class="service-body">
+              <span class="service-num">04</span>
+              <div class="service-name">Imprezy okolicznościowe</div>
+              <p class="service-desc">
+                Chrzciny, komunie, urodziny, jubileusze i inne wyjątkowe okazje.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TESTIMONIALS -->
+      <div class="wrap" style="overflow: hidden">
+        <div class="rv">
+          <span class="eyebrow">Opinie klientów</span>
+          <h2 class="sec-h">Co mówią <em>o mnie</em></h2>
+        </div>
+        <div class="testi-wrap">
+          <div class="testi-track" id="testiTrack"></div>
+        </div>
+      </div>
+
+      <!-- PRICING -->
+      <div class="wrap" style="background: var(--bg2)">
+        <div class="rv">
+          <span class="eyebrow">Cennik 2025</span>
+          <h2 class="sec-h">Przejrzyste <em>ceny</em></h2>
+          <p class="sec-p" style="max-width: 480px">
+            Orientacyjne ceny — każda sesja wyceniana indywidualnie.
+          </p>
+        </div>
+        <div class="pricing-grid rv">
+          <div class="price-item">
+            <span class="pi-label">Plener</span>
+            <div class="pi-name">Plenerowa</div>
+            <div class="pi-price">499 zł</div>
+            <div class="pi-from">od / sesja indywidualna</div>
+            <ul class="pi-features">
+              <li>Do 2 godz. fotografowania</li>
+              <li>20+ obrobionych zdjęć</li>
+              <li>Galeria online</li>
+            </ul>
+            <button class="pi-btn" onclick="go('kontakt')">Zapytaj</button>
+          </div>
+          <div class="price-item">
+            <span class="pi-label">Studio</span>
+            <div class="pi-name">Studyjna</div>
+            <div class="pi-price">599 zł</div>
+            <div class="pi-from">od / portretowa</div>
+            <ul class="pi-features">
+              <li>Do 2 godz. w studio</li>
+              <li>25+ obrobionych zdjęć</li>
+              <li>Galeria online</li>
+            </ul>
+            <button class="pi-btn" onclick="go('kontakt')">Zapytaj</button>
+          </div>
+          <div class="price-item featured">
+            <span class="pi-label">✦ Ślubna</span>
+            <div class="pi-name">Ślubna</div>
+            <div class="pi-price">3 900 zł</div>
+            <div class="pi-from">od / cały dzień</div>
+            <ul class="pi-features">
+              <li>Do 10 godz. fotografowania</li>
+              <li>400+ zdjęć</li>
+              <li>Sesja narzeczeńska GRATIS</li>
+              <li>Album opcjonalnie</li>
+            </ul>
+            <button class="pi-btn feat" onclick="go('kontakt')">Zapytaj</button>
+          </div>
+          <div class="price-item">
+            <span class="pi-label">Okolicznościowe</span>
+            <div class="pi-name">Okolicznościowe</div>
+            <div class="pi-price">799 zł</div>
+            <div class="pi-from">od / impreza</div>
+            <ul class="pi-features">
+              <li>Pełna dokumentacja</li>
+              <li>50+ obrobionych zdjęć</li>
+              <li>Galeria online</li>
+            </ul>
+            <button class="pi-btn" onclick="go('kontakt')">Zapytaj</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="site-footer">
+        <div class="footer-row">
+          <div>
+            <div class="footer-brand-name">Justyna Wachnicka</div>
+            <p class="footer-brand-sub">
+              Fotografia z pasją — plenery, studio, śluby, imprezy. Warszawa &
+              cała Polska.
+            </p>
+          </div>
+          <div>
+            <div class="footer-links-title">Strony</div>
+            <ul class="footer-links">
+              <li><a href="#" onclick="go('oferta')">Oferta</a></li>
+              <li><a href="#" onclick="go('portfolio')">Portfolio</a></li>
+              <li><a href="#" onclick="go('o-mnie')">O mnie</a></li>
+              <li><a href="#" onclick="go('kontakt')">Kontakt</a></li>
+            </ul>
+          </div>
+          <div>
+            <div class="footer-links-title">Więcej</div>
+            <ul class="footer-links">
+              <li><a href="#" onclick="go('login')">Galerie klientów</a></li>
+              <li><a href="#" onclick="go('regulamin')">Regulamin</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <span class="footer-copy"
+            >© 2025 Justyna Wachnicka Fotografia. Wszelkie prawa
+            zastrzeżone.</span
+          >
+          <span class="footer-reg-link" onclick="go('regulamin')"
+            >Regulamin serwisu</span
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════
+     PAGE: PORTFOLIO
+════════════════════════════════════ -->
+    <div class="page" id="page-portfolio">
+      <div class="portfolio-header">
+        <div class="rv">
+          <span class="eyebrow">Portfolio</span>
+          <h1 class="sec-h">Wybrane <em>realizacje</em></h1>
+        </div>
+      </div>
+      <div class="portfolio-cats">
+        <button class="cat-btn on" onclick="filterCat('all', this)">
+          Wszystkie
+        </button>
+        <button class="cat-btn" onclick="filterCat('plener', this)">
+          Plener
+        </button>
+        <button class="cat-btn" onclick="filterCat('studio', this)">
+          Studio
+        </button>
+        <button class="cat-btn" onclick="filterCat('slub', this)">
+          Ślubna
+        </button>
+        <button class="cat-btn" onclick="filterCat('okazje', this)">
+          Okolicznościowe
+        </button>
+      </div>
+      <div class="photo-grid" id="photoGrid"></div>
+      <div class="site-footer">
+        <div class="footer-bottom">
+          <span class="footer-copy">© 2025 Justyna Wachnicka Fotografia</span
+          ><span class="footer-reg-link" onclick="go('regulamin')"
+            >Regulamin</span
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════
+     PAGE: O MNIE
+════════════════════════════════════ -->
+    <div class="page" id="page-o-mnie">
+      <div class="about-split">
+        <div class="about-img-col">
+          <img
+            src="https://images.unsplash.com/photo-1554080353-a576cf803bda?w=900&q=80"
+            alt="Justyna Wachnicka"
+          />
+          <div class="about-img-quote">
+            "Fotografia to nie tylko zdjęcia — to zatrzymanie uczuć, których nie
+            da się opisać słowami."
+          </div>
+        </div>
+        <div class="about-text-col">
+          <span class="eyebrow rv">O mnie</span>
+          <h1 class="sec-h rv d1">Jestem <em>Justyna</em></h1>
+          <p class="rv d2">
+            Fotografką z pasją i ponad
+            <strong>10-letnim doświadczeniem</strong>. Zaczęłam od reportażu,
+            trafiłam do studia, zakochałam się w plenerach i weselach.
+          </p>
+          <p class="rv d2">
+            Wierzę, że każdy człowiek jest piękny — zadaniem fotografa jest to
+            dostrzec i uwiecznić. Pracuję tak, abyś czuł się komfortowo i
+            naturalnie przed obiektywem.
+          </p>
+          <div class="about-stats rv d3">
+            <div>
+              <div class="stat-n">500+</div>
+              <div class="stat-l">Klientów</div>
+            </div>
+            <div>
+              <div class="stat-n">10+</div>
+              <div class="stat-l">Lat</div>
+            </div>
+            <div>
+              <div class="stat-n">8</div>
+              <div class="stat-l">Nagród</div>
+            </div>
+          </div>
+          <div class="skill-list rv d3">
+            <div class="sk">
+              <div class="sk-top">
+                <span class="sk-nm">Sesje plenerowe</span
+                ><span class="sk-pc">95%</span>
+              </div>
+              <div class="sk-bar">
+                <div class="sk-fill" style="--w: 95%"></div>
+              </div>
+            </div>
+            <div class="sk">
+              <div class="sk-top">
+                <span class="sk-nm">Fotografia ślubna</span
+                ><span class="sk-pc">90%</span>
+              </div>
+              <div class="sk-bar">
+                <div class="sk-fill" style="--w: 90%"></div>
+              </div>
+            </div>
+            <div class="sk">
+              <div class="sk-top">
+                <span class="sk-nm">Studio</span><span class="sk-pc">88%</span>
+              </div>
+              <div class="sk-bar">
+                <div class="sk-fill" style="--w: 88%"></div>
+              </div>
+            </div>
+            <div class="sk">
+              <div class="sk-top">
+                <span class="sk-nm">Retusz & edycja</span
+                ><span class="sk-pc">97%</span>
+              </div>
+              <div class="sk-bar">
+                <div class="sk-fill" style="--w: 97%"></div>
+              </div>
+            </div>
+          </div>
+          <button class="btn btn-dark rv d4" onclick="go('kontakt')">
+            Porozmawiajmy
+          </button>
+        </div>
+      </div>
+
+      <div class="wrap">
+        <div
+          style="text-align: center; max-width: 500px; margin: 0 auto"
+          class="rv"
+        >
+          <span class="eyebrow">Jak pracuję</span>
+          <h2 class="sec-h">Prosty <em>proces</em></h2>
+        </div>
+        <div class="process-row">
+          <div class="proc rv">
+            <div class="proc-dot"></div>
+            <span class="proc-n">01</span>
+            <div class="proc-title">Kontakt</div>
+            <p class="proc-desc">
+              Opisujesz marzenia i datę. Omawiamy szczegóły.
+            </p>
+          </div>
+          <div class="proc rv d1">
+            <div class="proc-dot"></div>
+            <span class="proc-n">02</span>
+            <div class="proc-title">Planowanie</div>
+            <p class="proc-desc">
+              Ustalamy lokalizację, styl i wszystkie detale.
+            </p>
+          </div>
+          <div class="proc rv d2">
+            <div class="proc-dot"></div>
+            <span class="proc-n">03</span>
+            <div class="proc-title">Sesja</div>
+            <p class="proc-desc">Fotografujemy swobodnie i naturalnie.</p>
+          </div>
+          <div class="proc rv d3">
+            <div class="proc-dot"></div>
+            <span class="proc-n">04</span>
+            <div class="proc-title">Retusz</div>
+            <p class="proc-desc">Wybieram i retuszuję najlepsze kadry.</p>
+          </div>
+          <div class="proc rv d4">
+            <div class="proc-dot"></div>
+            <span class="proc-n">05</span>
+            <div class="proc-title">Galeria</div>
+            <p class="proc-desc">Prywatna galeria online z pobieraniem.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="site-footer">
+        <div class="footer-bottom">
+          <span class="footer-copy">© 2025 Justyna Wachnicka Fotografia</span
+          ><span class="footer-reg-link" onclick="go('regulamin')"
+            >Regulamin</span
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════
+     PAGE: KONTAKT
+════════════════════════════════════ -->
+    <div class="page" id="page-kontakt">
+      <div class="wrap-sm" style="background: var(--bg2); padding-top: 3.5rem">
+        <span class="eyebrow">Kontakt</span>
+        <h1 class="sec-h">Umów <em>sesję</em></h1>
+        <p class="sec-p" style="max-width: 440px">
+          Napisz — odpiszę w ciągu 24 godzin i wspólnie zaplanujemy Twoją sesję.
+        </p>
+      </div>
+      <div class="contact-grid">
+        <div>
+          <div class="ci">
+            <span class="ci-lbl">Telefon</span
+            ><span class="ci-val">+48 604 XXX XXX</span>
+          </div>
+          <div class="ci">
+            <span class="ci-lbl">E-mail</span
+            ><span class="ci-val">justyna@wachnicka.pl</span>
+          </div>
+          <div class="ci">
+            <span class="ci-lbl">Obszar działania</span
+            ><span class="ci-val">Warszawa & cała Polska</span>
+          </div>
+          <div class="social-row" style="margin-top: 1.5rem">
+            <a href="#" class="soc">Instagram</a>
+            <a href="#" class="soc">Facebook</a>
+            <a href="#" class="soc">Pinterest</a>
+          </div>
+        </div>
+        <div>
+          <div class="form-2col">
+            <div class="ff">
+              <label>Imię i nazwisko</label
+              ><input type="text" id="c-name" placeholder="Marta Kowalska" />
+            </div>
+            <div class="ff">
+              <label>E-mail</label
+              ><input type="email" id="c-email" placeholder="marta@email.pl" />
+            </div>
+            <div class="ff">
+              <label>Telefon</label
+              ><input type="tel" placeholder="+48 600 000 000" />
+            </div>
+            <div class="ff"><label>Data sesji</label><input type="date" /></div>
+            <div class="ff form-full">
+              <label>Rodzaj sesji</label>
+              <select>
+                <option value="">— Wybierz —</option>
+                <option>Sesja plenerowa</option>
+                <option>Sesja studyjna</option>
+                <option>Fotografia ślubna</option>
+                <option>Chrzciny / komunia</option>
+                <option>Urodziny / jubileusz</option>
+                <option>Inne</option>
+              </select>
+            </div>
+            <div class="ff form-full">
+              <label>Wiadomość</label
+              ><textarea
+                placeholder="Opowiedz mi o swoich planach..."
+              ></textarea>
+            </div>
+          </div>
+          <button class="btn btn-dark" onclick="sendContact()">
+            Wyślij zapytanie
+          </button>
+          <p
+            style="font-size: 0.68rem; color: var(--muted); margin-top: 0.8rem"
+          >
+            Odpowiadam w ciągu 24 godzin roboczych.
+          </p>
+        </div>
+      </div>
+      <div class="site-footer">
+        <div class="footer-bottom">
+          <span class="footer-copy">© 2025 Justyna Wachnicka Fotografia</span
+          ><span class="footer-reg-link" onclick="go('regulamin')"
+            >Regulamin</span
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════
+     PAGE: LOGIN / DASHBOARD
+════════════════════════════════════ -->
+    <div class="page" id="page-login">
+      <!-- NOT LOGGED IN -->
+      <div id="view-auth">
+        <div class="auth-gate">
+          <div class="auth-icon">📷</div>
+          <span class="eyebrow">Dostęp prywatny</span>
+          <h2 class="sec-h">Galerie <em>klientów</em></h2>
+          <p
+            style="
+              font-size: 0.88rem;
+              color: var(--sub);
+              max-width: 360px;
+              margin: 0.5rem auto 0;
+              line-height: 1.85;
+            "
+          >
+            Zaloguj się, aby uzyskać dostęp do swoich prywatnych galerii i
+            pobrać zdjęcia z sesji.
+          </p>
+          <div class="auth-box">
+            <div class="auth-tabs">
+              <button
+                class="auth-tab on"
+                onclick="switchAuthTab('login', this)"
+              >
+                Logowanie
+              </button>
+              <button
+                class="auth-tab"
+                onclick="switchAuthTab('register', this)"
+              >
+                Rejestracja
+              </button>
+            </div>
+            <div id="auth-login">
+              <div class="ff">
+                <label>E-mail</label
+                ><input
+                  type="email"
+                  id="li-email"
+                  placeholder="twoj@email.pl"
+                />
+              </div>
+              <div class="ff">
+                <label>Hasło</label
+                ><input type="password" id="li-pass" placeholder="••••••••" />
+              </div>
+              <button
+                class="btn btn-dark"
+                style="width: 100%; justify-content: center"
+                onclick="doLogin()"
+              >
+                Zaloguj się
+              </button>
+              <p class="auth-note">
+                Demo: klient@test.pl / haslo123<br />Admin: admin@test.pl /
+                admin123
+              </p>
+            </div>
+            <div id="auth-register" style="display: none">
+              <div class="ff">
+                <label>Imię i nazwisko</label
+                ><input type="text" id="re-name" placeholder="Anna Kowalska" />
+              </div>
+              <div class="ff">
+                <label>E-mail</label
+                ><input
+                  type="email"
+                  id="re-email"
+                  placeholder="anna@email.pl"
+                />
+              </div>
+              <div class="ff">
+                <label>Hasło (min. 8 znaków)</label
+                ><input type="password" id="re-pass" placeholder="••••••••" />
+              </div>
+              <button
+                class="btn btn-dark"
+                style="width: 100%; justify-content: center"
+                onclick="doRegister()"
+              >
+                Utwórz konto
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LOGGED IN - CLIENT -->
+      <div id="view-client" style="display: none">
+        <div class="dash-header">
+          <div>
+            <span class="eyebrow">Twoje galerie</span>
+            <h2 class="sec-h">Prywatne <em>galerie</em></h2>
+            <div class="dash-welcome" id="dash-welcome"></div>
+          </div>
+          <button class="btn btn-light btn-sm" onclick="doLogout()">
+            Wyloguj się
+          </button>
+        </div>
+        <div class="dash-body">
+          <div class="dash-section-title">Twoje sesje</div>
+          <div class="galleries-grid" id="client-gal-list"></div>
+        </div>
+      </div>
+
+      <!-- LOGGED IN - ADMIN -->
+      <div id="view-admin" style="display: none">
+        <div class="dash-header">
+          <div>
+            <span class="eyebrow">Panel administracyjny</span>
+            <h2 class="sec-h">Zarządzaj <em>galeriami</em></h2>
+            <div class="dash-welcome" id="admin-welcome"></div>
+          </div>
+          <button class="btn btn-light btn-sm" onclick="doLogout()">
+            Wyloguj się
+          </button>
+        </div>
+        <div class="dash-body">
+          <!-- Create gallery form -->
+          <div class="create-form">
+            <h3>➕ Utwórz nową galerię dla klienta</h3>
+            <div class="create-2col">
+              <div class="ff">
+                <label>Nazwa galerii</label
+                ><input
+                  type="text"
+                  id="ng-name"
+                  placeholder="np. Sesja ślubna Ania & Marek"
+                />
+              </div>
+              <div class="ff">
+                <label>E-mail klienta</label
+                ><input
+                  type="email"
+                  id="ng-client"
+                  placeholder="klient@email.pl"
+                />
+              </div>
+              <div class="ff">
+                <label>Data sesji</label><input type="date" id="ng-date" />
+              </div>
+              <div class="ff">
+                <label>Kategoria</label>
+                <select
+                  id="ng-cat"
+                  style="
+                    width: 100%;
+                    padding: 0.8rem 1rem;
+                    background: var(--bg);
+                    border: 1px solid var(--line);
+                    color: var(--text);
+                    font-size: 0.87rem;
+                    outline: none;
+                    appearance: none;
+                  "
+                >
+                  <option>Plener</option>
+                  <option>Studio</option>
+                  <option>Ślubna</option>
+                  <option>Okolicznościowa</option>
+                </select>
+              </div>
+            </div>
+            <button class="btn btn-accent" onclick="createGallery()">
+              Utwórz galerię
+            </button>
+          </div>
+          <div class="dash-section-title">
+            Wszystkie galerie
+            <span
+              id="admin-gal-count"
+              style="
+                font-family: &quot;Outfit&quot;, sans-serif;
+                font-size: 0.75rem;
+                color: var(--muted);
+                font-weight: 300;
+              "
+            ></span>
+          </div>
+          <div class="galleries-grid" id="admin-gal-list"></div>
+        </div>
+      </div>
+
+      <div class="site-footer">
+        <div class="footer-bottom">
+          <span class="footer-copy">© 2025 Justyna Wachnicka Fotografia</span
+          ><span class="footer-reg-link" onclick="go('regulamin')"
+            >Regulamin</span
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════
+     PAGE: SINGLE GALLERY
+════════════════════════════════════ -->
+    <div class="page" id="page-single-gallery">
+      <div class="sg-header">
+        <div>
+          <span class="eyebrow">Galeria</span>
+          <h2 class="sec-h" id="sg-title">Nazwa galerii</h2>
+          <p
+            style="font-size: 0.78rem; color: var(--sub); margin-top: 0.3rem"
+            id="sg-meta"
+          ></p>
+        </div>
+        <div class="sg-actions">
+          <button class="btn btn-accent btn-sm" onclick="downloadAll()">
+            ⬇ Pobierz wszystkie
+          </button>
+          <button class="btn btn-light btn-sm" onclick="go('login')">
+            ← Powrót
+          </button>
+        </div>
+      </div>
+      <div class="sg-grid" id="sg-grid"></div>
+      <div class="site-footer">
+        <div class="footer-bottom">
+          <span class="footer-copy">© 2025 Justyna Wachnicka Fotografia</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════
+     PAGE: REGULAMIN
+════════════════════════════════════ -->
+    <div class="page" id="page-regulamin">
+      <div class="reg-wrap">
+        <h1>Regulamin serwisu</h1>
+        <span class="reg-update">Ostatnia aktualizacja: 1 stycznia 2025</span>
+
+        <h2>§1. Postanowienia ogólne</h2>
+        <p>
+          Niniejszy regulamin określa zasady korzystania z serwisu internetowego
+          Justyna Wachnicka Fotografia (dalej „Serwis"). Właścicielem i
+          operatorem Serwisu jest Justyna Wachnicka, prowadząca działalność
+          fotograficzną z siedzibą w Warszawie (dalej „Fotograf").
+        </p>
+        <p>
+          Korzystanie z Serwisu jest równoznaczne z akceptacją niniejszego
+          Regulaminu w całości.
+        </p>
+
+        <h2>§2. Zakres usług</h2>
+        <p>Za pośrednictwem Serwisu Użytkownicy mogą:</p>
+        <ul>
+          <li>Przeglądać portfolio fotograficzne Fotografa,</li>
+          <li>Zapoznać się z ofertą i cennikiem usług fotograficznych,</li>
+          <li>Skontaktować się w celu rezerwacji sesji fotograficznej,</li>
+          <li>
+            Logować się do prywatnych galerii klientów i pobierać zdjęcia z
+            zamówionych sesji.
+          </li>
+        </ul>
+
+        <h2>§3. Prywatne galerie klientów</h2>
+        <p>
+          Po zakończeniu sesji Klient otrzymuje dostęp do prywatnej galerii
+          online. Dostęp chroniony jest indywidualnym loginem i hasłem
+          przekazywanym drogą e-mailową.
+        </p>
+        <p>
+          Klient zobowiązuje się do nieudostępniania danych logowania osobom
+          trzecim. Fotograf nie ponosi odpowiedzialności za nieautoryzowany
+          dostęp wynikający z nieostrożności Klienta.
+        </p>
+        <p>
+          Dostęp do galerii jest możliwy przez okres wskazany w wybranym
+          pakiecie usług (standardowo 12 lub 24 miesiące od daty sesji).
+        </p>
+        <p>
+          Zdjęcia w galeriach przeznaczone są wyłącznie do prywatnego użytku
+          Klienta, chyba że strony ustaliły inaczej na piśmie.
+        </p>
+
+        <h2>§4. Prawa autorskie</h2>
+        <p>
+          Wszelkie zdjęcia zamieszczone w Serwisie oraz w galeriach klientów są
+          chronione prawem autorskim i stanowią własność intelektualną Justyny
+          Wachnickiej.
+        </p>
+        <p>
+          Zabrania się kopiowania, reprodukowania, modyfikowania,
+          rozpowszechniania ani komercyjnego wykorzystania zdjęć bez pisemnej
+          zgody Fotografa.
+        </p>
+        <p>
+          Klient zamawiający usługę fotograficzną nabywa niewyłączną licencję do
+          korzystania z własnych zdjęć sesji wyłącznie w celach prywatnych.
+          Wszelkie inne zastosowania wymagają odrębnej umowy licencyjnej.
+        </p>
+        <p>
+          Fotograf zastrzega sobie prawo do prezentowania zdjęć z sesji w celach
+          promocyjnych (portfolio, media społecznościowe) — po uzgodnieniu z
+          Klientem.
+        </p>
+
+        <h2>§5. Rezerwacje i płatności</h2>
+        <p>
+          Rezerwacja terminu sesji następuje po wpłacie zaliczki w wysokości 30%
+          całkowitej wartości usługi. Zaliczka jest bezzwrotna w przypadku
+          odwołania sesji przez Klienta z winy własnej.
+        </p>
+        <p>
+          Pełna płatność powinna zostać uregulowana najpóźniej w dniu sesji,
+          chyba że strony ustaliły inaczej pisemnie.
+        </p>
+        <p>
+          W przypadku odwołania sesji przez Fotografa, zaliczka zostaje zwrócona
+          w całości lub Klientowi proponowany jest inny termin.
+        </p>
+
+        <h2>§6. Ochrona danych osobowych (RODO)</h2>
+        <p>
+          Administratorem danych osobowych jest Justyna Wachnicka. Dane osobowe
+          przetwarzane są w celu realizacji usług fotograficznych, prowadzenia
+          konta w Serwisie oraz — za zgodą Użytkownika — w celach
+          marketingowych.
+        </p>
+        <p>
+          Użytkownik ma prawo dostępu do swoich danych, ich sprostowania,
+          usunięcia, ograniczenia przetwarzania, a także prawo do przenoszenia
+          danych i wniesienia sprzeciwu wobec przetwarzania.
+        </p>
+        <p>
+          Wszelkie zapytania dotyczące danych osobowych prosimy kierować na
+          adres: justyna@wachnicka.pl
+        </p>
+
+        <h2>§7. Postanowienia końcowe</h2>
+        <p>
+          Fotograf zastrzega sobie prawo do zmian niniejszego Regulaminu z
+          odpowiednim wyprzedzeniem informując o tym Użytkowników poprzez Serwis
+          lub e-mail.
+        </p>
+        <p>
+          W sprawach nieuregulowanych stosuje się przepisy prawa polskiego, w
+          szczególności Kodeksu Cywilnego oraz ustawy o prawie autorskim i
+          prawach pokrewnych.
+        </p>
+        <p>Regulamin wchodzi w życie z dniem 1 stycznia 2025 roku.</p>
+
+        <div
+          style="height: 1px; background: var(--line); margin: 2.5rem 0"
+        ></div>
+        <p style="font-size: 0.78rem; color: var(--muted)">
+          Pytania? Napisz: justyna@wachnicka.pl
+        </p>
+        <div
+          style="margin-top: 2rem; display: flex; gap: 0.8rem; flex-wrap: wrap"
+        >
+          <button class="btn btn-light btn-sm" onclick="history.back()">
+            ← Wróć
+          </button>
+          <button class="btn btn-light btn-sm" onclick="go('oferta')">
+            Strona główna
+          </button>
+        </div>
+      </div>
+      <div class="site-footer">
+        <div class="footer-bottom">
+          <span class="footer-copy">© 2025 Justyna Wachnicka Fotografia</span>
+        </div>
+      </div>
+    </div>
+
+    <script src="./js/index.js"></script>
+  </body>
+</html>
