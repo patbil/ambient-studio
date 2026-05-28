@@ -1,8 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(node -e \"try{require.resolve\\('playwright'\\);console.log\\('playwright: yes'\\)}catch\\(e\\){try{require.resolve\\('@playwright/test'\\);console.log\\('@playwright/test: yes'\\)}catch\\(e2\\){console.log\\('playwright: no'\\)}}\")",
-      "Bash(node -e \"const c=require\\('fs'\\).readFileSync\\('css/main.css','utf8'\\); console.log\\('scrollbar-thumb:', c.includes\\('::-webkit-scrollbar-thumb'\\)\\); console.log\\('scrollbar-color:', c.includes\\('scrollbar-color'\\)\\)\")"
-    ]
-  }
-}
