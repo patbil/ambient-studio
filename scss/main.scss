@@ -1,0 +1,53 @@
+// Ambient Studio — main stylesheet (7-1 architecture).
+//
+// Compile: npx sass scss/main.scss css/main.css --style=compressed --no-source-map
+// Watch:   npx sass --watch scss/main.scss css/main.css
+
+@use "base/reset";
+@use "base/typography";
+@use "base/animations";
+
+@use "themes/themes";
+
+@use "layout/section";
+@use "layout/nav";
+@use "layout/footer";
+
+@use "components/buttons";
+@use "components/loader";
+@use "components/toast";
+@use "components/lightbox";
+@use "components/forms";
+@use "components/controls";
+
+@use "pages/hero";
+@use "pages/offer";
+@use "pages/portfolio";
+@use "pages/about";
+@use "pages/testimonials";
+@use "pages/pricing";
+@use "pages/contact";
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) var(--bg2);
+}
+
+::-webkit-scrollbar {
+  width: 11px;
+  height: 11px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg2);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent2);
+  border: 3px solid var(--bg2);
+  border-radius: 999px;
+
+  &:hover {
+    background: var(--accent);
+  }
+}

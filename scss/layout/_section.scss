@@ -1,0 +1,27 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+section {
+  padding: $section-spacing $gutter;
+
+  @include respond('md') {
+    padding: 4rem $gutter;
+  }
+}
+
+.rv {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity $transition-slow $ease, transform $transition-slow $ease;
+
+  &.in {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@for $i from 1 through 4 {
+  .d#{$i} {
+    transition-delay: #{$i * 0.12}s;
+  }
+}

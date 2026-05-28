@@ -1,0 +1,53 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.control-btn {
+  @include flex-center;
+  height: 2.1rem;
+  min-width: 2.1rem;
+  padding: 0 0.55rem;
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--sub);
+  cursor: pointer;
+  transition: color $transition-fast, border-color $transition-fast, background $transition-fast;
+
+  &:hover {
+    color: var(--text);
+    border-color: var(--text);
+  }
+}
+
+.lang-switch {
+  @include label(0.62rem, 0.14em);
+  font-weight: $fw-medium;
+}
+
+.theme-toggle {
+  .icon-sun {
+    display: none;
+  }
+  .icon-moon {
+    display: block;
+  }
+}
+
+[data-theme='dark'] .theme-toggle {
+  .icon-sun {
+    display: block;
+  }
+  .icon-moon {
+    display: none;
+  }
+}
+
+.theme-toggle svg {
+  width: 16px;
+  height: 16px;
+}

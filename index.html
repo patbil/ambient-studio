@@ -1,1091 +1,418 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pl">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Justyna Wachnicka Fotografia</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:wght@200;300;400;500&display=swap" rel="stylesheet">
-<style>
-:root {
-  --white:   #FFFFFF;
-  --snow:    #F8F7F4;
-  --pearl:   #F0EDE8;
-  --smoke:   #E4E0D8;
-  --silver:  #C8C2B8;
-  --stone:   #8A847A;
-  --ink:     #2A2520;
-  --ink2:    #3E3830;
-  --accent:  #B8860B;
-  --accent2: #9A6F08;
-  --accent-light: #F5EDD4;
-}
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ambient Studio Fotografia</title>
+    <meta
+      name="description"
+      content="Fotografia plenerowa, studyjna, ślubna i okolicznościowa. Radom, Warszawa i cała Polska."
+    />
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
 
-*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-html { scroll-behavior: smooth; }
-
-body {
-  font-family: 'DM Sans', sans-serif;
-  font-weight: 300;
-  background: var(--white);
-  color: var(--ink);
-  overflow-x: hidden;
-}
-
-/* ─── LOADER ─── */
-.loader {
-  position: fixed; inset: 0;
-  background: var(--white);
-  z-index: 2000;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1.8rem;
-  transition: opacity 0.6s ease, visibility 0.6s;
-}
-.loader.done { opacity: 0; visibility: hidden; }
-.loader-logo {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.8rem;
-  font-weight: 400;
-  letter-spacing: 0.1em;
-  color: var(--ink);
-  overflow: hidden;
-}
-.loader-logo span {
-  display: inline-block;
-  animation: slideUp 0.7s 0.2s ease forwards;
-  opacity: 0;
-  transform: translateY(100%);
-}
-@keyframes slideUp { to { opacity:1; transform:none; } }
-.loader-bar {
-  width: 160px; height: 1px;
-  background: var(--smoke);
-  position: relative; overflow: hidden;
-}
-.loader-bar::after {
-  content: '';
-  position: absolute; inset: 0;
-  background: var(--accent);
-  transform: scaleX(0); transform-origin: left;
-  animation: fillBar 1.5s 0.3s ease forwards;
-}
-@keyframes fillBar { to { transform: scaleX(1); } }
-
-/* ─── NAV ─── */
-nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 500;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1.6rem 5%;
-  transition: all 0.4s;
-  background: rgba(255,255,255,0.6);
-  backdrop-filter: blur(10px);
-}
-nav.solid {
-  background: rgba(255,255,255,0.97);
-  border-bottom: 1px solid var(--smoke);
-  padding: 1rem 5%;
-  box-shadow: 0 2px 24px rgba(0,0,0,0.04);
-}
-.nav-logo { text-decoration: none; line-height: 1; }
-.nav-logo-main {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.1rem;
-  font-weight: 400;
-  color: var(--ink);
-  letter-spacing: 0.06em;
-  display: block;
-}
-.nav-logo-sub {
-  font-size: 0.55rem;
-  letter-spacing: 0.32em;
-  text-transform: uppercase;
-  color: var(--accent);
-  display: block;
-  margin-top: 2px;
-}
-.nav-links {
-  display: flex;
-  gap: 2.5rem;
-  list-style: none;
-  align-items: center;
-}
-.nav-links a {
-  font-size: 0.65rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--stone);
-  text-decoration: none;
-  transition: color 0.25s;
-}
-.nav-links a:hover { color: var(--ink); }
-.nav-cta-btn {
-  padding: 0.65rem 1.6rem;
-  background: var(--ink);
-  color: var(--white) !important;
-  transition: background 0.25s !important;
-}
-.nav-cta-btn:hover { background: var(--accent) !important; }
-
-/* Hamburger */
-.hamburger {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  cursor: pointer;
-  background: none;
-  border: none;
-  padding: 4px;
-  z-index: 600;
-}
-.hamburger span {
-  display: block;
-  width: 24px; height: 1.5px;
-  background: var(--ink);
-  transition: all 0.3s;
-}
-.hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
-.hamburger.open span:nth-child(2) { opacity: 0; }
-.hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
-
-.mobile-menu {
-  display: none;
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: var(--white);
-  z-index: 400;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 2.5rem;
-}
-.mobile-menu.open { display: flex; }
-.mobile-menu a {
-  font-family: 'Playfair Display', serif;
-  font-size: 2rem;
-  font-weight: 400;
-  color: var(--ink);
-  text-decoration: none;
-  transition: color 0.25s;
-}
-.mobile-menu a:hover { color: var(--accent); }
-.mobile-menu .m-cta {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.72rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  padding: 0.9rem 2.5rem;
-  border: 1px solid var(--ink);
-  color: var(--ink);
-}
-
-/* ─── BUTTONS ─── */
-.btn-solid {
-  padding: 0.9rem 2.4rem;
-  background: var(--ink);
-  color: var(--white);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.65rem;
-  font-weight: 500;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  text-decoration: none;
-  border: 1px solid var(--ink);
-  display: inline-block;
-  transition: background 0.3s, color 0.3s, border-color 0.3s;
-  cursor: pointer;
-}
-.btn-solid:hover { background: var(--accent); border-color: var(--accent); }
-.btn-ghost {
-  padding: 0.9rem 2.2rem;
-  background: transparent;
-  color: var(--ink);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.65rem;
-  font-weight: 400;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  text-decoration: none;
-  border: 1px solid var(--smoke);
-  display: inline-block;
-  transition: border-color 0.3s;
-  cursor: pointer;
-}
-.btn-ghost:hover { border-color: var(--ink); }
-
-/* ─── SECTION ─── */
-section { padding: 6rem 5%; }
-.section-eyebrow {
-  font-size: 0.58rem;
-  letter-spacing: 0.35em;
-  text-transform: uppercase;
-  color: var(--accent);
-  display: block;
-  margin-bottom: 0.9rem;
-}
-.section-title {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(1.9rem, 3vw, 3rem);
-  font-weight: 400;
-  line-height: 1.18;
-  color: var(--ink);
-  margin-bottom: 1.2rem;
-}
-.section-title em { font-style: italic; color: var(--accent); }
-
-/* ─── HERO ─── */
-.hero {
-  min-height: 100vh;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  padding-top: 80px;
-}
-.hero-content {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 5rem 5% 5rem 5%;
-  background: var(--white);
-}
-.hero-eyebrow {
-  font-size: 0.6rem;
-  letter-spacing: 0.38em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 1.5rem;
-  opacity: 0;
-  animation: fadeUp 0.8s 1.8s ease forwards;
-}
-@keyframes fadeUp {
-  from { opacity:0; transform:translateY(16px); }
-  to   { opacity:1; transform:none; }
-}
-.hero-title {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(2.6rem, 4vw, 4.8rem);
-  font-weight: 400;
-  line-height: 1.1;
-  color: var(--ink);
-  margin-bottom: 1.8rem;
-  opacity: 0;
-  animation: fadeUp 0.9s 2s ease forwards;
-}
-.hero-title em { font-style: italic; color: var(--accent); }
-.hero-desc {
-  font-size: 0.9rem;
-  line-height: 1.95;
-  color: var(--stone);
-  max-width: 420px;
-  margin-bottom: 2.8rem;
-  opacity: 0;
-  animation: fadeUp 0.8s 2.2s ease forwards;
-}
-.hero-btns {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-  opacity: 0;
-  animation: fadeUp 0.8s 2.4s ease forwards;
-}
-.hero-stats {
-  display: flex;
-  gap: 2.5rem;
-  margin-top: 3.5rem;
-  padding-top: 2.5rem;
-  border-top: 1px solid var(--smoke);
-  opacity: 0;
-  animation: fadeUp 0.8s 2.6s ease forwards;
-  flex-wrap: wrap;
-}
-.stat-n {
-  font-family: 'Playfair Display', serif;
-  font-size: 2.2rem;
-  font-weight: 700;
-  color: var(--ink);
-  line-height: 1;
-}
-.stat-l {
-  font-size: 0.6rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--silver);
-  margin-top: 4px;
-}
-.hero-img {
-  position: relative;
-  overflow: hidden;
-  background: var(--pearl);
-  min-height: 400px;
-}
-.hero-img img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  animation: heroZoom 14s ease-out forwards;
-}
-@keyframes heroZoom {
-  from { transform: scale(1.08); }
-  to   { transform: scale(1); }
-}
-.hero-img-tag {
-  position: absolute;
-  bottom: 2rem; left: 2rem;
-  background: var(--white);
-  padding: 0.9rem 1.4rem;
-}
-.hero-img-tag-top {
-  font-size: 0.56rem;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--accent);
-  display: block;
-}
-.hero-img-tag-bot {
-  font-family: 'Playfair Display', serif;
-  font-size: 0.9rem;
-  color: var(--ink);
-  display: block;
-  margin-top: 2px;
-}
-
-/* ─── OFFER ─── */
-.offer { background: var(--snow); }
-.offer-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  margin-bottom: 3.5rem;
-  gap: 2rem;
-  flex-wrap: wrap;
-}
-.offer-desc { font-size: 0.88rem; color: var(--stone); line-height: 1.85; max-width: 380px; }
-.offer-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.5rem;
-}
-.offer-card {
-  background: var(--white);
-  border: 1px solid var(--smoke);
-  overflow: hidden;
-  transition: box-shadow 0.35s, transform 0.35s;
-}
-.offer-card:hover { box-shadow: 0 16px 48px rgba(0,0,0,0.09); transform: translateY(-4px); }
-.offer-img { width: 100%; height: 200px; object-fit: cover; display: block; transition: transform 0.5s; }
-.offer-card:hover .offer-img { transform: scale(1.04); }
-.offer-body { padding: 1.6rem 1.4rem; }
-.offer-num { font-size: 0.56rem; letter-spacing: 0.25em; color: var(--accent); display: block; margin-bottom: 0.5rem; }
-.offer-name { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--ink); margin-bottom: 0.7rem; }
-.offer-text { font-size: 0.79rem; line-height: 1.8; color: var(--stone); margin-bottom: 1.2rem; }
-.offer-lnk {
-  font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
-  color: var(--ink); text-decoration: none;
-  border-bottom: 1px solid var(--smoke); padding-bottom: 2px;
-  display: inline-flex; align-items: center; gap: 0.5rem;
-  transition: gap 0.3s, border-color 0.3s, color 0.3s;
-}
-.offer-card:hover .offer-lnk { gap: 0.9rem; border-color: var(--accent); color: var(--accent); }
-
-/* ─── PORTFOLIO ─── */
-.portfolio { background: var(--white); }
-.portfolio-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  margin-bottom: 2.5rem;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-}
-.portfolio-tabs {
-  display: flex;
-  border-bottom: 1px solid var(--smoke);
-  margin-bottom: 2rem;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-}
-.portfolio-tabs::-webkit-scrollbar { display: none; }
-.tab-btn {
-  padding: 0.8rem 1.8rem;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.65rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--stone);
-  background: none;
-  border: none;
-  border-bottom: 2px solid transparent;
-  margin-bottom: -1px;
-  cursor: pointer;
-  transition: all 0.3s;
-  white-space: nowrap;
-}
-.tab-btn.active { color: var(--ink); border-bottom-color: var(--accent); }
-.tab-btn:hover { color: var(--ink); }
-
-.gallery { display: none; gap: 3px; }
-.gallery.active { display: grid; }
-.g-a { grid-template-columns: 2fr 1fr 1fr; }
-.g-b { grid-template-columns: repeat(3, 1fr); }
-.g-c { grid-template-columns: 1fr 1fr 2fr; }
-.g-d { grid-template-columns: repeat(3, 1fr); }
-
-.gi {
-  overflow: hidden;
-  position: relative;
-  cursor: pointer;
-  background: var(--pearl);
-  height: 280px;
-}
-.gi.tall { grid-row: span 2; height: auto; min-height: 280px; }
-.gi img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.55s ease;
-  filter: brightness(0.94);
-}
-.gi:hover img { transform: scale(1.05); filter: brightness(1); }
-.gi-lbl {
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  background: linear-gradient(transparent, rgba(255,255,255,0.9));
-  padding: 1.5rem 1rem 0.8rem;
-  font-size: 0.6rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--ink);
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-.gi:hover .gi-lbl { opacity: 1; }
-
-/* ─── ABOUT ─── */
-.about {
-  background: var(--snow);
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 5rem;
-  align-items: center;
-}
-.about-img { position: relative; }
-.about-img img { width: 100%; height: 540px; object-fit: cover; display: block; }
-.about-deco {
-  position: absolute;
-  top: -1.2rem; left: -1.2rem;
-  right: 1.2rem; bottom: 1.2rem;
-  border: 1px solid var(--accent-light);
-  z-index: -1;
-}
-.about-p { font-size: 0.9rem; line-height: 1.95; color: var(--stone); margin-bottom: 1.2rem; }
-.about-p strong { color: var(--ink); font-weight: 400; }
-.skill-rows { display: flex; flex-direction: column; gap: 1rem; margin: 2rem 0; }
-.sk { display: flex; flex-direction: column; gap: 5px; }
-.sk-top { display: flex; justify-content: space-between; }
-.sk-nm { font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--stone); }
-.sk-pc { font-size: 0.62rem; color: var(--silver); }
-.sk-bar { height: 2px; background: var(--smoke); position: relative; overflow: hidden; }
-.sk-fill { position: absolute; top:0; left:0; bottom:0; background: var(--accent); width: 0; transition: width 1.3s ease; }
-.sk-fill.go { width: var(--w); }
-
-/* ─── PROCESS ─── */
-.process { background: var(--white); }
-.process-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 1.5rem;
-  margin-top: 3.5rem;
-  position: relative;
-}
-.process-grid::before {
-  content: '';
-  position: absolute;
-  top: 1.4rem; left: 10%; right: 10%;
-  height: 1px; background: var(--smoke);
-}
-.pc { text-align: center; padding: 0 0.5rem; position: relative; }
-.pc-dot {
-  width: 14px; height: 14px;
-  border: 2px solid var(--accent);
-  border-radius: 50%;
-  background: var(--white);
-  margin: 0 auto 1.4rem;
-  position: relative; z-index: 1;
-  transition: background 0.3s;
-}
-.pc:hover .pc-dot { background: var(--accent); }
-.pc-n { font-size: 0.56rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 0.7rem; }
-.pc-title { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--ink); margin-bottom: 0.6rem; }
-.pc-desc { font-size: 0.76rem; line-height: 1.75; color: var(--stone); }
-
-/* ─── TESTIMONIALS ─── */
-.testimonials { background: var(--pearl); overflow: hidden; }
-.testi-scroll {
-  display: flex;
-  gap: 1.5rem;
-  margin-top: 3rem;
-  animation: scrollLeft 45s linear infinite;
-}
-.testi-scroll:hover { animation-play-state: paused; }
-@keyframes scrollLeft {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
-.testi-card {
-  flex: 0 0 320px;
-  background: var(--white);
-  border: 1px solid var(--smoke);
-  padding: 2rem 1.8rem;
-}
-.testi-stars { color: var(--accent); font-size: 0.72rem; letter-spacing: 3px; margin-bottom: 1rem; }
-.testi-text { font-family: 'Playfair Display', serif; font-size: 0.88rem; font-style: italic; color: var(--ink2); line-height: 1.75; margin-bottom: 1.4rem; }
-.testi-author { font-size: 0.6rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--silver); }
-.testi-author strong { color: var(--accent); font-weight: 400; }
-
-/* ─── PRICING ─── */
-.pricing { background: var(--snow); }
-.pricing-intro { font-size: 0.88rem; color: var(--stone); line-height: 1.85; max-width: 480px; margin-bottom: 3rem; }
-.pricing-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.5rem;
-}
-.prc {
-  border: 1px solid var(--smoke);
-  padding: 2.2rem 1.8rem;
-  background: var(--white);
-  transition: box-shadow 0.35s;
-}
-.prc:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.07); }
-.prc.featured { border-color: var(--accent); background: var(--white); }
-.prc-badge { font-size: 0.54rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 0.8rem; }
-.prc-cat { font-size: 0.56rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--silver); display: block; margin-bottom: 0.3rem; }
-.prc-name { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--ink); margin-bottom: 0.9rem; }
-.prc-amount { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 700; color: var(--ink); line-height: 1; }
-.prc-from { font-size: 0.72rem; color: var(--stone); margin: 0.3rem 0 1.5rem; }
-.prc-list { list-style: none; margin-bottom: 2rem; }
-.prc-list li { font-size: 0.78rem; color: var(--stone); padding: 0.5rem 0; border-bottom: 1px solid var(--smoke); display: flex; gap: 0.6rem; }
-.prc-list li::before { content: '—'; color: var(--accent); flex-shrink: 0; }
-.prc-cta {
-  display: block; width: 100%; padding: 0.85rem; text-align: center;
-  font-family: 'DM Sans', sans-serif; font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase;
-  border: 1px solid var(--smoke); color: var(--stone); background: none;
-  cursor: pointer; transition: all 0.3s; text-decoration: none;
-}
-.prc-cta:hover { border-color: var(--ink); color: var(--ink); }
-.prc-cta.f { background: var(--ink); color: var(--white); border-color: var(--ink); }
-.prc-cta.f:hover { background: var(--accent); border-color: var(--accent); }
-
-/* ─── CONTACT ─── */
-.contact {
-  background: var(--white);
-  display: grid;
-  grid-template-columns: 1fr 1.4fr;
-  gap: 5rem;
-  align-items: start;
-}
-.ci-list { margin: 2.5rem 0; }
-.ci { padding: 1.2rem 0; border-bottom: 1px solid var(--smoke); }
-.ci-label { font-size: 0.55rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 0.3rem; }
-.ci-val { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--ink); }
-.soc { display: flex; gap: 1.5rem; margin-top: 1.8rem; }
-.soc a { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--stone); text-decoration: none; transition: color 0.25s; }
-.soc a:hover { color: var(--accent); }
-
-.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0 1.5rem; }
-.ff { position: relative; margin-bottom: 1.8rem; }
-.ff.full { grid-column: 1 / -1; }
-.ff label { display: block; font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--silver); margin-bottom: 0.5rem; }
-.ff input, .ff select, .ff textarea {
-  width: 100%; background: var(--white);
-  border: 1px solid var(--smoke);
-  border-bottom: 2px solid var(--smoke);
-  padding: 0.8rem 1rem;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.88rem; font-weight: 300; color: var(--ink);
-  outline: none; transition: border-color 0.3s;
-  appearance: none; -webkit-appearance: none;
-}
-.ff input:focus, .ff select:focus, .ff textarea:focus { border-bottom-color: var(--accent); }
-.ff textarea { resize: none; height: 110px; }
-.ff select option { background: var(--white); }
-.form-note { font-size: 0.7rem; color: var(--silver); margin-top: 0.8rem; }
-
-/* ─── FOOTER ─── */
-footer {
-  background: var(--ink);
-  padding: 2.5rem 5%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-.footer-brand { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--white); letter-spacing: 0.06em; }
-.footer-copy { font-size: 0.62rem; color: var(--stone); }
-.footer-links { display: flex; gap: 2rem; }
-.footer-links a { font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--stone); text-decoration: none; transition: color 0.25s; }
-.footer-links a:hover { color: var(--accent); }
-
-/* ─── LIGHTBOX ─── */
-.lb {
-  display: none; position: fixed; inset: 0;
-  background: rgba(255,255,255,0.97);
-  z-index: 1000; align-items: center; justify-content: center; padding: 2rem;
-}
-.lb.open { display: flex; }
-.lb img { max-width: 90vw; max-height: 88vh; object-fit: contain; box-shadow: 0 24px 80px rgba(0,0,0,0.15); }
-.lb-x { position: absolute; top: 1.8rem; right: 2rem; background: none; border: none; font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--stone); cursor: pointer; font-family: 'DM Sans', sans-serif; transition: color 0.25s; }
-.lb-x:hover { color: var(--ink); }
-
-/* ─── TOAST ─── */
-.toast { position: fixed; bottom: 2rem; right: 2rem; background: var(--ink); color: var(--white); padding: 1rem 2rem; font-size: 0.78rem; border-left: 3px solid var(--accent); z-index: 900; opacity: 0; transform: translateY(8px); transition: all 0.4s; pointer-events: none; }
-.toast.show { opacity: 1; transform: none; }
-
-/* ─── REVEAL ─── */
-.rv { opacity: 0; transform: translateY(24px); transition: opacity 0.8s ease, transform 0.8s ease; }
-.rv.in { opacity: 1; transform: none; }
-.d1 { transition-delay: 0.12s; }
-.d2 { transition-delay: 0.24s; }
-.d3 { transition-delay: 0.36s; }
-.d4 { transition-delay: 0.48s; }
-
-/* ─────────────────────────────────────
-   RESPONSIVE
-───────────────────────────────────── */
-@media (max-width: 1200px) {
-  .offer-grid { grid-template-columns: repeat(2, 1fr); }
-  .pricing-grid { grid-template-columns: repeat(2, 1fr); }
-  .process-grid { grid-template-columns: repeat(3, 1fr); }
-  .process-grid::before { display: none; }
-}
-
-@media (max-width: 960px) {
-  .hero { grid-template-columns: 1fr; }
-  .hero-img { height: 55vw; min-height: 280px; }
-  .hero-content { padding: 3.5rem 5%; }
-  .about { grid-template-columns: 1fr; gap: 2.5rem; }
-  .about-img img { height: 380px; }
-  .contact { grid-template-columns: 1fr; gap: 3rem; }
-  .g-a, .g-b, .g-c, .g-d { grid-template-columns: 1fr 1fr; }
-  .gi.tall { grid-row: auto; min-height: 280px; }
-  .gi { height: 220px; }
-  .nav-links { display: none; }
-  .hamburger { display: flex; }
-  .offer-header { flex-direction: column; align-items: flex-start; }
-}
-
-@media (max-width: 640px) {
-  section { padding: 4rem 5%; }
-  .hero-title { font-size: 2.4rem; }
-  .hero-btns { flex-direction: column; }
-  .btn-solid, .btn-ghost { text-align: center; }
-  .offer-grid { grid-template-columns: 1fr; }
-  .pricing-grid { grid-template-columns: 1fr; }
-  .process-grid { grid-template-columns: 1fr 1fr; }
-  .form-row { grid-template-columns: 1fr; }
-  .ff.full { grid-column: auto; }
-  .g-a, .g-b, .g-c, .g-d { grid-template-columns: 1fr; }
-  .gi { height: 240px; }
-  .hero-stats { gap: 1.5rem; }
-  footer { flex-direction: column; text-align: center; gap: 0.8rem; }
-  .footer-links { justify-content: center; flex-wrap: wrap; }
-  .portfolio-header { flex-direction: column; align-items: flex-start; }
-  .testi-card { flex: 0 0 270px; }
-}
-
-@media (max-width: 420px) {
-  .hero-title { font-size: 2rem; }
-  .section-title { font-size: 1.7rem; }
-  .process-grid { grid-template-columns: 1fr; }
-  .hero-stats { flex-direction: column; gap: 1rem; }
-}
-</style>
-</head>
-<body>
-
-<!-- LOADER -->
-<div class="loader" id="loader">
-  <div class="loader-logo"><span>Justyna Wachnicka</span></div>
-  <div class="loader-bar"></div>
-</div>
-
-<!-- LIGHTBOX -->
-<div class="lb" id="lb">
-  <button class="lb-x" onclick="closeLb()">Zamknij ✕</button>
-  <img id="lb-img" src="" alt="">
-</div>
-
-<!-- TOAST -->
-<div class="toast" id="toast">Wiadomość wysłana — odezwę się wkrótce ✦</div>
-
-<!-- MOBILE MENU -->
-<div class="mobile-menu" id="mobileMenu">
-  <a href="#oferta" onclick="closeMenu()">Oferta</a>
-  <a href="#portfolio" onclick="closeMenu()">Portfolio</a>
-  <a href="#o-mnie" onclick="closeMenu()">O mnie</a>
-  <a href="#cennik" onclick="closeMenu()">Cennik</a>
-  <a href="#kontakt" class="m-cta" onclick="closeMenu()">Zarezerwuj sesję</a>
-</div>
-
-<!-- NAV -->
-<nav id="nav">
-  <a href="#" class="nav-logo">
-    <span class="nav-logo-main">Justyna Wachnicka</span>
-    <span class="nav-logo-sub">Fotografia</span>
-  </a>
-  <ul class="nav-links">
-    <li><a href="#oferta">Oferta</a></li>
-    <li><a href="#portfolio">Portfolio</a></li>
-    <li><a href="#o-mnie">O mnie</a></li>
-    <li><a href="#cennik">Cennik</a></li>
-    <li><a href="#kontakt" class="nav-cta-btn">Zarezerwuj sesję</a></li>
-  </ul>
-  <button class="hamburger" id="burger" onclick="toggleMenu()">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
-
-<!-- HERO -->
-<section class="hero" id="home">
-  <div class="hero-content">
-    <p class="hero-eyebrow">Fotografia · Warszawa & Polska</p>
-    <h1 class="hero-title">Twoje chwile,<br>moja <em>sztuka</em></h1>
-    <p class="hero-desc">Plenery, studio, śluby, chrzciny, komunie — każdą historię opowiadam z pasją i troską o każdy detal. Naturalne, ponadczasowe kadry pełne prawdziwych emocji.</p>
-    <div class="hero-btns">
-      <a href="#portfolio" class="btn-solid">Zobacz portfolio</a>
-      <a href="#kontakt" class="btn-ghost">Umów sesję</a>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/main.css" />
+    <script type="module" src="js/index.js"></script>
+  </head>
+  <body>
+    <!-- LOADER -->
+    <div class="loader" id="loader">
+      <div class="loader-logo">
+        <span class="loader-mark">Ambient Studio</span>
+        <span class="loader-sub">Fotografia</span>
+      </div>
+      <div class="loader-bar"></div>
     </div>
-    <div class="hero-stats">
-      <div><div class="stat-n">500+</div><div class="stat-l">Klientów</div></div>
-      <div><div class="stat-n">10+</div><div class="stat-l">Lat doświadczenia</div></div>
-      <div><div class="stat-n">4</div><div class="stat-l">Specjalizacje</div></div>
-    </div>
-  </div>
-  <div class="hero-img">
-    <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=1200&q=85" alt="Justyna Wachnicka Fotografia">
-    <div class="hero-img-tag">
-      <span class="hero-img-tag-top">Najnowsze</span>
-      <span class="hero-img-tag-bot">Sesja plenerowa 2025</span>
-    </div>
-  </div>
-</section>
 
-<!-- OFFER -->
-<section class="offer" id="oferta">
-  <div class="offer-header rv">
-    <div>
-      <span class="section-eyebrow">Oferta</span>
-      <h2 class="section-title">Co <em>fotografuję</em></h2>
-    </div>
-    <p class="offer-desc">Każdy projekt traktuję indywidualnie — dopasowuję styl i podejście do Twoich potrzeb i oczekiwań.</p>
-  </div>
-  <div class="offer-grid">
-    <div class="offer-card rv">
-      <img class="offer-img" src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=600&q=80" alt="Plener">
-      <div class="offer-body">
-        <span class="offer-num">01</span>
-        <div class="offer-name">Sesje plenerowe</div>
-        <p class="offer-text">Naturalne światło, piękne lokalizacje, autentyczne emocje. Pary, rodziny, indywidualne — każda sesja to wyjątkowa przygoda.</p>
-        <a href="#portfolio" class="offer-lnk">Zobacz zdjęcia →</a>
+    <!-- LIGHTBOX -->
+    <div class="lb" id="lb" aria-hidden="true" role="dialog" aria-modal="true">
+      <button class="lb-x" type="button" data-lb="close">
+        <span data-i18n="lightbox.close">Zamknij</span> ✕
+      </button>
+      <div class="lb-stage">
+        <button
+          class="lb-nav lb-nav--prev"
+          type="button"
+          data-lb="prev"
+          data-i18n-aria="lightbox.prev"
+          aria-label="Poprzednie zdjęcie"
+        >
+          ‹
+        </button>
+        <img class="lb-img" id="lb-img" src="" alt="" />
+        <button
+          class="lb-nav lb-nav--next"
+          type="button"
+          data-lb="next"
+          data-i18n-aria="lightbox.next"
+          aria-label="Następne zdjęcie"
+        >
+          ›
+        </button>
       </div>
     </div>
-    <div class="offer-card rv d1">
-      <img class="offer-img" src="https://images.unsplash.com/photo-1612178537253-bccd437b730e?w=600&q=80" alt="Studio">
-      <div class="offer-body">
-        <span class="offer-num">02</span>
-        <div class="offer-name">Studio fotograficzne</div>
-        <p class="offer-text">Kontrolowane światło, profesjonalne tła, nieograniczone możliwości. Portrety, moda, headshoty biznesowe.</p>
-        <a href="#portfolio" class="offer-lnk">Zobacz zdjęcia →</a>
+
+    <!-- TOAST -->
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <!-- MOBILE MENU -->
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#oferta" data-i18n="nav.offer">Oferta</a>
+      <a href="#portfolio" data-i18n="nav.portfolio">Portfolio</a>
+      <a href="#o-mnie" data-i18n="nav.about">O mnie</a>
+      <a href="#cennik" data-i18n="nav.pricing">Pakiety</a>
+      <a href="#kontakt" class="m-cta" data-i18n="nav.cta">Zarezerwuj sesję</a>
+    </div>
+
+    <!-- NAV -->
+    <nav id="nav">
+      <a href="#home" class="nav-logo">
+        <span class="nav-logo-main">Ambient Studio</span>
+        <span class="nav-logo-sub">Fotografia</span>
+      </a>
+      <div class="nav-right">
+        <ul class="nav-links">
+          <li><a href="#oferta" data-i18n="nav.offer">Oferta</a></li>
+          <li><a href="#portfolio" data-i18n="nav.portfolio">Portfolio</a></li>
+          <li><a href="#o-mnie" data-i18n="nav.about">O mnie</a></li>
+          <li><a href="#cennik" data-i18n="nav.pricing">Pakiety</a></li>
+        </ul>
+        <div class="controls">
+          <button
+            class="control-btn theme-toggle"
+            type="button"
+            data-action="toggle-theme"
+            aria-label="Tryb ciemny"
+          >
+            <svg
+              class="icon-moon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+              aria-hidden="true"
+            >
+              <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" />
+            </svg>
+            <svg
+              class="icon-sun"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+              aria-hidden="true"
+            >
+              <circle cx="12" cy="12" r="4" />
+              <path
+                d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"
+              />
+            </svg>
+          </button>
+          <button
+            class="control-btn lang-switch"
+            type="button"
+            data-action="toggle-lang"
+            aria-label="Zmień język"
+          >
+            EN
+          </button>
+        </div>
+        <a href="#kontakt" class="nav-cta-btn" data-i18n="nav.cta"
+          >Zarezerwuj sesję</a
+        >
+        <button
+          class="hamburger"
+          id="burger"
+          type="button"
+          aria-label="Menu"
+          aria-expanded="false"
+        >
+          <span></span><span></span><span></span>
+        </button>
       </div>
-    </div>
-    <div class="offer-card rv d2">
-      <img class="offer-img" src="https://images.unsplash.com/photo-1519741347686-c1e0aadf4611?w=600&q=80" alt="Ślub">
-      <div class="offer-body">
-        <span class="offer-num">03</span>
-        <div class="offer-name">Fotografia ślubna</div>
-        <p class="offer-text">Wasz wyjątkowy dzień — od przygotowań przez ceremonię aż po ostatni taniec. Dyskretnie i z sercem.</p>
-        <a href="#portfolio" class="offer-lnk">Zobacz zdjęcia →</a>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero" id="home">
+      <div class="hero-content">
+        <p class="hero-eyebrow" data-i18n="hero.eyebrow">
+          Fotografia · Radom, Warszawa, Cała Polska
+        </p>
+        <h1 class="hero-title" data-i18n-html="hero.titleHtml">
+          Twoje chwile,<br />nasza <em>sztuka</em>
+        </h1>
+        <p class="hero-desc" data-i18n="hero.desc">
+          Plenery, studio, śluby, chrzciny, komunie - każdą historię opowiadamy
+          z pasją i troską o każdy detal. Naturalne, ponadczasowe kadry pełne
+          prawdziwych emocji.
+        </p>
+        <div class="hero-btns">
+          <a href="#portfolio" class="btn-solid" data-i18n="hero.ctaPrimary"
+            >Zobacz portfolio</a
+          >
+          <a href="#kontakt" class="btn-ghost" data-i18n="hero.ctaSecondary"
+            >Umów sesję</a
+          >
+        </div>
+        <div class="hero-stats">
+          <div>
+            <div class="stat-n" data-i18n="hero.stats.0.value">100+</div>
+            <div class="stat-l" data-i18n="hero.stats.0.label">Klientów</div>
+          </div>
+          <div>
+            <div class="stat-n" data-i18n="hero.stats.1.value">7+</div>
+            <div class="stat-l" data-i18n="hero.stats.1.label">
+              Lat doświadczenia
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="offer-card rv d3">
-      <img class="offer-img" src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=600&q=80" alt="Okolicznościowe">
-      <div class="offer-body">
-        <span class="offer-num">04</span>
-        <div class="offer-name">Imprezy okolicznościowe</div>
-        <p class="offer-text">Chrzciny, komunie, urodziny, jubileusze — każde świętowanie zasługuje na piękną dokumentację fotograficzną.</p>
-        <a href="#portfolio" class="offer-lnk">Zobacz zdjęcia →</a>
+      <div class="hero-img">
+        <img
+          id="hero-img"
+          src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=1200&q=85"
+          alt="Ambient Studio Fotografia"
+        />
+        <div class="hero-img-tag">
+          <span class="hero-img-tag-top" data-i18n="hero.tagTop"
+            >Najnowsze</span
+          >
+          <span class="hero-img-tag-bot" data-i18n="hero.tagBottom"
+            >Sesja plenerowa 2025</span
+          >
+        </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<!-- PORTFOLIO -->
-<section class="portfolio" id="portfolio">
-  <div class="portfolio-header rv">
-    <div>
-      <span class="section-eyebrow">Portfolio</span>
-      <h2 class="section-title">Wybrane <em>realizacje</em></h2>
-    </div>
-    <a href="#kontakt" class="btn-solid">Zarezerwuj termin</a>
-  </div>
-  <div class="portfolio-tabs">
-    <button class="tab-btn active" onclick="switchTab('p',this)">Plener</button>
-    <button class="tab-btn" onclick="switchTab('s',this)">Studio</button>
-    <button class="tab-btn" onclick="switchTab('w',this)">Ślubna</button>
-    <button class="tab-btn" onclick="switchTab('o',this)">Okolicznościowe</button>
-  </div>
-
-  <div class="gallery g-a active" id="tab-p">
-    <div class="gi tall" onclick="openLb(this)"><img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=900&q=80" alt=""><div class="gi-lbl">Sesja plenerowa</div></div>
-    <div class="gi" onclick="openLb(this)"><img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=600&q=80" alt=""><div class="gi-lbl">Portret w naturze</div></div>
-    <div class="gi" onclick="openLb(this)"><img src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=600&q=80" alt=""><div class="gi-lbl">Sesja rodzinna</div></div>
-    <div class="gi" onclick="openLb(this)"><img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600&q=80" alt=""><div class="gi-lbl">Portret</div></div>
-    <div class="gi" onclick="openLb(this)"><img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=600&q=80" alt=""><div class="gi-lbl">Plener letni</div></div>
-  </div>
-
-  <div class="gallery g-b" id="tab-s">
-    <div class="gi" onclick="openLb(this)"><img src="https://images.unsplash.com/photo-1612178537253-bccd437b730e?w=800&q=80" alt=""><div class="gi-lbl">Studio portret</div></div>
-    <div class="gi" onclick="openLb(this)"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&q=80" alt=""><div class="gi-lbl">Fashion</div></div>
-    <div class="gi" onclick="openLb(this)"><img src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=600&q=80" alt=""><div class="gi-lbl">Portret biznesowy</div></div>
-    <div class="gi" onclick="openLb(this)"><img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600&q=80" alt=""><div class="gi-lbl">Headshot</div></div>
-    <div class="gi" onclick="openLb(this)"><img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=600&q=80" alt=""><div class="gi-lbl">Studio kreacja</div></div>
-    <div class="gi" onclick="openLb(this)"><img src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=600&q=80" alt=""><div class="gi-lbl">Studio portret</div></div>
-  </div>
-
-  <div class="gallery g-c" id="tab-w">
-    <div class="gi" onclick="openLb(this)"><img src="https://images.unsplash.com/photo-1606800052052-a08af7148866?w=600&q=80" alt=""><div class="gi-lbl">Ceremonia</div></div>
-    <div class="gi" onclick="openLb(this)"><img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&q=80" alt=""><div class="gi-lbl">Portret ślubny</div></div>
-    <div class="gi tall" onclick="openLb(this)"><img src="https://images.unsplash.com/photo-1519741347686-c1e0aadf4611?w=900&q=80" alt=""><div class="gi-lbl">Para młoda</div></div>
-    <div class="gi" onclick="openLb(this)"><img src="https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=600&q=80" alt=""><div class="gi-lbl">Detale ślubne</div></div>
-    <div class="gi" onclick="openLb(this)"><img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=600&q=80" alt=""><div class="gi-lbl">Wesele</div></div>
-  </div>
-
-  <div class="gallery g-d" id="tab-o">
-    <div class="gi" onclick="openLb(this)"><img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=600&q=80" alt=""><div class="gi-lbl">Urodziny</div></div>
-    <div class="gi" onclick="openLb(this)"><img src="https://images.unsplash.com/photo-1519689680058-324335c77eba?w=600&q=80" alt=""><div class="gi-lbl">Komunia</div></div>
-    <div class="gi" onclick="openLb(this)"><img src="https://images.unsplash.com/photo-1464047736614-af63643285bf?w=600&q=80" alt=""><div class="gi-lbl">Impreza okolicznościowa</div></div>
-    <div class="gi" onclick="openLb(this)"><img src="https://images.unsplash.com/photo-1578307980936-b4fb0b610b26?w=600&q=80" alt=""><div class="gi-lbl">Chrzciny</div></div>
-    <div class="gi" onclick="openLb(this)"><img src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=600&q=80" alt=""><div class="gi-lbl">Jubileusz</div></div>
-    <div class="gi" onclick="openLb(this)"><img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=600&q=80" alt=""><div class="gi-lbl">Impreza firmowa</div></div>
-  </div>
-</section>
-
-<!-- ABOUT -->
-<section class="about" id="o-mnie">
-  <div class="about-img rv">
-    <img src="https://images.unsplash.com/photo-1554080353-a576cf803bda?w=900&q=80" alt="Justyna Wachnicka">
-    <div class="about-deco"></div>
-  </div>
-  <div>
-    <span class="section-eyebrow rv">O mnie</span>
-    <h2 class="section-title rv d1">Jestem <em>Justyna</em></h2>
-    <p class="about-p rv d2">Fotografką z pasją i ponad <strong>10-letnim doświadczeniem</strong>. Zaczęłam od reportażu, trafiłam do studia, zakochałam się w plenerach i weselach. Dziś łączę wszystkie te światy w jedną spójną ofertę.</p>
-    <p class="about-p rv d2">Wierzę, że każdy człowiek jest piękny — zadaniem fotografa jest to dostrzec i uwiecznić. Pracuję tak, abyś czuł się komfortowo i naturalnie przed obiektywem.</p>
-    <div class="skill-rows rv d3">
-      <div class="sk"><div class="sk-top"><span class="sk-nm">Sesje plenerowe</span><span class="sk-pc">95%</span></div><div class="sk-bar"><div class="sk-fill" style="--w:95%"></div></div></div>
-      <div class="sk"><div class="sk-top"><span class="sk-nm">Fotografia ślubna</span><span class="sk-pc">90%</span></div><div class="sk-bar"><div class="sk-fill" style="--w:90%"></div></div></div>
-      <div class="sk"><div class="sk-top"><span class="sk-nm">Studio</span><span class="sk-pc">88%</span></div><div class="sk-bar"><div class="sk-fill" style="--w:88%"></div></div></div>
-      <div class="sk"><div class="sk-top"><span class="sk-nm">Retusz & edycja</span><span class="sk-pc">97%</span></div><div class="sk-bar"><div class="sk-fill" style="--w:97%"></div></div></div>
-    </div>
-    <a href="#kontakt" class="btn-solid rv d4" style="display:inline-block;">Porozmawiajmy</a>
-  </div>
-</section>
-
-<!-- PROCESS -->
-<section class="process">
-  <div style="text-align:center;max-width:540px;margin:0 auto;" class="rv">
-    <span class="section-eyebrow">Jak pracuję</span>
-    <h2 class="section-title">Prosty <em>proces</em></h2>
-  </div>
-  <div class="process-grid">
-    <div class="pc rv"><div class="pc-dot"></div><span class="pc-n">01</span><div class="pc-title">Kontakt</div><p class="pc-desc">Piszesz do mnie, opisujesz marzenia i datę. Razem omawiamy szczegóły.</p></div>
-    <div class="pc rv d1"><div class="pc-dot"></div><span class="pc-n">02</span><div class="pc-title">Planowanie</div><p class="pc-desc">Ustalamy lokalizację, styl i stroje — wszystko, co sprawi że sesja będzie idealna.</p></div>
-    <div class="pc rv d2"><div class="pc-dot"></div><span class="pc-n">03</span><div class="pc-title">Sesja</div><p class="pc-desc">Fotografujemy w komfortowej atmosferze. Dbam o swobodę i naturalność.</p></div>
-    <div class="pc rv d3"><div class="pc-dot"></div><span class="pc-n">04</span><div class="pc-title">Retusz</div><p class="pc-desc">Wybieram i retuszuję najlepsze kadry, dbając o spójny, charakterystyczny styl.</p></div>
-    <div class="pc rv d4"><div class="pc-dot"></div><span class="pc-n">05</span><div class="pc-title">Galeria</div><p class="pc-desc">Otrzymujesz dostęp do prywatnej galerii online z możliwością zamówienia druku.</p></div>
-  </div>
-</section>
-
-<!-- TESTIMONIALS -->
-<section class="testimonials">
-  <div class="rv">
-    <span class="section-eyebrow">Opinie</span>
-    <h2 class="section-title">Co mówią <em>klienci</em></h2>
-  </div>
-  <div class="testi-scroll">
-    <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">„Justyna to niesamowita fotografka. Czułam się swobodnie, a zdjęcia są przepiękne. Polecam z całego serca!"</p><div class="testi-author"><strong>Karolina M.</strong> — sesja plenerowa</div></div>
-    <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">„Zdjęcia ślubne przekroczyły nasze oczekiwania. Każde ujęcie to emocja. Justyna pracuje z prawdziwą pasją."</p><div class="testi-author"><strong>Ania & Marek</strong> — fotografia ślubna</div></div>
-    <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">„Komunia mojej córki uwieczniona cudownie. Zdjęcia naturalne, pełne emocji i ciepła. Bardzo dziękujemy!"</p><div class="testi-author"><strong>Rodzina Kowalskich</strong> — komunia</div></div>
-    <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">„Sesja w studio przeszła moje oczekiwania. Justyna wydobywa z człowieka to, co w nim najpiękniejsze."</p><div class="testi-author"><strong>Piotr W.</strong> — sesja portretowa</div></div>
-    <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">„Urodziny naszej mamy uwiecznione na zawsze. Justyna pracuje dyskretnie i z wielką wrażliwością."</p><div class="testi-author"><strong>Rodzina Nowaków</strong> — jubileusz</div></div>
-    <!-- duplicate for seamless loop -->
-    <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">„Justyna to niesamowita fotografka. Czułam się swobodnie, a zdjęcia są przepiękne. Polecam z całego serca!"</p><div class="testi-author"><strong>Karolina M.</strong> — sesja plenerowa</div></div>
-    <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">„Zdjęcia ślubne przekroczyły nasze oczekiwania. Każde ujęcie to emocja. Justyna pracuje z prawdziwą pasją."</p><div class="testi-author"><strong>Ania & Marek</strong> — fotografia ślubna</div></div>
-    <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">„Komunia mojej córki uwieczniona cudownie. Zdjęcia naturalne, pełne emocji i ciepła. Bardzo dziękujemy!"</p><div class="testi-author"><strong>Rodzina Kowalskich</strong> — komunia</div></div>
-    <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">„Sesja w studio przeszła moje oczekiwania. Justyna wydobywa z człowieka to, co w nim najpiękniejsze."</p><div class="testi-author"><strong>Piotr W.</strong> — sesja portretowa</div></div>
-    <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">„Urodziny naszej mamy uwiecznione na zawsze. Justyna pracuje dyskretnie i z wielką wrażliwością."</p><div class="testi-author"><strong>Rodzina Nowaków</strong> — jubileusz</div></div>
-  </div>
-</section>
-
-<!-- PRICING -->
-<section class="pricing" id="cennik">
-  <span class="section-eyebrow rv">Cennik</span>
-  <h2 class="section-title rv d1">Przejrzyste <em>ceny</em></h2>
-  <p class="pricing-intro rv d2">Poniżej znajdziesz orientacyjne ceny. Każda sesja jest wyceniana indywidualnie — skontaktuj się, a przygotujemy ofertę szytą na miarę.</p>
-  <div class="pricing-grid">
-    <div class="prc rv">
-      <span class="prc-badge">— Plener —</span><span class="prc-cat">Sesja</span>
-      <div class="prc-name">Plenerowa</div>
-      <div class="prc-amount">od 499 zł</div><div class="prc-from">za sesję indywidualną</div>
-      <ul class="prc-list"><li>Do 2 godzin fotografowania</li><li>20+ obrobionych zdjęć</li><li>Galeria online</li><li>1 lokalizacja</li></ul>
-      <a href="#kontakt" class="prc-cta">Zapytaj o termin</a>
-    </div>
-    <div class="prc rv d1">
-      <span class="prc-badge">— Studio —</span><span class="prc-cat">Sesja</span>
-      <div class="prc-name">Studyjna</div>
-      <div class="prc-amount">od 599 zł</div><div class="prc-from">za sesję portretową</div>
-      <ul class="prc-list"><li>Do 2 godzin w studio</li><li>25+ obrobionych zdjęć</li><li>Galeria online</li><li>Opieka stylistyczna</li></ul>
-      <a href="#kontakt" class="prc-cta">Zapytaj o termin</a>
-    </div>
-    <div class="prc featured rv d2">
-      <span class="prc-badge">✦ Najczęściej wybierany</span><span class="prc-cat">Fotografia</span>
-      <div class="prc-name">Ślubna</div>
-      <div class="prc-amount">od 3 900 zł</div><div class="prc-from">cały dzień ślubu</div>
-      <ul class="prc-list"><li>Do 10 godzin fotografowania</li><li>400+ obrobionych zdjęć</li><li>Sesja narzeczeńska GRATIS</li><li>Galeria online 24 miesiące</li><li>Album opcjonalnie</li></ul>
-      <a href="#kontakt" class="prc-cta f">Zapytaj o termin</a>
-    </div>
-    <div class="prc rv d3">
-      <span class="prc-badge">— Okolicznościowe —</span><span class="prc-cat">Imprezy</span>
-      <div class="prc-name">Okolicznościowe</div>
-      <div class="prc-amount">od 799 zł</div><div class="prc-from">chrzciny / komunia / urodziny</div>
-      <ul class="prc-list"><li>Pełna dokumentacja</li><li>50+ obrobionych zdjęć</li><li>Galeria online</li><li>Reportaż + portrety</li></ul>
-      <a href="#kontakt" class="prc-cta">Zapytaj o termin</a>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section class="contact" id="kontakt">
-  <div>
-    <span class="section-eyebrow rv">Kontakt</span>
-    <h2 class="section-title rv d1">Umów <em>sesję</em></h2>
-    <p style="font-size:0.88rem;color:var(--stone);line-height:1.9;" class="rv d2">Masz pytania? Chcesz sprawdzić termin? Napisz do mnie — odpiszę w ciągu 24 godzin i wspólnie zaplanujemy Twoją sesję.</p>
-    <div class="ci-list rv d2">
-      <div class="ci"><span class="ci-label">Telefon</span><span class="ci-val">+48 604 XXX XXX</span></div>
-      <div class="ci"><span class="ci-label">E-mail</span><span class="ci-val">justyna@wachnicka.pl</span></div>
-      <div class="ci"><span class="ci-label">Obszar działania</span><span class="ci-val">Warszawa & cała Polska</span></div>
-    </div>
-    <div class="soc rv d3">
-      <a href="#">Instagram</a>
-      <a href="#">Facebook</a>
-      <a href="#">Pinterest</a>
-    </div>
-  </div>
-  <div class="rv d1">
-    <div class="form-row">
-      <div class="ff"><label>Imię i nazwisko</label><input type="text" id="f-name" placeholder="Marta Kowalska"></div>
-      <div class="ff"><label>E-mail</label><input type="email" id="f-email" placeholder="marta@email.pl"></div>
-      <div class="ff"><label>Telefon</label><input type="tel" id="f-phone" placeholder="+48 600 000 000"></div>
-      <div class="ff"><label>Data sesji</label><input type="date" id="f-date"></div>
-      <div class="ff full"><label>Rodzaj sesji</label>
-        <select id="f-type">
-          <option value="">— Wybierz —</option>
-          <option>Sesja plenerowa</option>
-          <option>Sesja studyjna</option>
-          <option>Fotografia ślubna</option>
-          <option>Chrzciny / komunia</option>
-          <option>Urodziny / jubileusz</option>
-          <option>Inne</option>
-        </select>
+    <!-- OFFER -->
+    <section class="offer" id="oferta">
+      <div class="offer-header rv">
+        <div>
+          <span class="section-eyebrow" data-i18n="offer.eyebrow">Oferta</span>
+          <h2 class="section-title" data-i18n-html="offer.titleHtml">
+            Co <em>fotografujemy</em>
+          </h2>
+        </div>
+        <p class="offer-desc" data-i18n="offer.desc">
+          Każdy projekt traktujemy indywidualnie - dopasowujemy styl i podejście
+          do Twoich potrzeb i oczekiwań.
+        </p>
       </div>
-      <div class="ff full"><label>Wiadomość</label><textarea id="f-msg" placeholder="Opowiedz mi o swoich planach..."></textarea></div>
-    </div>
-    <button class="btn-solid" onclick="submitForm()">Wyślij zapytanie</button>
-    <p class="form-note">Odpowiadam w ciągu 24 godzin roboczych.</p>
-  </div>
-</section>
+      <div class="offer-grid" id="offer-grid"></div>
+    </section>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-brand">Justyna Wachnicka Fotografia</div>
-  <p class="footer-copy">© 2025 Justyna Wachnicka. Wszelkie prawa zastrzeżone.</p>
-  <div class="footer-links">
-    <a href="#oferta">Oferta</a>
-    <a href="#portfolio">Portfolio</a>
-    <a href="#kontakt">Kontakt</a>
-  </div>
-</footer>
+    <!-- PORTFOLIO -->
+    <section class="portfolio" id="portfolio">
+      <div class="portfolio-header rv">
+        <div>
+          <span class="section-eyebrow" data-i18n="portfolio.eyebrow"
+            >Portfolio</span
+          >
+          <h2 class="section-title" data-i18n-html="portfolio.titleHtml">
+            Wybrane <em>realizacje</em>
+          </h2>
+        </div>
+        <a href="#kontakt" class="btn-solid" data-i18n="portfolio.cta"
+          >Zarezerwuj termin</a
+        >
+      </div>
+      <div class="portfolio-tabs" id="portfolio-tabs"></div>
+      <div id="portfolio-galleries"></div>
+    </section>
 
-<script>
-// Loader
-setTimeout(() => document.getElementById('loader').classList.add('done'), 1900);
+    <!-- ABOUT -->
+    <section class="about" id="o-mnie">
+      <div class="about-img rv">
+        <img
+          id="about-img"
+          src="https://images.unsplash.com/photo-1554080353-a576cf803bda?w=900&q=80"
+          alt="Justyna Wachnicka"
+        />
+        <div class="about-deco"></div>
+      </div>
+      <div>
+        <span class="section-eyebrow rv" data-i18n="about.eyebrow">O mnie</span>
+        <h2 class="section-title rv d1" data-i18n-html="about.titleHtml">
+          Jestem <em>Justyna</em>
+        </h2>
+        <p class="about-p rv d2" data-i18n-html="about.paragraph1Html">
+          Fotografką z pasją i ponad <strong>7-letnim doświadczeniem</strong>.
+          Zaczęłam od reportażu, trafiłam do studia, zakochałam się w plenerach
+          i weselach. Dziś łączę wszystkie te światy w jedną spójną ofertę.
+        </p>
+        <p class="about-p rv d2" data-i18n="about.paragraph2">
+          Wierzę, że każdy człowiek jest piękny - zadaniem fotografa jest to
+          dostrzec i uwiecznić. Pracuję tak, abyś czuł się komfortowo i
+          naturalnie przed obiektywem.
+        </p>
+        <a href="#kontakt" class="btn-solid rv d3" data-i18n="about.cta"
+          >Porozmawiajmy</a
+        >
+      </div>
+    </section>
 
-// Nav
-const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => nav.classList.toggle('solid', window.scrollY > 50));
+    <!-- TESTIMONIALS -->
+    <section class="testimonials">
+      <div class="rv">
+        <span class="section-eyebrow" data-i18n="testimonials.eyebrow"
+          >Opinie</span
+        >
+        <h2 class="section-title" data-i18n-html="testimonials.titleHtml">
+          Co mówią <em>klienci</em>
+        </h2>
+      </div>
+      <div class="testi-scroll" id="testi-scroll"></div>
+    </section>
 
-// Mobile menu
-function toggleMenu() {
-  const b = document.getElementById('burger'), m = document.getElementById('mobileMenu');
-  b.classList.toggle('open'); m.classList.toggle('open');
-  document.body.style.overflow = m.classList.contains('open') ? 'hidden' : '';
-}
-function closeMenu() {
-  document.getElementById('burger').classList.remove('open');
-  document.getElementById('mobileMenu').classList.remove('open');
-  document.body.style.overflow = '';
-}
+    <!-- PRICING / PACKAGES -->
+    <section class="pricing" id="cennik">
+      <span class="section-eyebrow rv" data-i18n="pricing.eyebrow"
+        >Pakiety</span
+      >
+      <h2 class="section-title rv d1" data-i18n-html="pricing.titleHtml">
+        Nasze <em>oferty</em>
+      </h2>
+      <p class="pricing-intro rv d2" data-i18n="pricing.intro">
+        Jeżeli jesteś zainteresowany ofertą, wypełnij formularz kontaktowy, a
+        prześlemy szczegóły. Każdą sesję wyceniamy indywidualnie - dopasowujemy
+        zakres do Twoich potrzeb.
+      </p>
+      <div class="pricing-grid" id="pricing-grid"></div>
+    </section>
 
-// Tabs
-function switchTab(id, btn) {
-  document.querySelectorAll('.gallery').forEach(g => g.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('tab-' + id).classList.add('active');
-  btn.classList.add('active');
-}
+    <!-- CONTACT -->
+    <section class="contact" id="kontakt">
+      <div>
+        <span class="section-eyebrow rv" data-i18n="contact.eyebrow"
+          >Kontakt</span
+        >
+        <h2 class="section-title rv d1" data-i18n-html="contact.titleHtml">
+          Umów <em>sesję</em>
+        </h2>
+        <p class="contact-intro rv d2" data-i18n="contact.desc">
+          Masz pytania? Chcesz sprawdzić termin? Napisz do nas lub zadzwoń, a
+          wspólnie zaplanujemy Twoją sesję.
+        </p>
+        <div class="ci-list rv d2">
+          <div class="ci">
+            <span class="ci-label" data-i18n="contact.labelPhone">Telefon</span>
+            <a class="ci-val" id="contact-phone" href="#">+48 518 538 549</a>
+          </div>
+          <div class="ci">
+            <span class="ci-label" data-i18n="contact.labelEmail">E-mail</span>
+            <a class="ci-val" id="contact-email" href="#"
+              >ambientstudiofoto@gmail.com</a
+            >
+          </div>
+          <div class="ci">
+            <span class="ci-label" data-i18n="contact.labelArea"
+              >Obszar działania</span
+            >
+            <span class="ci-val" data-i18n="contact.area"
+              >Radom / Warszawa & cała Polska</span
+            >
+          </div>
+        </div>
+        <div class="soc rv d3" id="contact-social"></div>
+      </div>
+      <form class="rv d1" id="contact-form" novalidate>
+        <div class="form-row">
+          <div class="ff">
+            <label for="f-name" data-i18n="contact.form.name"
+              >Imię i nazwisko</label
+            >
+            <input
+              type="text"
+              id="f-name"
+              name="name"
+              data-i18n-placeholder="contact.form.namePlaceholder"
+              placeholder="Marta Kowalska"
+            />
+          </div>
+          <div class="ff">
+            <label for="f-email" data-i18n="contact.form.email">E-mail</label>
+            <input
+              type="email"
+              id="f-email"
+              name="email"
+              data-i18n-placeholder="contact.form.emailPlaceholder"
+              placeholder="marta@email.pl"
+            />
+          </div>
+          <div class="ff">
+            <label for="f-phone" data-i18n="contact.form.phone">Telefon</label>
+            <input
+              type="tel"
+              id="f-phone"
+              name="phone"
+              data-i18n-placeholder="contact.form.phonePlaceholder"
+              placeholder="+48 600 000 000"
+            />
+          </div>
+          <div class="ff">
+            <label for="f-date" data-i18n="contact.form.date">Data sesji</label>
+            <input type="date" id="f-date" name="date" />
+          </div>
+          <div class="ff full">
+            <label for="f-type" data-i18n="contact.form.type"
+              >Rodzaj sesji</label
+            >
+            <select id="f-type" name="type">
+              <option value="" data-i18n="contact.form.typePlaceholder">
+                — Wybierz —
+              </option>
+              <option data-i18n="contact.form.typeOptions.0">
+                Sesja plenerowa
+              </option>
+              <option data-i18n="contact.form.typeOptions.1">
+                Sesja studyjna
+              </option>
+              <option data-i18n="contact.form.typeOptions.2">
+                Fotografia ślubna
+              </option>
+              <option data-i18n="contact.form.typeOptions.3">
+                Chrzciny / komunia
+              </option>
+              <option data-i18n="contact.form.typeOptions.4">
+                Urodziny / jubileusz
+              </option>
+              <option data-i18n="contact.form.typeOptions.5">Inne</option>
+            </select>
+          </div>
+          <div class="ff full">
+            <label for="f-msg" data-i18n="contact.form.message"
+              >Wiadomość</label
+            >
+            <textarea
+              id="f-msg"
+              name="message"
+              data-i18n-placeholder="contact.form.messagePlaceholder"
+              placeholder="Opowiedz nam o swoich planach..."
+            ></textarea>
+          </div>
+        </div>
+        <button class="btn-solid" type="submit" data-i18n="contact.form.submit">
+          Wyślij zapytanie
+        </button>
+      </form>
+    </section>
 
-// Reveal
-document.querySelectorAll('.rv').forEach(el =>
-  new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
-  }, { threshold: 0.1 }).observe(el)
-);
-
-// Skill bars
-new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) e.target.querySelectorAll('.sk-fill').forEach(f => f.classList.add('go'));
-  });
-}, { threshold: 0.3 }).observe(document.querySelector('.skill-rows'));
-
-// Lightbox
-function openLb(el) {
-  document.getElementById('lb-img').src = el.querySelector('img').src;
-  document.getElementById('lb').classList.add('open');
-}
-function closeLb() { document.getElementById('lb').classList.remove('open'); }
-document.getElementById('lb').addEventListener('click', e => {
-  if (e.target === document.getElementById('lb')) closeLb();
-});
-
-// Form
-function submitForm() {
-  const name = document.getElementById('f-name').value.trim();
-  const email = document.getElementById('f-email').value.trim();
-  if (!name || !email) { alert('Podaj imię i adres e-mail.'); return; }
-  const t = document.getElementById('toast');
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 4000);
-  ['f-name','f-email','f-phone','f-date','f-type','f-msg'].forEach(id => {
-    const el = document.getElementById(id); if (el) el.value = '';
-  });
-}
-</script>
-</body>
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-brand">Ambient Studio Fotografia</div>
+      <p class="footer-copy" id="footer-copy">
+        © 2026 Ambient Studio. Wszelkie prawa zastrzeżone.
+      </p>
+      <div class="footer-links">
+        <a href="#oferta" data-i18n="footer.offer">Oferta</a>
+        <a href="#portfolio" data-i18n="footer.portfolio">Portfolio</a>
+        <a href="#kontakt" data-i18n="footer.contact">Kontakt</a>
+      </div>
+    </footer>
+  </body>
 </html>

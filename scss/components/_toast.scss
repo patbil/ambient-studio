@@ -1,0 +1,24 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/functions' as *;
+
+.toast {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: z('toast');
+  background: var(--bg2);
+  color: var(--text);
+  padding: 1rem 2rem;
+  font-size: 0.85rem;
+  border-left: 3px solid var(--accent);
+  box-shadow: var(--shadow2);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity $transition, transform $transition;
+  pointer-events: none;
+
+  &.show {
+    opacity: 1;
+    transform: none;
+  }
+}

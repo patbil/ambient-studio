@@ -1,0 +1,12 @@
+{
+  "email": "ambientstudiofoto@gmail.com",
+  "phone": {
+    "display": "+48 518 538 549",
+    "href": "+48518538549"
+  },
+  "social": [
+    { "name": "Instagram", "url": "#" },
+    { "name": "Facebook", "url": "#" },
+    { "name": "Pinterest", "url": "#" }
+  ]
+}

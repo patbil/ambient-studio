@@ -1,0 +1,93 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/functions' as *;
+@use '../abstracts/mixins' as *;
+
+.lb {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: z('lightbox');
+  background: var(--overlay);
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  backdrop-filter: blur(4px);
+
+  &.open {
+    display: flex;
+  }
+}
+
+.lb-stage {
+  position: relative;
+  max-width: 92vw;
+  max-height: 88vh;
+  @include flex-center;
+}
+
+.lb-img {
+  max-width: 88vw;
+  max-height: 88vh;
+  object-fit: contain;
+  box-shadow: var(--shadow2);
+}
+
+.lb-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3.4rem;
+  height: 3.4rem;
+  @include flex-center;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  color: var(--text);
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.3rem;
+  line-height: 1;
+  box-shadow: var(--shadow);
+  transition: background $transition-fast, color $transition-fast, border-color $transition-fast;
+
+  &:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+
+  &--prev {
+    left: -1.7rem;
+  }
+  &--next {
+    right: -1.7rem;
+  }
+
+  @include respond('md') {
+    width: 2.8rem;
+    height: 2.8rem;
+
+    &--prev {
+      left: 0.4rem;
+    }
+    &--next {
+      right: 0.4rem;
+    }
+  }
+}
+
+.lb-x {
+  position: absolute;
+  top: 1.8rem;
+  right: 2rem;
+  @include label(0.62rem, 0.2em);
+  background: none;
+  border: none;
+  color: var(--sub);
+  cursor: pointer;
+  font-family: $font-sans;
+  transition: color $transition-fast;
+
+  &:hover {
+    color: var(--text);
+  }
+}

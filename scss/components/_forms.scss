@@ -1,0 +1,64 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 1.5rem;
+
+  @include respond('md') {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ff {
+  position: relative;
+  margin-bottom: 1.8rem;
+
+  &.full {
+    grid-column: 1 / -1;
+
+    @include respond('md') {
+      grid-column: auto;
+    }
+  }
+
+  label {
+    display: block;
+    @include label(0.58rem, 0.2em);
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+  }
+
+  input,
+  select,
+  textarea {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-bottom: 2px solid var(--line);
+    padding: 0.8rem 1rem;
+    font-family: $font-sans;
+    font-size: 0.94rem;
+    font-weight: $fw-light;
+    color: var(--text);
+    outline: none;
+    transition: border-color $transition;
+    appearance: none;
+    -webkit-appearance: none;
+
+    &:focus {
+      border-bottom-color: var(--accent);
+    }
+  }
+
+  textarea {
+    resize: none;
+    height: 110px;
+  }
+
+  select option {
+    background: var(--bg);
+    color: var(--text);
+  }
+}

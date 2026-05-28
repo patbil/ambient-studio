@@ -1,0 +1,65 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+.contact {
+  background: var(--bg);
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 5rem;
+  align-items: start;
+
+  @include respond('lg') {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+}
+
+.contact-intro {
+  font-size: 0.94rem;
+  color: var(--sub);
+  line-height: 1.9;
+}
+
+.ci-list {
+  margin: 2.5rem 0;
+}
+
+.ci {
+  padding: 1.2rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.ci-label {
+  @include label(0.55rem, 0.28em);
+  color: var(--accent);
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+.ci-val {
+  font-family: $font-serif;
+  font-size: 1rem;
+  color: var(--text);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--accent);
+  }
+}
+
+.soc {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1.8rem;
+
+  a {
+    @include label(0.6rem, 0.2em);
+    color: var(--sub);
+    text-decoration: none;
+    transition: color $transition-fast;
+
+    &:hover {
+      color: var(--accent);
+    }
+  }
+}

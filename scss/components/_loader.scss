@@ -1,0 +1,62 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/functions' as *;
+@use '../abstracts/mixins' as *;
+
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: z('loader');
+  background: var(--bg);
+  @include flex-center(column);
+  gap: 1.8rem;
+  transition: opacity $transition-slow $ease, visibility $transition-slow;
+
+  &.done {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+.loader-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.loader-mark {
+  font-family: $font-serif;
+  font-size: clamp(1.6rem, 5vw, 2.1rem);
+  font-weight: $fw-regular;
+  letter-spacing: 0.06em;
+  color: var(--text);
+  opacity: 0;
+  transform: translateY(12px);
+  animation: fadeUp 0.7s 0.15s $ease forwards;
+}
+
+.loader-sub {
+  @include label(0.6rem, 0.34em);
+  color: var(--accent);
+  opacity: 0;
+  transform: translateY(12px);
+  animation: fadeUp 0.7s 0.35s $ease forwards;
+}
+
+.loader-bar {
+  width: 160px;
+  height: 1px;
+  background: var(--line);
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    animation: fillBar 1.5s 0.3s $ease forwards;
+  }
+}

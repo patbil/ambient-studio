@@ -1,0 +1,16 @@
+@use 'sass:map';
+@use 'variables' as *;
+
+@function z($layer) {
+  @if not map.has-key($z-index, $layer) {
+    @error 'Unknown z-index layer: `#{$layer}`.';
+  }
+  @return map.get($z-index, $layer);
+}
+
+@function bp($name) {
+  @if not map.has-key($breakpoints, $name) {
+    @error 'Unknown breakpoint: `#{$name}`.';
+  }
+  @return map.get($breakpoints, $name);
+}

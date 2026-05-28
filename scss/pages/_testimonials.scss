@@ -1,0 +1,56 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+.testimonials {
+  background: var(--bg3);
+  overflow: hidden;
+}
+
+.testi-scroll {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 3rem;
+  width: max-content;
+  animation: scrollLeft 45s linear infinite;
+
+  &:hover {
+    animation-play-state: paused;
+  }
+}
+
+.testi-card {
+  flex: 0 0 320px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  padding: 2rem 1.8rem;
+
+  @include respond('md') {
+    flex-basis: 270px;
+  }
+}
+
+.testi-stars {
+  color: var(--accent);
+  font-size: 0.8rem;
+  letter-spacing: 3px;
+  margin-bottom: 1rem;
+}
+
+.testi-text {
+  font-family: $font-serif;
+  font-size: 0.95rem;
+  font-style: italic;
+  color: var(--text2);
+  line-height: 1.75;
+  margin-bottom: 1.4rem;
+}
+
+.testi-author {
+  @include label(0.6rem, 0.16em);
+  color: var(--muted);
+
+  strong {
+    color: var(--accent);
+    font-weight: $fw-regular;
+  }
+}

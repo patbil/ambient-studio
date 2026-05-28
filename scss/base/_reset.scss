@@ -1,0 +1,64 @@
+@use '../abstracts/variables' as *;
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) var(--bg2);
+}
+
+// Styled scrollbar (WebKit/Blink) — themed so it adapts to light/dark.
+::-webkit-scrollbar {
+  width: 11px;
+  height: 11px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg2);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent2);
+  border: 3px solid var(--bg2);
+  border-radius: 999px;
+
+  &:hover {
+    background: var(--accent);
+  }
+}
+
+body {
+  font-family: $font-sans;
+  font-weight: $fw-light;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  transition: background $transition, color $transition;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button {
+  font-family: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,23 @@
+// Light is the default (:root). Dark applies when the document carries
+// [data-theme="dark"] — JS sets this from the stored choice or the system
+// preference. The media query is a CSS-only fallback before JS runs.
+
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+:root {
+  @include theme-vars($theme-light);
+  color-scheme: light;
+}
+
+[data-theme='dark'] {
+  @include theme-vars($theme-dark);
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    @include theme-vars($theme-dark);
+    color-scheme: dark;
+  }
+}

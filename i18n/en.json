@@ -1,0 +1,205 @@
+{
+  "meta": {
+    "title": "Ambient Studio Photography",
+    "description": "Outdoor, studio, wedding and event photography. Radom, Warsaw and all of Poland."
+  },
+  "nav": {
+    "offer": "Services",
+    "portfolio": "Portfolio",
+    "about": "About",
+    "pricing": "Packages",
+    "cta": "Book a session"
+  },
+  "controls": {
+    "themeToDark": "Switch to dark mode",
+    "themeToLight": "Switch to light mode",
+    "langSwitch": "Change language to Polish"
+  },
+  "hero": {
+    "eyebrow": "Photography · Radom, Warsaw, All of Poland",
+    "titleHtml": "Your moments,<br>our <em>art</em>",
+    "desc": "Outdoor, studio, weddings, christenings, communions - we tell every story with passion and care for every detail. Natural, timeless frames full of genuine emotion.",
+    "ctaPrimary": "View portfolio",
+    "ctaSecondary": "Book a session",
+    "tagTop": "Latest",
+    "tagBottom": "Outdoor session 2025",
+    "stats": [
+      { "value": "100+", "label": "Clients" },
+      { "value": "7+", "label": "Years of experience" }
+    ]
+  },
+  "offer": {
+    "eyebrow": "Services",
+    "titleHtml": "What we <em>photograph</em>",
+    "desc": "We treat every project individually - we adapt our style and approach to your needs and expectations.",
+    "link": "View photos",
+    "items": {
+      "plener": {
+        "name": "Outdoor sessions",
+        "text": "Natural light, beautiful locations, authentic emotions. Couples, families, individual sessions - every session is a unique adventure."
+      },
+      "studio": {
+        "name": "Studio photography",
+        "text": "Controlled light, professional backdrops, unlimited possibilities. Portraits, fashion, business headshots."
+      },
+      "slub": {
+        "name": "Wedding photography",
+        "text": "Your special day - from the preparations, through the ceremony, all the way to the celebrations. Discreet and heartfelt."
+      },
+      "okolicznosciowe": {
+        "name": "Special occasions",
+        "text": "Christenings, communions, birthdays, anniversaries - every celebration deserves beautiful photographic documentation."
+      }
+    }
+  },
+  "portfolio": {
+    "eyebrow": "Portfolio",
+    "titleHtml": "Selected <em>work</em>",
+    "cta": "Book a date",
+    "categories": {
+      "plener": "Outdoor",
+      "studio": "Studio",
+      "slub": "Wedding",
+      "okolicznosciowe": "Events"
+    }
+  },
+  "about": {
+    "eyebrow": "About",
+    "titleHtml": "I'm <em>Justyna</em>",
+    "paragraph1Html": "A photographer with passion and over <strong>7 years of experience</strong>. I started with reportage, moved to the studio, and fell in love with outdoor shoots and weddings. Today I bring all of these worlds together into one cohesive offer.",
+    "paragraph2": "I believe every person is beautiful - the photographer's job is to see it and capture it. I work so that you feel comfortable and natural in front of the lens.",
+    "cta": "Let's talk"
+  },
+  "testimonials": {
+    "eyebrow": "Reviews",
+    "titleHtml": "What <em>clients</em> say",
+    "items": [
+      {
+        "text": "Justyna is an incredible photographer. I felt at ease, and the photos are stunning. I recommend her wholeheartedly!",
+        "author": "Karolina M.",
+        "meta": "outdoor session"
+      },
+      {
+        "text": "The wedding photos exceeded our expectations. Every shot is an emotion. Justyna works with real passion.",
+        "author": "Ania & Marek",
+        "meta": "wedding photography"
+      },
+      {
+        "text": "My daughter's communion was captured wonderfully. Natural photos, full of emotion and warmth. Thank you so much!",
+        "author": "The Kowalski Family",
+        "meta": "communion"
+      },
+      {
+        "text": "The studio session surpassed my expectations. Justyna brings out the most beautiful side of a person.",
+        "author": "Piotr W.",
+        "meta": "portrait session"
+      },
+      {
+        "text": "Our mum's birthday captured forever. Justyna works discreetly and with great sensitivity.",
+        "author": "The Nowak Family",
+        "meta": "anniversary"
+      }
+    ]
+  },
+  "pricing": {
+    "eyebrow": "Packages",
+    "titleHtml": "Our <em>offers</em>",
+    "intro": "If you're interested in an offer, fill out the contact form and we'll send you the details. We price every session individually - tailoring the scope to your needs.",
+    "cta": "Ask for an offer",
+    "packages": {
+      "plener": {
+        "badge": "- Outdoor -",
+        "category": "Session",
+        "name": "Outdoor",
+        "features": [
+          "Individual shooting time",
+          "Choose your own photos",
+          "Professional retouching",
+          "Online gallery",
+          "Location of your choice"
+        ]
+      },
+      "studio": {
+        "badge": "- Studio -",
+        "category": "Session",
+        "name": "Studio",
+        "features": [
+          "Individual studio time",
+          "Choose your own photos",
+          "Professional retouching",
+          "Online gallery",
+          "Styling assistance"
+        ]
+      },
+      "slub": {
+        "badge": "✦ Most popular",
+        "category": "Photography",
+        "name": "Wedding",
+        "features": [
+          "Full-day coverage",
+          "Choose your own photos",
+          "Professional retouching",
+          "Engagement session",
+          "Online gallery",
+          "Album optional"
+        ]
+      },
+      "okolicznosciowe": {
+        "badge": "- Events -",
+        "category": "Events",
+        "name": "Special occasions",
+        "features": [
+          "Full documentation",
+          "Choose your own photos",
+          "Professional retouching",
+          "Online gallery",
+          "Reportage + portraits"
+        ]
+      }
+    }
+  },
+  "contact": {
+    "eyebrow": "Contact",
+    "titleHtml": "Book a <em>session</em>",
+    "desc": "Have questions? Want to check a date? Write to us or call, and together we'll plan your session.",
+    "labelPhone": "Phone",
+    "labelEmail": "E-mail",
+    "labelArea": "Service area",
+    "area": "Radom / Warsaw & all of Poland",
+    "form": {
+      "name": "Full name",
+      "namePlaceholder": "Marta Kowalska",
+      "email": "E-mail",
+      "emailPlaceholder": "marta@email.pl",
+      "phone": "Phone",
+      "phonePlaceholder": "+48 600 000 000",
+      "date": "Session date",
+      "type": "Session type",
+      "typePlaceholder": "— Select —",
+      "typeOptions": [
+        "Outdoor session",
+        "Studio session",
+        "Wedding photography",
+        "Christening / communion",
+        "Birthday / anniversary",
+        "Other"
+      ],
+      "message": "Message",
+      "messagePlaceholder": "Tell us about your plans...",
+      "submit": "Send inquiry",
+      "validation": "Please provide your name and e-mail.",
+      "toast": "Message sent - we'll be in touch soon ✦"
+    }
+  },
+  "footer": {
+    "rights": "© {year} Ambient Studio. All rights reserved.",
+    "offer": "Services",
+    "portfolio": "Portfolio",
+    "contact": "Contact"
+  },
+  "lightbox": {
+    "close": "Close",
+    "prev": "Previous photo",
+    "next": "Next photo"
+  }
+}

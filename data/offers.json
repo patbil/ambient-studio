@@ -1,0 +1,22 @@
+[
+  {
+    "id": "plener",
+    "num": "01",
+    "image": "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=600&q=80"
+  },
+  {
+    "id": "studio",
+    "num": "02",
+    "image": "https://images.unsplash.com/photo-1612178537253-bccd437b730e?w=600&q=80"
+  },
+  {
+    "id": "slub",
+    "num": "03",
+    "image": "https://images.unsplash.com/photo-1519741347686-c1e0aadf4611?w=600&q=80"
+  },
+  {
+    "id": "okolicznosciowe",
+    "num": "04",
+    "image": "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=600&q=80"
+  }
+]

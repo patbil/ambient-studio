@@ -1,0 +1,78 @@
+$font-serif: 'Playfair Display', Georgia, serif;
+$font-sans:  'DM Sans', system-ui, sans-serif;
+
+$fw-light:   300;
+$fw-regular: 400;
+$fw-medium:  500;
+$fw-bold:    700;
+
+$gutter:          5%;
+$section-spacing: 6rem;
+
+$ease:            cubic-bezier(0.4, 0, 0.2, 1);
+$transition-fast: 0.25s;
+$transition:      0.35s;
+$transition-slow: 0.6s;
+
+$breakpoints: (
+  'xl': 1200px,
+  'lg': 960px,
+  'md': 640px,
+  'sm': 420px,
+);
+
+$z-index: (
+  'mobile-menu': 400,
+  'nav':         500,
+  'controls':    600,
+  'toast':       900,
+  'lightbox':    1000,
+  'loader':      2000,
+);
+
+// Both palettes must share the same keys so the UI can swap them at runtime.
+$theme-light: (
+  'bg':          #ffffff,
+  'bg2':         #f8f7f4,
+  'bg3':         #f0ede8,
+  'line':        #e4e0d8,
+  'line2':       #c8c2b8,
+  'muted':       #c8c2b8,
+  'sub':         #8a847a,
+  'text':        #2a2520,
+  'text2':       #3e3830,
+  'accent':      #b8860b,
+  'accent2':     #9a6f08,
+  'acc-bg':      #f5edd4,
+  'nav':         rgba(255, 255, 255, 0.96),
+  'nav-blur':    rgba(255, 255, 255, 0.6),
+  'overlay':     rgba(255, 255, 255, 0.97),
+  'footer-bg':   #2a2520,
+  'footer-text': #f8f7f4,
+  'footer-sub':  #8a847a,
+  'shadow':      0 4px 32px rgba(0, 0, 0, 0.06),
+  'shadow2':     0 8px 48px rgba(0, 0, 0, 0.1),
+);
+
+$theme-dark: (
+  'bg':          #131110,
+  'bg2':         #1b1916,
+  'bg3':         #242018,
+  'line':        #2e2924,
+  'line2':       #3c3630,
+  'muted':       #6a6058,
+  'sub':         #9a9088,
+  'text':        #ede8e2,
+  'text2':       #cfc8c0,
+  'accent':      #c9a354,
+  'accent2':     #b8860b,
+  'acc-bg':      #221a0a,
+  'nav':         rgba(19, 17, 16, 0.96),
+  'nav-blur':    rgba(19, 17, 16, 0.6),
+  'overlay':     rgba(19, 17, 16, 0.97),
+  'footer-bg':   #0d0c0b,
+  'footer-text': #ede8e2,
+  'footer-sub':  #6a6058,
+  'shadow':      0 4px 32px rgba(0, 0, 0, 0.35),
+  'shadow2':     0 8px 48px rgba(0, 0, 0, 0.55),
+);

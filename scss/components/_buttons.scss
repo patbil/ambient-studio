@@ -1,0 +1,40 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+%btn-base {
+  @include label(0.65rem, 0.2em);
+  padding: 0.9rem 2.4rem;
+  font-family: $font-sans;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: background $transition, color $transition, border-color $transition;
+}
+
+.btn-solid {
+  @extend %btn-base;
+  background: var(--text);
+  color: var(--bg);
+  font-weight: $fw-medium;
+  border-color: var(--text);
+
+  &:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+}
+
+.btn-ghost {
+  @extend %btn-base;
+  background: transparent;
+  color: var(--text);
+  font-weight: $fw-regular;
+  border-color: var(--line);
+
+  &:hover {
+    border-color: var(--text);
+  }
+}

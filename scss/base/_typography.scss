@@ -1,0 +1,23 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+.section-eyebrow {
+  @include label(0.58rem, 0.35em);
+  color: var(--accent);
+  display: block;
+  margin-bottom: 0.9rem;
+}
+
+.section-title {
+  font-family: $font-serif;
+  font-size: clamp(1.9rem, 3vw, 3rem);
+  font-weight: $fw-regular;
+  line-height: 1.18;
+  color: var(--text);
+  margin-bottom: 1.2rem;
+
+  em {
+    font-style: italic;
+    color: var(--accent);
+  }
+}

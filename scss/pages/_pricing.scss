@@ -1,0 +1,118 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+.pricing {
+  background: var(--bg2);
+}
+
+.pricing-intro {
+  font-size: 0.94rem;
+  color: var(--sub);
+  line-height: 1.85;
+  max-width: 520px;
+  margin-bottom: 3rem;
+}
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+
+  @include respond('xl') {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @include respond('md') {
+    grid-template-columns: 1fr;
+  }
+}
+
+.prc {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--line);
+  padding: 2.2rem 1.8rem;
+  background: var(--bg);
+  transition: box-shadow $transition;
+
+  &:hover {
+    box-shadow: var(--shadow2);
+  }
+
+  &.featured {
+    border-color: var(--accent);
+  }
+}
+
+.prc-badge {
+  @include label(0.54rem, 0.24em);
+  color: var(--accent);
+  display: block;
+  margin-bottom: 0.8rem;
+}
+
+.prc-cat {
+  @include label(0.56rem, 0.2em);
+  color: var(--muted);
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+.prc-name {
+  font-family: $font-serif;
+  font-size: 1.4rem;
+  color: var(--text);
+  margin-bottom: 1.5rem;
+}
+
+.prc-list {
+  list-style: none;
+  margin-bottom: 2rem;
+  flex: 1;
+
+  li {
+    font-size: 0.86rem;
+    color: var(--sub);
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    gap: 0.6rem;
+
+    &::before {
+      content: '-';
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+  }
+}
+
+.prc-cta {
+  @include label(0.6rem, 0.18em);
+  display: block;
+  width: 100%;
+  padding: 0.85rem;
+  text-align: center;
+  font-family: $font-sans;
+  border: 1px solid var(--line);
+  color: var(--sub);
+  background: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background $transition, color $transition, border-color $transition;
+
+  &:hover {
+    border-color: var(--text);
+    color: var(--text);
+  }
+
+  &.f {
+    background: var(--text);
+    color: var(--bg);
+    border-color: var(--text);
+
+    &:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+  }
+}

@@ -1,0 +1,205 @@
+{
+  "meta": {
+    "title": "Ambient Studio Fotografia",
+    "description": "Fotografia plenerowa, studyjna, ślubna i okolicznościowa. Radom, Warszawa i cała Polska."
+  },
+  "nav": {
+    "offer": "Oferta",
+    "portfolio": "Portfolio",
+    "about": "O mnie",
+    "pricing": "Pakiety",
+    "cta": "Zarezerwuj sesję"
+  },
+  "controls": {
+    "themeToDark": "Włącz tryb ciemny",
+    "themeToLight": "Włącz tryb jasny",
+    "langSwitch": "Zmień język na angielski"
+  },
+  "hero": {
+    "eyebrow": "Fotografia · Radom, Warszawa, Cała Polska",
+    "titleHtml": "Twoje chwile,<br>nasza <em>sztuka</em>",
+    "desc": "Plenery, studio, śluby, chrzciny, komunie - każdą historię opowiadamy z pasją i troską o każdy detal. Naturalne, ponadczasowe kadry pełne prawdziwych emocji.",
+    "ctaPrimary": "Zobacz portfolio",
+    "ctaSecondary": "Umów sesję",
+    "tagTop": "Najnowsze",
+    "tagBottom": "Sesja plenerowa 2025",
+    "stats": [
+      { "value": "100+", "label": "Klientów" },
+      { "value": "7+", "label": "Lat doświadczenia" }
+    ]
+  },
+  "offer": {
+    "eyebrow": "Oferta",
+    "titleHtml": "Co <em>fotografujemy</em>",
+    "desc": "Każdy projekt traktujemy indywidualnie - dopasowujemy styl i podejście do Twoich potrzeb i oczekiwań.",
+    "link": "Zobacz zdjęcia",
+    "items": {
+      "plener": {
+        "name": "Sesje plenerowe",
+        "text": "Naturalne światło, piękne lokalizacje, autentyczne emocje. Pary, rodziny, sesje indywidualne - każda sesja to wyjątkowa przygoda."
+      },
+      "studio": {
+        "name": "Studio fotograficzne",
+        "text": "Kontrolowane światło, profesjonalne tła, nieograniczone możliwości. Portrety, moda, headshoty biznesowe."
+      },
+      "slub": {
+        "name": "Fotografia ślubna",
+        "text": "Wasz wyjątkowy dzień - od przygotowań, przez ceremonię, aż po oczepiny. Dyskretnie i z sercem."
+      },
+      "okolicznosciowe": {
+        "name": "Imprezy okolicznościowe",
+        "text": "Chrzciny, komunie, urodziny, jubileusze - każde świętowanie zasługuje na piękną dokumentację fotograficzną."
+      }
+    }
+  },
+  "portfolio": {
+    "eyebrow": "Portfolio",
+    "titleHtml": "Wybrane <em>realizacje</em>",
+    "cta": "Zarezerwuj termin",
+    "categories": {
+      "plener": "Plener",
+      "studio": "Studio",
+      "slub": "Ślubna",
+      "okolicznosciowe": "Okolicznościowe"
+    }
+  },
+  "about": {
+    "eyebrow": "O mnie",
+    "titleHtml": "Jestem <em>Justyna</em>",
+    "paragraph1Html": "Fotografką z pasją i ponad <strong>7-letnim doświadczeniem</strong>. Zaczęłam od reportażu, trafiłam do studia, zakochałam się w plenerach i weselach. Dziś łączę wszystkie te światy w jedną spójną ofertę.",
+    "paragraph2": "Wierzę, że każdy człowiek jest piękny - zadaniem fotografa jest to dostrzec i uwiecznić. Pracuję tak, abyś czuł się komfortowo i naturalnie przed obiektywem.",
+    "cta": "Porozmawiajmy"
+  },
+  "testimonials": {
+    "eyebrow": "Opinie",
+    "titleHtml": "Co mówią <em>klienci</em>",
+    "items": [
+      {
+        "text": "Justyna to niesamowita fotografka. Czułam się swobodnie, a zdjęcia są przepiękne. Polecam z całego serca!",
+        "author": "Karolina M.",
+        "meta": "sesja plenerowa"
+      },
+      {
+        "text": "Zdjęcia ślubne przekroczyły nasze oczekiwania. Każde ujęcie to emocja. Justyna pracuje z prawdziwą pasją.",
+        "author": "Ania & Marek",
+        "meta": "fotografia ślubna"
+      },
+      {
+        "text": "Komunia mojej córki uwieczniona cudownie. Zdjęcia naturalne, pełne emocji i ciepła. Bardzo dziękujemy!",
+        "author": "Rodzina Kowalskich",
+        "meta": "komunia"
+      },
+      {
+        "text": "Sesja w studio przeszła moje oczekiwania. Justyna wydobywa z człowieka to, co w nim najpiękniejsze.",
+        "author": "Piotr W.",
+        "meta": "sesja portretowa"
+      },
+      {
+        "text": "Urodziny naszej mamy uwiecznione na zawsze. Justyna pracuje dyskretnie i z wielką wrażliwością.",
+        "author": "Rodzina Nowaków",
+        "meta": "jubileusz"
+      }
+    ]
+  },
+  "pricing": {
+    "eyebrow": "Pakiety",
+    "titleHtml": "Nasze <em>oferty</em>",
+    "intro": "Jeżeli jesteś zainteresowany ofertą, wypełnij formularz kontaktowy, a prześlemy szczegóły. Każdą sesję wyceniamy indywidualnie - dopasowujemy zakres do Twoich potrzeb.",
+    "cta": "Zapytaj o ofertę",
+    "packages": {
+      "plener": {
+        "badge": "- Plener -",
+        "category": "Sesja",
+        "name": "Plenerowa",
+        "features": [
+          "Indywidualny czas fotografowania",
+          "Samodzielny wybór zdjęć",
+          "Profesjonalna obróbka",
+          "Galeria online",
+          "Wybrana lokalizacja"
+        ]
+      },
+      "studio": {
+        "badge": "- Studio -",
+        "category": "Sesja",
+        "name": "Studyjna",
+        "features": [
+          "Indywidualny czas w studio",
+          "Samodzielny wybór zdjęć",
+          "Profesjonalna obróbka",
+          "Galeria online",
+          "Opieka stylistyczna"
+        ]
+      },
+      "slub": {
+        "badge": "✦ Najczęściej wybierany",
+        "category": "Fotografia",
+        "name": "Ślubna",
+        "features": [
+          "Reportaż całego dnia",
+          "Samodzielny wybór zdjęć",
+          "Profesjonalna obróbka",
+          "Sesja narzeczeńska",
+          "Galeria online",
+          "Album opcjonalnie"
+        ]
+      },
+      "okolicznosciowe": {
+        "badge": "- Okolicznościowe -",
+        "category": "Imprezy",
+        "name": "Okolicznościowe",
+        "features": [
+          "Pełna dokumentacja",
+          "Samodzielny wybór zdjęć",
+          "Profesjonalna obróbka",
+          "Galeria online",
+          "Reportaż + portrety"
+        ]
+      }
+    }
+  },
+  "contact": {
+    "eyebrow": "Kontakt",
+    "titleHtml": "Umów <em>sesję</em>",
+    "desc": "Masz pytania? Chcesz sprawdzić termin? Napisz do nas lub zadzwoń, a wspólnie zaplanujemy Twoją sesję.",
+    "labelPhone": "Telefon",
+    "labelEmail": "E-mail",
+    "labelArea": "Obszar działania",
+    "area": "Radom / Warszawa & cała Polska",
+    "form": {
+      "name": "Imię i nazwisko",
+      "namePlaceholder": "Marta Kowalska",
+      "email": "E-mail",
+      "emailPlaceholder": "marta@email.pl",
+      "phone": "Telefon",
+      "phonePlaceholder": "+48 600 000 000",
+      "date": "Data sesji",
+      "type": "Rodzaj sesji",
+      "typePlaceholder": "— Wybierz —",
+      "typeOptions": [
+        "Sesja plenerowa",
+        "Sesja studyjna",
+        "Fotografia ślubna",
+        "Chrzciny / komunia",
+        "Urodziny / jubileusz",
+        "Inne"
+      ],
+      "message": "Wiadomość",
+      "messagePlaceholder": "Opowiedz nam o swoich planach...",
+      "submit": "Wyślij zapytanie",
+      "validation": "Podaj imię i adres e-mail.",
+      "toast": "Wiadomość wysłana - odezwiemy się wkrótce ✦"
+    }
+  },
+  "footer": {
+    "rights": "© {year} Ambient Studio. Wszelkie prawa zastrzeżone.",
+    "offer": "Oferta",
+    "portfolio": "Portfolio",
+    "contact": "Kontakt"
+  },
+  "lightbox": {
+    "close": "Zamknij",
+    "prev": "Poprzednie zdjęcie",
+    "next": "Następne zdjęcie"
+  }
+}
