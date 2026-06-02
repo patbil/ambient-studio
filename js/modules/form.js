@@ -20,7 +20,6 @@ export function initForm() {
 
   form.addEventListener('submit', (event) => {
     event.preventDefault();
-
     const invalid = selectAll('[required]', form).filter((field) => !field.value.trim());
     if (invalid.length) {
       invalid.forEach((field) => field.setAttribute('aria-invalid', 'true'));
