@@ -1,4 +1,4 @@
-import { select } from '../utils/dom.js';
+import { select, selectAll } from '../utils/dom.js';
 import { translate } from './i18n.js';
 
 function showToast(message) {
@@ -13,13 +13,18 @@ export function initForm() {
   const form = select('#contact-form');
   if (!form) return;
 
+  // Clear the invalid state as soon as the user starts editing again.
+  selectAll('[required]', form).forEach((field) => {
+    field.addEventListener('input', () => field.removeAttribute('aria-invalid'));
+  });
+
   form.addEventListener('submit', (event) => {
     event.preventDefault();
-    const fields = new FormData(form);
-    const name = String(fields.get('name') || '').trim();
-    const email = String(fields.get('email') || '').trim();
 
-    if (!name || !email) {
+    const invalid = selectAll('[required]', form).filter((field) => !field.value.trim());
+    if (invalid.length) {
+      invalid.forEach((field) => field.setAttribute('aria-invalid', 'true'));
+      invalid[0].focus();
       showToast(translate('contact.form.validation'));
       return;
     }

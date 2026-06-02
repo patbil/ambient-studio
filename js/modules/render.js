@@ -59,10 +59,13 @@ function renderPortfolio() {
   const activeId = select('.gallery.active', galleries)?.dataset.gallery || categories[0]?.id;
 
   tabs.innerHTML = categories
-    .map((category) => `
-      <button class="tab-btn${category.id === activeId ? ' active' : ''}" type="button" data-tab="${escapeHtml(category.id)}">
-        ${escapeHtml(translate(`portfolio.categories.${category.id}`))}
-      </button>`)
+    .map((category) => {
+      const isActive = category.id === activeId;
+      return `
+        <button class="tab-btn${isActive ? ' active' : ''}" type="button" data-tab="${escapeHtml(category.id)}"${isActive ? ' aria-current="true"' : ''}>
+          ${escapeHtml(translate(`portfolio.categories.${category.id}`))}
+        </button>`;
+    })
     .join('');
 
   galleries.innerHTML = categories
@@ -70,12 +73,12 @@ function renderPortfolio() {
       const label = escapeHtml(translate(`portfolio.categories.${category.id}`));
       const photos = (category.items || [])
         .map((photo, photoIndex) => `
-          <figure class="gi" data-index="${photoIndex}">
+          <figure class="gi" data-index="${photoIndex}" tabindex="0" role="button" aria-label="${label} — ${photoIndex + 1}">
             <img src="${escapeHtml(resolveImage(photo.image))}" alt="${label}" loading="lazy">
-            <figcaption class="gi-lbl">${label}</figcaption>
+            <figcaption class="gi-lbl" aria-hidden="true">${label}</figcaption>
           </figure>`)
         .join('');
-      return `<div class="gallery${category.id === activeId ? ' active' : ''}" data-gallery="${escapeHtml(category.id)}">${photos}</div>`;
+      return `<div class="gallery${category.id === activeId ? ' active' : ''}" data-gallery="${escapeHtml(category.id)}" role="region" aria-label="${label}">${photos}</div>`;
     })
     .join('');
 }

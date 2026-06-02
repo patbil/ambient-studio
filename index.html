@@ -8,7 +8,64 @@
       name="description"
       content="Fotografia plenerowa, studyjna, ślubna i okolicznościowa. Radom, Warszawa i cała Polska."
     />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#131110" media="(prefers-color-scheme: dark)" />
+    <link rel="canonical" href="https://ambient-studio.pl/" />
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Ambient Studio" />
+    <meta property="og:url" content="https://ambient-studio.pl/" />
+    <meta property="og:title" content="Ambient Studio Fotografia" />
+    <meta
+      property="og:description"
+      content="Fotografia plenerowa, studyjna, ślubna i okolicznościowa. Radom, Warszawa i cała Polska."
+    />
+    <meta
+      property="og:image"
+      content="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=1200&h=630&fit=crop&q=85"
+    />
+    <meta property="og:locale" content="pl_PL" />
+    <meta property="og:locale:alternate" content="en_US" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Ambient Studio Fotografia" />
+    <meta
+      name="twitter:description"
+      content="Fotografia plenerowa, studyjna, ślubna i okolicznościowa. Radom, Warszawa i cała Polska."
+    />
+    <meta
+      name="twitter:image"
+      content="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=1200&h=630&fit=crop&q=85"
+    />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ProfessionalService",
+        "@id": "https://ambient-studio.pl/#business",
+        "name": "Ambient Studio",
+        "alternateName": "Ambient Studio Fotografia",
+        "description": "Fotografia plenerowa, studyjna, ślubna i okolicznościowa. Radom, Warszawa i cała Polska.",
+        "url": "https://ambient-studio.pl/",
+        "image": "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=1200&q=85",
+        "telephone": "+48 518 538 549",
+        "email": "ambientstudiofoto@gmail.com",
+        "priceRange": "$$",
+        "areaServed": ["Radom", "Warszawa", "Polska"],
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Radom",
+          "addressCountry": "PL"
+        },
+        "founder": {
+          "@type": "Person",
+          "name": "Justyna Wachnicka",
+          "jobTitle": "Fotograf"
+        },
+        "knowsLanguage": ["pl", "en"]
+      }
+    </script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -20,6 +77,8 @@
     <script type="module" src="js/index.js"></script>
   </head>
   <body>
+    <a class="skip-link" href="#main" data-i18n="a11y.skipLink">Przejdź do treści</a>
+
     <!-- LOADER -->
     <div class="loader" id="loader">
       <div class="loader-logo">
@@ -30,7 +89,15 @@
     </div>
 
     <!-- LIGHTBOX -->
-    <div class="lb" id="lb" aria-hidden="true" role="dialog" aria-modal="true">
+    <div
+      class="lb"
+      id="lb"
+      aria-hidden="true"
+      role="dialog"
+      aria-modal="true"
+      data-i18n-aria="a11y.galleryDialog"
+      aria-label="Galeria zdjęć"
+    >
       <button class="lb-x" type="button" data-lb="close">
         <span data-i18n="lightbox.close">Zamknij</span> ✕
       </button>
@@ -61,16 +128,25 @@
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
     <!-- MOBILE MENU -->
-    <div class="mobile-menu" id="mobileMenu">
+    <nav
+      class="mobile-menu"
+      id="mobileMenu"
+      data-i18n-aria="nav.mobileMenuLabel"
+      aria-label="Menu mobilne"
+    >
       <a href="#oferta" data-i18n="nav.offer">Oferta</a>
       <a href="#portfolio" data-i18n="nav.portfolio">Portfolio</a>
       <a href="#o-mnie" data-i18n="nav.about">O mnie</a>
       <a href="#cennik" data-i18n="nav.pricing">Pakiety</a>
       <a href="#kontakt" class="m-cta" data-i18n="nav.cta">Zarezerwuj sesję</a>
-    </div>
+    </nav>
 
     <!-- NAV -->
-    <nav id="nav">
+    <nav
+      id="nav"
+      data-i18n-aria="nav.mainMenuLabel"
+      aria-label="Główne menu"
+    >
       <a href="#home" class="nav-logo">
         <span class="nav-logo-main">Ambient Studio</span>
         <span class="nav-logo-sub">Fotografia</span>
@@ -131,19 +207,21 @@
           type="button"
           aria-label="Menu"
           aria-expanded="false"
+          aria-controls="mobileMenu"
         >
           <span></span><span></span><span></span>
         </button>
       </div>
     </nav>
 
-    <!-- HERO -->
-    <section class="hero" id="home">
-      <div class="hero-content">
-        <p class="hero-eyebrow" data-i18n="hero.eyebrow">
-          Fotografia · Radom, Warszawa, Cała Polska
-        </p>
-        <h1 class="hero-title" data-i18n-html="hero.titleHtml">
+    <main id="main">
+      <!-- HERO -->
+      <section class="hero" id="home" aria-labelledby="hero-title">
+        <div class="hero-content">
+          <p class="hero-eyebrow" data-i18n="hero.eyebrow">
+            Fotografia · Radom, Warszawa, Cała Polska
+          </p>
+          <h1 class="hero-title" id="hero-title" data-i18n-html="hero.titleHtml">
           Twoje chwile,<br />nasza <em>sztuka</em>
         </h1>
         <p class="hero-desc" data-i18n="hero.desc">
@@ -190,11 +268,11 @@
     </section>
 
     <!-- OFFER -->
-    <section class="offer" id="oferta">
+    <section class="offer" id="oferta" aria-labelledby="offer-title">
       <div class="offer-header rv">
         <div>
           <span class="section-eyebrow" data-i18n="offer.eyebrow">Oferta</span>
-          <h2 class="section-title" data-i18n-html="offer.titleHtml">
+          <h2 class="section-title" id="offer-title" data-i18n-html="offer.titleHtml">
             Co <em>fotografujemy</em>
           </h2>
         </div>
@@ -207,37 +285,32 @@
     </section>
 
     <!-- PORTFOLIO -->
-    <section class="portfolio" id="portfolio">
+    <section class="portfolio" id="portfolio" aria-labelledby="portfolio-title">
       <div class="portfolio-header rv">
-        <div>
-          <span class="section-eyebrow" data-i18n="portfolio.eyebrow"
-            >Portfolio</span
-          >
-          <h2 class="section-title" data-i18n-html="portfolio.titleHtml">
-            Wybrane <em>realizacje</em>
-          </h2>
-        </div>
-        <a href="#kontakt" class="btn-solid" data-i18n="portfolio.cta"
-          >Zarezerwuj termin</a
+        <span class="section-eyebrow" data-i18n="portfolio.eyebrow"
+          >Portfolio</span
         >
+        <h2 class="section-title" id="portfolio-title" data-i18n-html="portfolio.titleHtml">
+          Wybrane <em>realizacje</em>
+        </h2>
       </div>
       <div class="portfolio-tabs" id="portfolio-tabs"></div>
       <div id="portfolio-galleries"></div>
     </section>
 
     <!-- ABOUT -->
-    <section class="about" id="o-mnie">
+    <section class="about" id="o-mnie" aria-labelledby="about-title">
       <div class="about-img rv">
         <img
           id="about-img"
           src="https://images.unsplash.com/photo-1554080353-a576cf803bda?w=900&q=80"
-          alt="Justyna Wachnicka"
+          alt="Justyna Wachnicka — fotografka Ambient Studio"
         />
-        <div class="about-deco"></div>
+        <div class="about-deco" aria-hidden="true"></div>
       </div>
       <div>
         <span class="section-eyebrow rv" data-i18n="about.eyebrow">O mnie</span>
-        <h2 class="section-title rv d1" data-i18n-html="about.titleHtml">
+        <h2 class="section-title rv d1" id="about-title" data-i18n-html="about.titleHtml">
           Jestem <em>Justyna</em>
         </h2>
         <p class="about-p rv d2" data-i18n-html="about.paragraph1Html">
@@ -257,12 +330,16 @@
     </section>
 
     <!-- TESTIMONIALS -->
-    <section class="testimonials">
+    <section class="testimonials" aria-labelledby="testimonials-title">
       <div class="rv">
         <span class="section-eyebrow" data-i18n="testimonials.eyebrow"
           >Opinie</span
         >
-        <h2 class="section-title" data-i18n-html="testimonials.titleHtml">
+        <h2
+          class="section-title"
+          id="testimonials-title"
+          data-i18n-html="testimonials.titleHtml"
+        >
           Co mówią <em>klienci</em>
         </h2>
       </div>
@@ -270,11 +347,15 @@
     </section>
 
     <!-- PRICING / PACKAGES -->
-    <section class="pricing" id="cennik">
+    <section class="pricing" id="cennik" aria-labelledby="pricing-title">
       <span class="section-eyebrow rv" data-i18n="pricing.eyebrow"
         >Pakiety</span
       >
-      <h2 class="section-title rv d1" data-i18n-html="pricing.titleHtml">
+      <h2
+        class="section-title rv d1"
+        id="pricing-title"
+        data-i18n-html="pricing.titleHtml"
+      >
         Nasze <em>oferty</em>
       </h2>
       <p class="pricing-intro rv d2" data-i18n="pricing.intro">
@@ -286,12 +367,16 @@
     </section>
 
     <!-- CONTACT -->
-    <section class="contact" id="kontakt">
+    <section class="contact" id="kontakt" aria-labelledby="contact-title">
       <div>
         <span class="section-eyebrow rv" data-i18n="contact.eyebrow"
           >Kontakt</span
         >
-        <h2 class="section-title rv d1" data-i18n-html="contact.titleHtml">
+        <h2
+          class="section-title rv d1"
+          id="contact-title"
+          data-i18n-html="contact.titleHtml"
+        >
           Umów <em>sesję</em>
         </h2>
         <p class="contact-intro rv d2" data-i18n="contact.desc">
@@ -330,6 +415,9 @@
               type="text"
               id="f-name"
               name="name"
+              autocomplete="name"
+              required
+              aria-required="true"
               data-i18n-placeholder="contact.form.namePlaceholder"
               placeholder="Marta Kowalska"
             />
@@ -340,6 +428,9 @@
               type="email"
               id="f-email"
               name="email"
+              autocomplete="email"
+              required
+              aria-required="true"
               data-i18n-placeholder="contact.form.emailPlaceholder"
               placeholder="marta@email.pl"
             />
@@ -350,6 +441,7 @@
               type="tel"
               id="f-phone"
               name="phone"
+              autocomplete="tel"
               data-i18n-placeholder="contact.form.phonePlaceholder"
               placeholder="+48 600 000 000"
             />
@@ -401,6 +493,7 @@
         </button>
       </form>
     </section>
+    </main>
 
     <!-- FOOTER -->
     <footer>

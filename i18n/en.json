@@ -8,7 +8,13 @@
     "portfolio": "Portfolio",
     "about": "About",
     "pricing": "Packages",
-    "cta": "Book a session"
+    "cta": "Book a session",
+    "mainMenuLabel": "Main menu",
+    "mobileMenuLabel": "Mobile menu"
+  },
+  "a11y": {
+    "skipLink": "Skip to content",
+    "galleryDialog": "Photo gallery"
   },
   "controls": {
     "themeToDark": "Switch to dark mode",
@@ -55,7 +61,6 @@
   "portfolio": {
     "eyebrow": "Portfolio",
     "titleHtml": "Selected <em>work</em>",
-    "cta": "Book a date",
     "categories": {
       "plener": "Outdoor",
       "studio": "Studio",

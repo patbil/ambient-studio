@@ -13,7 +13,8 @@
   width: max-content;
   animation: scrollLeft 45s linear infinite;
 
-  &:hover {
+  &:hover,
+  &:focus-within {
     animation-play-state: paused;
   }
 }

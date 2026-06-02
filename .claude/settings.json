@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node -e ' *)",
+      "Bash(node -e \"JSON.parse\\(require\\('fs'\\).readFileSync\\('i18n/pl.json','utf8'\\)\\);JSON.parse\\(require\\('fs'\\).readFileSync\\('i18n/en.json','utf8'\\)\\);console.log\\('OK'\\)\")"
+    ]
+  }
+}

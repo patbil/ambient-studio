@@ -8,7 +8,13 @@
     "portfolio": "Portfolio",
     "about": "O mnie",
     "pricing": "Pakiety",
-    "cta": "Zarezerwuj sesję"
+    "cta": "Zarezerwuj sesję",
+    "mainMenuLabel": "Główne menu",
+    "mobileMenuLabel": "Menu mobilne"
+  },
+  "a11y": {
+    "skipLink": "Przejdź do treści",
+    "galleryDialog": "Galeria zdjęć"
   },
   "controls": {
     "themeToDark": "Włącz tryb ciemny",
@@ -55,7 +61,6 @@
   "portfolio": {
     "eyebrow": "Portfolio",
     "titleHtml": "Wybrane <em>realizacje</em>",
-    "cta": "Zarezerwuj termin",
     "categories": {
       "plener": "Plener",
       "studio": "Studio",

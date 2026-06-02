@@ -7,9 +7,21 @@ let sources = [];
 let currentIndex = 0;
 let overlay;
 let overlayImage;
+let closeButton;
+let lastTrigger = null;
 
 function showCurrent() {
   if (overlayImage && sources[currentIndex]) overlayImage.src = sources[currentIndex];
+}
+
+// Mark the rest of the page inert while the modal is open so keyboard focus
+// and assistive tech cannot reach the background content behind it.
+function setBackgroundInert(inert) {
+  Array.from(document.body.children).forEach((child) => {
+    if (child === overlay) return;
+    if (inert) child.setAttribute('inert', '');
+    else child.removeAttribute('inert');
+  });
 }
 
 function open(figure) {
@@ -18,10 +30,13 @@ function open(figure) {
 
   sources = selectAll('.gi img', gallery).map((image) => image.currentSrc || image.src);
   currentIndex = Number(figure.dataset.index) || 0;
+  lastTrigger = figure;
   showCurrent();
   overlay.classList.add('open');
   overlay.setAttribute('aria-hidden', 'false');
   document.body.style.overflow = 'hidden';
+  setBackgroundInert(true);
+  closeButton?.focus();
 }
 
 function close() {
@@ -29,6 +44,8 @@ function close() {
   overlay.classList.remove('open');
   overlay.setAttribute('aria-hidden', 'true');
   document.body.style.overflow = '';
+  setBackgroundInert(false);
+  lastTrigger?.focus();
 }
 
 function navigate(direction) {
@@ -42,12 +59,21 @@ const isOpen = () => overlay?.classList.contains('open');
 export function initLightbox() {
   overlay = select('#lb');
   overlayImage = select('#lb-img');
+  closeButton = select('[data-lb="close"]', overlay);
   const galleries = select('#portfolio-galleries');
   if (!overlay || !overlayImage || !galleries) return;
 
   galleries.addEventListener('click', (event) => {
     const figure = event.target.closest('.gi');
     if (figure) open(figure);
+  });
+
+  galleries.addEventListener('keydown', (event) => {
+    if (event.key !== 'Enter' && event.key !== ' ') return;
+    const figure = event.target.closest('.gi');
+    if (!figure) return;
+    event.preventDefault();
+    open(figure);
   });
 
   overlay.addEventListener('click', (event) => {

@@ -1,0 +1,43 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/functions' as *;
+
+// Keyboard-only skip link — visible only when focused.
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 1rem;
+  z-index: z('lightbox') + 1;
+  background: var(--accent);
+  color: #ffffff;
+  padding: 0.7rem 1.2rem;
+  border-radius: 4px;
+  font-family: $font-sans;
+  font-size: 0.9rem;
+  font-weight: $fw-medium;
+  text-decoration: none;
+  transition: top 0.2s $ease;
+
+  &:focus {
+    top: 1rem;
+    outline: none;
+  }
+}
+
+// Consistent keyboard focus indicator across all interactive elements.
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+// Screen-reader-only utility for content that should not render visually.
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
