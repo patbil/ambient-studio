@@ -14,9 +14,10 @@ updated without touching the code. Live at **[ambient-studio.pl](https://ambient
   and a manual switch.
 - **Light & dark theme** that follows the operating system and remembers the
   visitor's choice.
-- **Filterable masonry portfolio** with a keyboard‑navigable lightbox.
-- **Content‑driven** — text, images, packages and reviews are edited in JSON,
-  never in markup.
+- **Cloudinary‑backed portfolio** — photos are fetched at runtime by tag, with
+  a "Load more" pagination and a keyboard‑navigable lightbox.
+- **Content‑driven** — text, packages and reviews are edited in JSON; portfolio
+  photos are uploaded straight to Cloudinary, no code changes needed.
 - **No build server** — deploys to static hosting as‑is.
 
 ## Tech stack
@@ -27,6 +28,7 @@ updated without touching the code. Live at **[ambient-studio.pl](https://ambient
 | Styles     | SCSS (7‑1 architecture) → CSS, compiled with Dart Sass            |
 | Behaviour  | Vanilla JavaScript — native ES modules, no bundler                |
 | Content    | JSON collections loaded at runtime via `fetch`                    |
+| Photos     | Cloudinary public list endpoint (fetched by tag at runtime)       |
 | Typography | Google Fonts — Playfair Display + DM Sans                         |
 | Hosting    | GitHub Pages (static)                                             |
 
@@ -47,8 +49,8 @@ updated without touching the code. Live at **[ambient-studio.pl](https://ambient
 │   ├── config.js     # single source of configuration
 │   ├── index.js      # bootstrap / module orchestration
 │   ├── modules/      # i18n, theme, render, portfolio, lightbox, nav, form, …
-│   └── utils/        # shared helpers (dom, storage, media)
-├── data/             # structural JSON: image URLs, flags, contact details
+│   └── utils/        # shared helpers (dom, storage)
+├── data/             # structural JSON: offers, pricing, testimonials, contact, media
 └── i18n/             # translation dictionaries: pl.json, en.json
 ```
 
@@ -84,10 +86,12 @@ All settings live in **`js/config.js`**:
   dictionary folder and the `localStorage` key.
 - **`theme`** — default theme, whether to follow the OS (`prefers-color-scheme`),
   available themes and the `localStorage` key.
-- **`media.baseUrl`** — optional shared image host. Bare file names in the JSON
-  are prefixed with it; absolute URLs (`http(s)://` or `/…`) bypass it, so
-  sources can be mixed.
 - **`data`** — paths to the JSON data files.
+- **`cloudinary`** — Cloudinary cloud name, default delivery transform and the
+  list of portfolio categories with their tags (see _Adding portfolio photos_
+  below).
+- **`portfolio.batchSize`** — how many tiles render initially and per "Load more"
+  click.
 - **`ui`** — loader delay, scroll threshold and reveal threshold.
 
 ## Editing content
@@ -96,10 +100,56 @@ No code changes are needed to update the site:
 
 - **Text** — edit `i18n/pl.json` and `i18n/en.json` (the two files mirror the
   same keys).
-- **Photos, packages, reviews, contact details** — edit the files in `data/`.
+- **Packages, reviews, offers, contact details, hero/about images** — edit the
+  files in `data/`.
+- **Portfolio photos** — uploaded to Cloudinary, see below.
 
-Images can be hosted anywhere; point the JSON at the URL, or set
-`media.baseUrl` to a shared host and reference bare file names.
+## Adding portfolio photos
+
+Portfolio photos are not stored in the repo. They live on **Cloudinary** and are
+fetched by **tag** at runtime — every photo needs at least one tag that matches
+a portfolio category, otherwise it won't appear on the site.
+
+### The four category tags
+
+| Tag        | Where it shows up on the site               |
+| ---------- | ------------------------------------------- |
+| `outdoor`  | Outdoor sessions / "Plener"                 |
+| `studio`   | Studio photography                          |
+| `wedding`  | Wedding photography / "Fotografia ślubna"   |
+| `events`   | Christenings, communions, birthdays, etc.   |
+
+Tags must be lowercase, no spaces. Each photo must have **exactly one** of
+these — that's what the site reads to decide which tab the photo belongs to.
+
+### Step by step (Cloudinary Media Library)
+
+1. **Sign in** to <https://cloudinary.com> and open **Assets** (left sidebar).
+2. Click **Upload** (top‑right) or drag photos onto the window.
+3. Before confirming, expand **Advanced options** → **Tags** and type the
+   category tag, e.g. `wedding`. All files in this batch will get that tag.
+4. Optionally add a second, more specific tag for your own organisation —
+   e.g. `wedding, anna-marek-2026` or `events, communion`. The site ignores
+   the extra tag; you can use it to filter the library yourself.
+5. Click **Upload**.
+
+That's it. Refresh the site and the new photos appear under the matching tab,
+newest first, with the right aspect ratio.
+
+### Removing or moving a photo
+
+- **Remove from site only:** open the photo in Cloudinary → Tags → delete the
+  category tag (`wedding` / `outdoor` / etc.). The photo stays in your library.
+- **Move to a different category:** swap the category tag for a different one.
+- **Delete entirely:** select the photo → Delete. Gone from the site after the
+  next load.
+
+### Picking the offer‑card cover
+
+The four cards in "Co fotografujemy" use the first photo of each category as
+the illustration. To highlight a different photo, override it in
+`data/offers.json` with a `coverTag` field (any Cloudinary tag — the offer
+card will use the first photo carrying that tag).
 
 ## Adding a language
 

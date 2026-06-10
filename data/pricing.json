@@ -1,6 +1,6 @@
 [
-  { "id": "plener", "featured": false },
+  { "id": "outdoor", "featured": false },
   { "id": "studio", "featured": false },
-  { "id": "slub", "featured": true },
-  { "id": "okolicznosciowe", "featured": false }
+  { "id": "wedding", "featured": true },
+  { "id": "events", "featured": false }
 ]

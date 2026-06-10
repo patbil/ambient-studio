@@ -24,15 +24,16 @@
 
 .tab-btn {
   @include label(0.65rem, 0.16em);
-  padding: 0.8rem 1.8rem;
+  padding: 0.9rem 1.8rem;
   font-family: $font-sans;
+  font-weight: $fw-regular;
   color: var(--sub);
   background: none;
   border: none;
-  border-bottom: 2px solid transparent;
+  border-bottom: 3px solid transparent;
   margin-bottom: -1px;
   cursor: pointer;
-  transition: color $transition, border-color $transition;
+  transition: color $transition, border-color $transition, background $transition;
   white-space: nowrap;
 
   &:hover {
@@ -40,40 +41,74 @@
   }
   &.active {
     color: var(--text);
+    font-weight: $fw-bold;
+    border-bottom-width: 4px;
     border-bottom-color: var(--accent);
+    background: var(--bg2);
   }
 }
 
-// Photonest-style justified rows: tiles share a row height and vary in width,
-// cycling through portrait/landscape/square aspects via nth-child for visual rhythm.
+// Cloudinary-style masonry: fixed column width, natural per-image heights via
+// CSS multi-column. Each tile preserves its native aspect ratio, no cropping.
 .gallery {
   display: none;
-  flex-wrap: wrap;
-  gap: 10px;
 
   &.active {
-    display: flex;
+    display: block;
+  }
+}
+
+// Photonest-style justified rows: each row shares a fixed height; tiles grow
+// to fill the row width proportionally to their aspect. A ghost ::after
+// absorbs leftover space in the last row so its tiles don't stretch oddly.
+.gallery-tiles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  &::after {
+    content: '';
+    flex-grow: 99999;
+    height: 0;
+  }
+}
+
+.gallery-more {
+  display: block;
+  margin: 2.5rem auto 0;
+  padding: 0.95rem 2.6rem;
+  @include label(0.72rem, 0.2em);
+  font-family: $font-sans;
+  background: none;
+  color: var(--text);
+  border: 1px solid var(--line2);
+  cursor: pointer;
+  transition: background $transition, color $transition, border-color $transition;
+
+  &:hover {
+    background: var(--text);
+    color: var(--bg);
+    border-color: var(--text);
+  }
+
+  &[hidden] {
+    display: none;
   }
 }
 
 .gi {
-  --row-h: 280px;
   --aspect: 1.5;
+  --row-h: 260px;
   height: var(--row-h);
-  width: calc(var(--row-h) * var(--aspect));
-  flex: 0 0 auto;
+  flex: 1 1 calc(var(--row-h) * var(--aspect));
   position: relative;
   overflow: hidden;
   cursor: pointer;
   background: var(--bg3);
 
-  &:nth-child(7n + 1) { --aspect: 1.5; }   // 3:2 landscape
-  &:nth-child(7n + 2) { --aspect: 0.75; }  // 3:4 portrait
-  &:nth-child(7n + 3) { --aspect: 1.33; }  // 4:3 landscape
-  &:nth-child(7n + 4) { --aspect: 1.0; }   // square
-  &:nth-child(7n + 5) { --aspect: 1.78; }  // 16:9 wide
-  &:nth-child(7n + 6) { --aspect: 0.67; }  // 2:3 portrait
-  &:nth-child(7n + 7) { --aspect: 1.5; }
+  // Skip layout/paint/load for tiles off-screen; huge win at 100+ photos.
+  content-visibility: auto;
+  contain-intrinsic-size: auto var(--row-h);
 
   @include respond('lg') {
     --row-h: 220px;
@@ -82,8 +117,7 @@
     --row-h: 180px;
   }
   @include respond('sm') {
-    --row-h: auto;
-    width: 100%;
+    flex-basis: 100%;
     height: auto;
     aspect-ratio: var(--aspect);
   }

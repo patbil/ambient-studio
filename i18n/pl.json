@@ -40,7 +40,7 @@
     "desc": "Każdy projekt traktujemy indywidualnie - dopasowujemy styl i podejście do Twoich potrzeb i oczekiwań.",
     "link": "Zobacz zdjęcia",
     "items": {
-      "plener": {
+      "outdoor": {
         "name": "Sesje plenerowe",
         "text": "Naturalne światło, piękne lokalizacje, autentyczne emocje. Pary, rodziny, sesje indywidualne - każda sesja to wyjątkowa przygoda."
       },
@@ -48,11 +48,11 @@
         "name": "Studio fotograficzne",
         "text": "Kontrolowane światło, profesjonalne tła, nieograniczone możliwości. Portrety, moda, headshoty biznesowe."
       },
-      "slub": {
+      "wedding": {
         "name": "Fotografia ślubna",
         "text": "Wasz wyjątkowy dzień - od przygotowań, przez ceremonię, aż po oczepiny. Dyskretnie i z sercem."
       },
-      "okolicznosciowe": {
+      "events": {
         "name": "Imprezy okolicznościowe",
         "text": "Chrzciny, komunie, urodziny, jubileusze - każde świętowanie zasługuje na piękną dokumentację fotograficzną."
       }
@@ -61,11 +61,12 @@
   "portfolio": {
     "eyebrow": "Portfolio",
     "titleHtml": "Wybrane <em>realizacje</em>",
+    "loadMore": "Załaduj więcej",
     "categories": {
-      "plener": "Plener",
+      "outdoor": "Plener",
       "studio": "Studio",
-      "slub": "Ślubna",
-      "okolicznosciowe": "Okolicznościowe"
+      "wedding": "Ślubna",
+      "events": "Okolicznościowe"
     }
   },
   "about": {
@@ -112,7 +113,7 @@
     "intro": "Jeżeli jesteś zainteresowany ofertą, wypełnij formularz kontaktowy, a prześlemy szczegóły. Każdą sesję wyceniamy indywidualnie - dopasowujemy zakres do Twoich potrzeb.",
     "cta": "Zapytaj o ofertę",
     "packages": {
-      "plener": {
+      "outdoor": {
         "badge": "- Plener -",
         "category": "Sesja",
         "name": "Plenerowa",
@@ -136,7 +137,7 @@
           "Opieka stylistyczna"
         ]
       },
-      "slub": {
+      "wedding": {
         "badge": "✦ Najczęściej wybierany",
         "category": "Fotografia",
         "name": "Ślubna",
@@ -149,7 +150,7 @@
           "Album opcjonalnie"
         ]
       },
-      "okolicznosciowe": {
+      "events": {
         "badge": "- Okolicznościowe -",
         "category": "Imprezy",
         "name": "Okolicznościowe",

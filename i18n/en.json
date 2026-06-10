@@ -40,7 +40,7 @@
     "desc": "We treat every project individually - we adapt our style and approach to your needs and expectations.",
     "link": "View photos",
     "items": {
-      "plener": {
+      "outdoor": {
         "name": "Outdoor sessions",
         "text": "Natural light, beautiful locations, authentic emotions. Couples, families, individual sessions - every session is a unique adventure."
       },
@@ -48,11 +48,11 @@
         "name": "Studio photography",
         "text": "Controlled light, professional backdrops, unlimited possibilities. Portraits, fashion, business headshots."
       },
-      "slub": {
+      "wedding": {
         "name": "Wedding photography",
         "text": "Your special day - from the preparations, through the ceremony, all the way to the celebrations. Discreet and heartfelt."
       },
-      "okolicznosciowe": {
+      "events": {
         "name": "Special occasions",
         "text": "Christenings, communions, birthdays, anniversaries - every celebration deserves beautiful photographic documentation."
       }
@@ -61,11 +61,12 @@
   "portfolio": {
     "eyebrow": "Portfolio",
     "titleHtml": "Selected <em>work</em>",
+    "loadMore": "Load more",
     "categories": {
-      "plener": "Outdoor",
+      "outdoor": "Outdoor",
       "studio": "Studio",
-      "slub": "Wedding",
-      "okolicznosciowe": "Events"
+      "wedding": "Wedding",
+      "events": "Events"
     }
   },
   "about": {
@@ -112,7 +113,7 @@
     "intro": "If you're interested in an offer, fill out the contact form and we'll send you the details. We price every session individually - tailoring the scope to your needs.",
     "cta": "Ask for an offer",
     "packages": {
-      "plener": {
+      "outdoor": {
         "badge": "- Outdoor -",
         "category": "Session",
         "name": "Outdoor",
@@ -136,7 +137,7 @@
           "Styling assistance"
         ]
       },
-      "slub": {
+      "wedding": {
         "badge": "✦ Most popular",
         "category": "Photography",
         "name": "Wedding",
@@ -149,7 +150,7 @@
           "Album optional"
         ]
       },
-      "okolicznosciowe": {
+      "events": {
         "badge": "- Events -",
         "category": "Events",
         "name": "Special occasions",

@@ -1,6 +1,5 @@
 import { config } from '../config.js';
 import { select, escapeHtml } from '../utils/dom.js';
-import { resolveImage } from '../utils/media.js';
 import { translate } from './i18n.js';
 import { refreshReveal } from './reveal.js';
 
@@ -19,6 +18,51 @@ async function fetchJSON(path, fallback) {
   }
 }
 
+// Build a Cloudinary delivery URL for a given public_id + format. Caller may
+// override the default transform — offer cards need a smart-crop thumbnail,
+// gallery tiles want the full-width responsive variant.
+function cloudinaryUrl(publicId, format, transform = config.cloudinary.transform) {
+  return `https://res.cloudinary.com/${config.cloudinary.cloudName}/image/upload/${transform}/${publicId}.${format}`;
+}
+
+// Fetch one tag from the Cloudinary list endpoint; empty array on failure.
+async function fetchCloudinaryTag(tag) {
+  try {
+    const response = await fetch(
+      `https://res.cloudinary.com/${config.cloudinary.cloudName}/image/list/${tag}.json`,
+      { cache: 'no-cache' },
+    );
+    if (!response.ok) return [];
+    const data = await response.json();
+    return Array.isArray(data.resources) ? data.resources : [];
+  } catch (error) {
+    console.error('[cloudinary] failed to load tag', tag, error);
+    return [];
+  }
+}
+
+// Load every configured category in parallel and shape it for renderPortfolio.
+async function loadPortfolio() {
+  const categories = await Promise.all(
+    config.cloudinary.categories.map(async (category) => {
+      const resources = await fetchCloudinaryTag(category.tag);
+      return {
+        id: category.id,
+        items: resources.map((resource) => ({
+          publicId: resource.public_id,
+          format: resource.format,
+          width: resource.width,
+          height: resource.height,
+        })),
+      };
+    }),
+  );
+  return { categories };
+}
+
+// Per-category render state for batched "Load more" rendering.
+const galleryState = new Map();
+
 // Staggered scroll-reveal delay class (d1..d4) for grid items.
 const revealDelayClass = (position) => (position > 0 ? ` d${Math.min(position, 4)}` : '');
 
@@ -26,9 +70,23 @@ function renderMedia() {
   const media = store.media;
   if (!media) return;
   const heroImage = select('#hero-img');
-  if (heroImage && media.hero) heroImage.src = resolveImage(media.hero);
+  if (heroImage && media.hero) heroImage.src = media.hero;
   const aboutImage = select('#about-img');
-  if (aboutImage && media.about) aboutImage.src = resolveImage(media.about);
+  if (aboutImage && media.about) aboutImage.src = media.about;
+}
+
+// Pull the first photo of the matching portfolio category to illustrate the
+// offer card. Prefer a specific `coverTag` (e.g. "plener" for outdoor, which
+// excludes panieński) over the broader category, then fall back to offers.json.
+function offerCardImage(offer) {
+  const transform = 'f_auto,q_auto,c_fill,w_800,h_500,g_auto';
+  if (offer.coverTag) {
+    const coverItem = store.offerCovers?.[offer.coverTag]?.[0];
+    if (coverItem) return cloudinaryUrl(coverItem.publicId, coverItem.format, transform);
+  }
+  const firstItem = store.portfolio?.categories?.find((c) => c.id === offer.id)?.items?.[0];
+  if (firstItem) return cloudinaryUrl(firstItem.publicId, firstItem.format, transform);
+  return offer.image || '';
 }
 
 function renderOffers() {
@@ -38,15 +96,54 @@ function renderOffers() {
   grid.innerHTML = store.offers
     .map((offer, position) => `
       <article class="offer-card rv${revealDelayClass(position)}">
-        <img class="offer-img" src="${escapeHtml(resolveImage(offer.image))}" alt="${escapeHtml(translate(`offer.items.${offer.id}.name`))}" loading="lazy">
+        <img class="offer-img" src="${escapeHtml(offerCardImage(offer))}" alt="${escapeHtml(translate(`offer.items.${offer.id}.name`))}" loading="lazy">
         <div class="offer-body">
           <span class="offer-num">${escapeHtml(offer.num)}</span>
           <h3 class="offer-name">${escapeHtml(translate(`offer.items.${offer.id}.name`))}</h3>
           <p class="offer-text">${escapeHtml(translate(`offer.items.${offer.id}.text`))}</p>
-          <a href="#portfolio" class="offer-lnk">${escapeHtml(translate('offer.link'))} →</a>
+          <a href="#portfolio" class="offer-lnk" data-category="${escapeHtml(offer.id)}">${escapeHtml(translate('offer.link'))} →</a>
         </div>
       </article>`)
     .join('');
+}
+
+function buildTile(item, index, label) {
+  const src = cloudinaryUrl(item.publicId, item.format);
+  const dim = item.width && item.height ? ` width="${item.width}" height="${item.height}"` : '';
+  const aspect = item.width && item.height ? (item.width / item.height).toFixed(3) : '1.5';
+  return `
+    <figure class="gi" data-index="${index}" tabindex="0" role="button" aria-label="${label} — ${index + 1}" style="--aspect: ${aspect}">
+      <img src="${escapeHtml(src)}" alt="${label}" loading="lazy"${dim}>
+      <figcaption class="gi-lbl" aria-hidden="true">${label}</figcaption>
+    </figure>`;
+}
+
+// Append the next batch of tiles into the gallery and toggle Load More.
+function appendBatch(categoryId) {
+  const state = galleryState.get(categoryId);
+  if (!state) return;
+
+  const tilesEl = select(`.gallery[data-gallery="${CSS.escape(categoryId)}"] .gallery-tiles`);
+  if (!tilesEl) return;
+
+  const label = escapeHtml(translate(`portfolio.categories.${categoryId}`));
+  const nextEnd = Math.min(state.rendered + config.portfolio.batchSize, state.items.length);
+  const slice = state.items.slice(state.rendered, nextEnd);
+  const html = slice.map((item, i) => buildTile(item, state.rendered + i, label)).join('');
+  tilesEl.insertAdjacentHTML('beforeend', html);
+  state.rendered = nextEnd;
+
+  const moreBtn = select(`.gallery-more[data-tab="${CSS.escape(categoryId)}"]`);
+  if (moreBtn) {
+    const remaining = state.items.length - state.rendered;
+    if (remaining > 0) {
+      moreBtn.hidden = false;
+      moreBtn.textContent = `${translate('portfolio.loadMore')} (${remaining})`;
+    } else {
+      moreBtn.hidden = true;
+    }
+  }
+  refreshReveal();
 }
 
 function renderPortfolio() {
@@ -71,16 +168,20 @@ function renderPortfolio() {
   galleries.innerHTML = categories
     .map((category) => {
       const label = escapeHtml(translate(`portfolio.categories.${category.id}`));
-      const photos = (category.items || [])
-        .map((photo, photoIndex) => `
-          <figure class="gi" data-index="${photoIndex}" tabindex="0" role="button" aria-label="${label} — ${photoIndex + 1}">
-            <img src="${escapeHtml(resolveImage(photo.image))}" alt="${label}" loading="lazy">
-            <figcaption class="gi-lbl" aria-hidden="true">${label}</figcaption>
-          </figure>`)
-        .join('');
-      return `<div class="gallery${category.id === activeId ? ' active' : ''}" data-gallery="${escapeHtml(category.id)}" role="region" aria-label="${label}">${photos}</div>`;
+      return `
+        <div class="gallery${category.id === activeId ? ' active' : ''}" data-gallery="${escapeHtml(category.id)}" role="region" aria-label="${label}">
+          <div class="gallery-tiles"></div>
+          <button class="gallery-more" type="button" hidden data-tab="${escapeHtml(category.id)}"></button>
+        </div>`;
     })
     .join('');
+
+  // Reset state and render the first batch into every category.
+  galleryState.clear();
+  categories.forEach((category) => {
+    galleryState.set(category.id, { items: category.items || [], rendered: 0 });
+    appendBatch(category.id);
+  });
 }
 
 function renderPricing() {
@@ -170,14 +271,42 @@ export async function initRender() {
   const [media, offers, portfolio, pricing, testimonials, contact] = await Promise.all([
     fetchJSON(config.data.media, {}),
     fetchJSON(config.data.offers, []),
-    fetchJSON(config.data.portfolio, { categories: [] }),
+    loadPortfolio(),
     fetchJSON(config.data.pricing, []),
     fetchJSON(config.data.testimonials, []),
     fetchJSON(config.data.contact, {}),
   ]);
 
-  Object.assign(store, { media, offers, portfolio, pricing, testimonials, contact });
+  // Fetch any sub-tags used for offer-card covers (e.g. "plener" for outdoor).
+  const coverTags = [...new Set(offers.map((o) => o.coverTag).filter(Boolean))];
+  const offerCovers = {};
+  await Promise.all(
+    coverTags.map(async (tag) => {
+      const resources = await fetchCloudinaryTag(tag);
+      offerCovers[tag] = resources.map((r) => ({
+        publicId: r.public_id,
+        format: r.format,
+      }));
+    }),
+  );
+
+  Object.assign(store, { media, offers, portfolio, pricing, testimonials, contact, offerCovers });
 
   renderAll();
   document.addEventListener('i18n:changed', renderAll);
+
+  // Load-more pagination + offer-card "view photos" jumps to the matching tab.
+  document.addEventListener('click', (event) => {
+    const moreBtn = event.target.closest('.gallery-more');
+    if (moreBtn?.dataset.tab) {
+      appendBatch(moreBtn.dataset.tab);
+      return;
+    }
+    const offerLink = event.target.closest('.offer-lnk[data-category]');
+    if (offerLink) {
+      const tabBtn = select(`.tab-btn[data-tab="${CSS.escape(offerLink.dataset.category)}"]`);
+      tabBtn?.click();
+      return;
+    }
+  });
 }
